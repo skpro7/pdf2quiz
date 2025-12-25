@@ -285,7 +285,7 @@
         /* Main Content */
         .main-content {
             flex: 1;
-            padding: 0;
+            padding: 2rem;
             transition: var(--transition);
             width: 100%;
             position: relative;
@@ -299,7 +299,7 @@
 
         @media (max-width: 768px) {
             .main-content {
-                padding: 0;
+                padding: 1rem;
             }
             
             .sidebar.open + .main-content {
@@ -406,21 +406,17 @@
         /* Home/Library Section */
         .home-section {
             display: block;
-            width: 100%;
-            padding: 1rem;
         }
 
         .library-section {
             display: none;
-            width: 100%;
-            padding: 1rem;
         }
 
         .upload-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 2rem 1rem;
             text-align: center;
             box-shadow: var(--box-shadow);
             margin-bottom: 1rem;
@@ -429,8 +425,8 @@
             animation: fadeIn 0.6s ease-out;
             position: relative;
             overflow: hidden;
-            width: 100%;
             max-width: 100%;
+            margin: 0 auto;
         }
 
         .upload-section::before {
@@ -456,15 +452,14 @@
         .upload-image-container {
             position: relative;
             width: 100%;
-            max-width: 800px;
-            height: 300px;
+            max-width: 400px;
+            height: 250px;
             margin: 0 auto 1.5rem;
             cursor: pointer;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             transition: var(--transition);
-            background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(78,205,196,0.1) 100%);
         }
 
         .upload-image-container:hover {
@@ -475,8 +470,7 @@
         .upload-image {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            padding: 20px;
+            object-fit: cover;
             transition: var(--transition);
         }
 
@@ -502,36 +496,14 @@
         }
 
         .upload-title {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             font-weight: 800;
             text-shadow: 0 3px 15px rgba(0,0,0,0.1);
-        }
-
-        .how-it-works-btn {
-            padding: 0.8rem 1.5rem;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
-            color: var(--dark);
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 1.5rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 6px 15px rgba(255, 209, 102, 0.3);
-        }
-
-        .how-it-works-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 209, 102, 0.4);
         }
 
         .upload-tabs {
@@ -543,7 +515,7 @@
         }
 
         .upload-tab {
-            padding: 0.8rem 1.8rem;
+            padding: 0.8rem 1.5rem;
             background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
             border: none;
             border-radius: 12px;
@@ -581,6 +553,29 @@
 
         .upload-tab-content.active {
             display: block;
+        }
+
+        .how-it-works-btn {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 1rem auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(255, 209, 102, 0.3);
+        }
+
+        .how-it-works-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 209, 102, 0.4);
         }
 
         .file-input-wrapper {
@@ -627,7 +622,7 @@
         .paste-textarea {
             width: 100%;
             max-width: 100%;
-            min-height: 250px;
+            min-height: 200px;
             padding: 1.5rem;
             border: 2px solid var(--primary);
             border-radius: var(--border-radius);
@@ -637,6 +632,9 @@
             resize: vertical;
             background: white;
             transition: var(--transition);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .dark-mode .paste-textarea {
@@ -656,7 +654,7 @@
             border-radius: 12px;
             padding: 1.5rem;
             margin: 1.5rem auto;
-            width: 100%;
+            max-width: 100%;
             text-align: left;
             border-left: 4px solid var(--accent);
             position: relative;
@@ -780,8 +778,8 @@
         .library-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
         @media (max-width: 768px) {
@@ -793,7 +791,7 @@
         .pdf-folder {
             background: linear-gradient(135deg, #F8FAFC 0%, #EDF2F7 100%);
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: 1.8rem;
             cursor: pointer;
             transition: var(--transition);
             border: 2px solid transparent;
@@ -829,7 +827,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         .folder-icon {
@@ -889,7 +887,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: auto;
-            padding-top: 1rem;
+            padding-top: 1.2rem;
             border-top: 2px dashed rgba(0,0,0,0.1);
         }
 
@@ -921,7 +919,7 @@
 
         .performance-chart {
             height: 100px;
-            margin-top: 1rem;
+            margin-top: 1.2rem;
             position: relative;
         }
 
@@ -943,14 +941,15 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: 2rem;
             box-shadow: var(--box-shadow);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             animation: slideUp 0.6s ease-out;
             position: relative;
             overflow: hidden;
-            width: 100%;
-            max-width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .quiz-selection-section::before {
@@ -969,7 +968,7 @@
 
         .selection-title {
             font-size: 1.8rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--info) 100%);
             -webkit-background-clip: text;
@@ -979,7 +978,7 @@
         }
 
         .back-to-library {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .back-btn {
@@ -1012,7 +1011,7 @@
         .subject-filters {
             display: flex;
             gap: 0.8rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -1045,8 +1044,8 @@
         .quiz-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.2rem;
+            margin-top: 1.2rem;
         }
 
         @media (max-width: 768px) {
@@ -1058,7 +1057,7 @@
         .quiz-card {
             background: linear-gradient(135deg, #F8FAFC 0%, #EDF2F7 100%);
             border-radius: var(--border-radius);
-            padding: 1.2rem;
+            padding: 1.5rem;
             cursor: pointer;
             transition: var(--transition);
             border: 2px solid transparent;
@@ -1094,7 +1093,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .quiz-number {
@@ -1163,10 +1162,9 @@
             color: var(--gray);
         }
 
-        /* Quiz Section - Full Screen Mobile */
+        /* NEW FULL SCREEN QUIZ SECTION FOR MOBILE */
         .quiz-section {
             display: none;
-            animation: slideUp 0.6s ease-out;
             position: fixed;
             top: 0;
             left: 0;
@@ -1174,87 +1172,80 @@
             bottom: 0;
             background: white;
             z-index: 2000;
-            flex-direction: column;
+            overflow-y: auto;
+            padding: 0;
+            margin: 0;
         }
 
         .dark-mode .quiz-section {
             background: #2D3047;
         }
 
-        .quiz-main-content {
-            flex: 1;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Quiz Header */
+        /* Quiz Header - Compact */
         .quiz-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            padding: 0.8rem 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             color: white;
-            min-height: 70px;
-            flex-shrink: 0;
-        }
-
-        .dark-mode .quiz-header {
-            background: linear-gradient(135deg, #7209B7 0%, #4361EE 100%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .quiz-header-info {
             display: flex;
-            align-items: center;
             gap: 1rem;
-            flex: 1;
-            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .quiz-header-info::-webkit-scrollbar {
+            display: none;
         }
 
         .question-progress {
-            font-size: 1.2rem;
-            font-weight: 700;
             background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            min-width: 120px;
-            justify-content: center;
+            gap: 0.3rem;
+            white-space: nowrap;
         }
 
         .quiz-timer {
-            font-size: 1.2rem;
-            font-weight: 700;
             background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            min-width: 120px;
+            min-width: 70px;
             justify-content: center;
+            white-space: nowrap;
         }
 
         .total-questions-btn {
-            font-size: 1.2rem;
-            font-weight: 700;
             background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            min-width: 120px;
-            justify-content: center;
+            cursor: pointer;
             border: none;
             color: white;
-            cursor: pointer;
-            transition: var(--transition);
+            white-space: nowrap;
         }
 
         .total-questions-btn:hover {
@@ -1263,67 +1254,81 @@
 
         @media (max-width: 768px) {
             .quiz-header {
-                padding: 0.8rem;
-                min-height: 60px;
-            }
-            
-            .question-progress, .quiz-timer, .total-questions-btn {
-                font-size: 1rem;
-                min-width: 100px;
-                padding: 0.4rem 0.8rem;
+                padding: 0.6rem;
             }
             
             .quiz-header-info {
                 gap: 0.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .quiz-header {
-                padding: 0.6rem;
-                min-height: 50px;
+                width: 100%;
+                justify-content: space-between;
             }
             
-            .question-progress, .quiz-timer, .total-questions-btn {
-                font-size: 0.9rem;
-                min-width: auto;
+            .question-progress,
+            .quiz-timer,
+            .total-questions-btn {
+                font-size: 0.8rem;
                 padding: 0.3rem 0.6rem;
+                min-width: auto;
+                flex: 1;
+                justify-content: center;
             }
         }
 
-        .question-container {
-            flex: 1;
-            overflow-y: auto;
+        /* Main Quiz Content - Full Screen */
+        .quiz-main-content {
             padding: 1.5rem;
+            max-width: 100%;
+            margin: 0;
+            height: calc(100vh - 150px);
             display: flex;
             flex-direction: column;
         }
 
-        .question-text {
+        .question-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .question-number {
             font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .dark-mode .question-number {
+            background: rgba(255, 107, 107, 0.2);
+            color: #FFB3B3;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
             line-height: 1.5;
             margin-bottom: 1.5rem;
             color: var(--dark);
             padding: 1rem;
             background: linear-gradient(135deg, #F8FAFC 0%, #EDF2F7 100%);
             border-radius: 10px;
-            border-left: 6px solid var(--primary);
-            font-weight: 500;
-            word-wrap: break-word;
+            border: 1px solid var(--gray-light);
         }
 
         .dark-mode .question-text {
             color: white;
             background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
+            border-color: #4A5568;
         }
 
-        /* UPDATED: Smaller Option Boxes */
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 0.5rem;
+            gap: 0.6rem;
             margin-bottom: 1rem;
-            flex: 0 0 auto;
         }
 
         @media (min-width: 768px) {
@@ -1333,9 +1338,9 @@
         }
 
         .option {
-            padding: 0.6rem 0.8rem;
+            padding: 0.7rem;
             border: 2px solid var(--gray-light);
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
@@ -1343,30 +1348,7 @@
             gap: 10px;
             font-weight: 500;
             background: white;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.95rem;
-            min-height: 45px;
-            max-height: 45px;
-            flex-shrink: 0;
-        }
-
-        .option.long-text {
-            min-height: auto;
-            max-height: none;
-            padding: 0.8rem;
-            align-items: flex-start;
-        }
-
-        .option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1));
-            transition: width 0.3s ease;
+            min-height: 50px;
         }
 
         .dark-mode .option {
@@ -1374,14 +1356,9 @@
             background: #2D3748;
         }
 
-        .option:hover::before {
-            width: 100%;
-        }
-
         .option:hover {
             border-color: var(--primary);
-            transform: translateX(2px);
-            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.1);
+            transform: translateY(-2px);
         }
 
         .option.selected {
@@ -1392,37 +1369,23 @@
         .option.correct {
             border-color: var(--success);
             background: linear-gradient(135deg, rgba(6, 214, 160, 0.1) 0%, rgba(6, 214, 160, 0.05) 100%);
-            animation: correctPulse 0.6s ease-out;
-        }
-
-        @keyframes correctPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
         }
 
         .option.incorrect {
             border-color: var(--danger);
             background: linear-gradient(135deg, rgba(239, 71, 111, 0.1) 0%, rgba(239, 71, 111, 0.05) 100%);
-            animation: shake 0.6s ease-out;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-3px); }
-            75% { transform: translateX(3px); }
         }
 
         .option-letter {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 800;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             flex-shrink: 0;
             transition: var(--transition);
             color: var(--dark);
@@ -1436,7 +1399,6 @@
         .option.selected .option-letter {
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             color: white;
-            transform: rotate(8deg) scale(1.05);
         }
 
         .option.correct .option-letter {
@@ -1449,41 +1411,16 @@
             color: white;
         }
 
-        .option-text {
-            flex: 1;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            line-height: 1.3;
-        }
-
-        /* Solution Container - Positioned between options and buttons */
+        /* Solution Container */
         .solution-container {
             background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 209, 102, 0.05) 100%);
             border-radius: 10px;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border-left: 6px solid var(--accent);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--accent);
             animation: slideIn 0.4s ease-out;
-            max-height: 200px;
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
-
-        .solution-container::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .solution-container::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
-            border-radius: 8px;
-        }
-
-        .solution-container::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 8px;
+            max-height: none;
+            overflow: visible;
         }
 
         .dark-mode .solution-container {
@@ -1492,7 +1429,7 @@
 
         .solution-title {
             font-weight: 800;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
             color: var(--accent);
             display: flex;
             align-items: center;
@@ -1501,7 +1438,7 @@
         }
 
         .solution-text {
-            line-height: 1.4;
+            line-height: 1.5;
             color: var(--dark);
             font-size: 0.95rem;
             font-weight: 500;
@@ -1511,44 +1448,46 @@
             color: white;
         }
 
-        /* Quiz Controls - Fixed at Bottom */
+        /* Fixed Quiz Controls at Bottom */
         .quiz-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 0.8rem 1rem;
             display: flex;
             justify-content: space-between;
-            padding: 1rem;
-            background: white;
-            border-top: 2px solid var(--primary);
-            position: sticky;
-            bottom: 0;
+            gap: 0.5rem;
+            border-top: 2px solid var(--gray-light);
             z-index: 100;
-            flex-shrink: 0;
-            margin-top: auto;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
         }
 
         .dark-mode .quiz-controls {
             background: #2D3047;
-            border-top-color: var(--accent);
+            border-top-color: #4A5568;
         }
 
         .quiz-btn {
-            padding: 0.8rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
+            gap: 6px;
+            flex: 1;
+            justify-content: center;
+            min-height: 44px;
         }
 
         .quiz-btn.prev {
             background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
             color: var(--dark);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .dark-mode .quiz-btn.prev {
@@ -1558,29 +1497,27 @@
 
         .quiz-btn.prev:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         .quiz-btn.next {
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             color: white;
-            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
         }
 
         .quiz-btn.next:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 6px 12px rgba(255, 107, 107, 0.3);
         }
 
         .quiz-btn.submit {
             background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
             color: var(--dark);
-            box-shadow: 0 4px 10px rgba(255, 209, 102, 0.3);
         }
 
         .quiz-btn.submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 209, 102, 0.4);
+            box-shadow: 0 6px 12px rgba(255, 209, 102, 0.3);
         }
 
         .quiz-btn:disabled {
@@ -1592,12 +1529,17 @@
 
         @media (max-width: 768px) {
             .quiz-controls {
-                padding: 0.8rem;
+                padding: 0.6rem;
             }
             
             .quiz-btn {
-                padding: 0.7rem 1rem;
-                font-size: 0.9rem;
+                padding: 0.6rem 0.8rem;
+                font-size: 0.8rem;
+                min-height: 40px;
+            }
+            
+            .quiz-btn .btn-text {
+                display: inline;
             }
         }
 
@@ -1606,24 +1548,19 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: var(--border-radius);
-            padding: 1rem;
+            padding: 1.2rem;
             box-shadow: var(--box-shadow);
             border: 2px solid var(--primary);
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            max-height: 80vh;
             width: 90%;
             max-width: 400px;
-            max-height: 80vh;
             overflow-y: auto;
+            z-index: 2000;
             display: none;
-            z-index: 2100;
-        }
-
-        .quiz-sidebar.show {
-            display: block;
-            animation: scaleIn 0.3s ease-out;
         }
 
         .dark-mode .quiz-sidebar {
@@ -1631,35 +1568,31 @@
             border-color: var(--accent);
         }
 
+        .quiz-sidebar.show {
+            display: block;
+            animation: scaleIn 0.3s ease-out;
+        }
+
         .navigator-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
             color: var(--primary);
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 6px;
-            justify-content: space-between;
-        }
-
-        .close-navigator {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 1.5rem;
-            cursor: pointer;
         }
 
         .question-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 6px;
+            margin-bottom: 1.2rem;
         }
 
         .question-bubble {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
             background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
             display: flex;
@@ -1705,9 +1638,9 @@
             color: white;
         }
 
-        /* Sidebar Stats */
+        /* Sidebar Stats - Compact */
         .sidebar-stats {
-            margin-top: 1rem;
+            margin-top: 1.2rem;
             padding: 0.8rem;
             background: rgba(255, 255, 255, 0.5);
             border-radius: 10px;
@@ -1722,8 +1655,8 @@
         .stat-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.85rem;
         }
 
         .stat-item:last-child {
@@ -1756,85 +1689,18 @@
             color: #A0AEC0;
         }
 
-        /* How It Works Tab */
-        .how-it-works-content {
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.1) 0%, rgba(255, 209, 102, 0.05) 100%);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: left;
-            border-left: 4px solid var(--accent);
-            margin-bottom: 1.5rem;
-        }
-
-        .dark-mode .how-it-works-content {
-            background: linear-gradient(135deg, rgba(255, 209, 102, 0.2) 0%, rgba(255, 209, 102, 0.1) 100%);
-        }
-
-        .how-it-works-content h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .how-it-works-content ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .how-it-works-content li {
-            margin-bottom: 0.8rem;
-            line-height: 1.5;
-        }
-
-        .how-it-works-content .note {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            border-left: 4px solid var(--primary);
-        }
-
-        .back-to-upload-btn {
-            padding: 0.7rem 1.2rem;
-            background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--dark);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 1rem;
-        }
-
-        .dark-mode .back-to-upload-btn {
-            background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-            color: white;
-        }
-
-        .back-to-upload-btn:hover {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        /* Results Section - UPDATED with smaller boxes */
+        /* Results Section */
         .results-section {
             display: none;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: var(--border-radius);
-            padding: 1.5rem;
+            padding: 2rem;
             box-shadow: var(--box-shadow);
             text-align: center;
             animation: fadeIn 0.6s ease-out;
             position: relative;
             overflow: hidden;
-            width: 100%;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -1854,13 +1720,13 @@
         }
 
         .results-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 4rem;
+            margin-bottom: 1.2rem;
         }
 
         .results-title {
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -1869,13 +1735,13 @@
         }
 
         .score-display {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--accent), var(--success));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
             text-shadow: 0 5px 20px rgba(0,0,0,0.2);
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -1890,17 +1756,17 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin: 1.2rem 0;
-            font-size: 1.3rem;
+            margin: 1.5rem 0;
+            font-size: 1.5rem;
             font-weight: 700;
         }
 
         .rating-icon {
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
 
         .rating-text {
-            font-size: 1.1rem;
+            font-size: 1.3rem;
         }
 
         .rating-excellent { color: var(--success); }
@@ -1910,30 +1776,25 @@
         .rating-bad { color: #FF9A3D; }
         .rating-very-bad { color: #EF476F; }
 
-        /* UPDATED: Smaller result stats */
         .results-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-            margin: 1.2rem 0;
+            gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .result-stat {
-            padding: 0.8rem;
-            border-radius: 10px;
+            padding: 1.2rem;
+            border-radius: 12px;
             background: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
             border: 2px solid transparent;
-            min-height: 70px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         .result-stat:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
         }
 
         .dark-mode .result-stat {
@@ -1953,14 +1814,14 @@
         }
 
         .result-stat .value {
-            font-size: 1.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
             display: block;
-            margin-bottom: 0.1rem;
+            margin-bottom: 0.2rem;
         }
 
         .result-stat .label {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
 
@@ -1968,13 +1829,57 @@
             display: flex;
             justify-content: center;
             gap: 0.8rem;
-            margin-top: 1.2rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
 
-        .result-actions .quiz-btn {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.9rem;
+        /* How It Works Section */
+        .how-it-works-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            margin: 1rem auto;
+            max-width: 800px;
+            text-align: left;
+        }
+
+        .dark-mode .how-it-works-section {
+            background: rgba(45, 48, 71, 0.95);
+        }
+
+        .how-it-works-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .how-it-works-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .how-it-works-content {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .how-it-works-content h3 {
+            color: var(--primary);
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .how-it-works-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .how-it-works-content li {
+            margin-bottom: 0.5rem;
         }
 
         /* Overlay */
@@ -2092,26 +1997,61 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-            .home-section, .library-section, .quiz-selection-section, .results-section {
+            .main-content {
                 padding: 0.5rem;
             }
             
             .upload-section {
-                padding: 1.5rem;
+                padding: 1.5rem 0.5rem;
+                margin-bottom: 0.5rem;
             }
             
             .upload-title {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
             
             .upload-image-container {
-                height: 200px;
+                height: 180px;
+            }
+            
+            .quiz-selection-section, .library-section {
+                padding: 1rem;
+            }
+            
+            .selection-title, .library-title {
+                font-size: 1.5rem;
             }
             
             .quiz-card, .pdf-folder {
                 padding: 1rem;
+            }
+            
+            .quiz-main-content {
+                padding: 1rem;
+                height: calc(100vh - 130px);
+            }
+            
+            .question-text {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+            
+            .option {
+                padding: 0.6rem;
+                min-height: 45px;
+            }
+            
+            .option-letter {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
             }
             
             .results-section {
@@ -2119,111 +2059,46 @@
             }
             
             .score-display {
-                font-size: 2.2rem;
-            }
-            
-            .results-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.6rem;
-            }
-            
-            .result-stat {
-                padding: 0.7rem;
-                min-height: 65px;
-            }
-            
-            .result-stat .value {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .upload-title {
-                font-size: 1.6rem;
-            }
-            
-            .upload-image-container {
-                height: 180px;
-            }
-            
-            .how-it-works-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
+                font-size: 2.5rem;
             }
             
             .results-stats {
                 grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            
+            .result-stat {
+                padding: 1rem;
+            }
+            
+            .how-it-works-section {
+                padding: 1rem;
             }
         }
 
-        /* Custom Confirmation Modal */
-        .custom-confirm {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 2500;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .custom-confirm-content {
-            background: linear-gradient(135deg, #FFD166, #FF9A3D);
-            padding: 2rem;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: scaleIn 0.3s ease;
-        }
-
-        .custom-confirm-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #2D3047;
-            font-weight: 700;
-        }
-
-        .custom-confirm-text {
-            margin-bottom: 1.5rem;
-            color: #2D3047;
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        .custom-confirm-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .custom-confirm-btn {
-            padding: 0.7rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            min-width: 100px;
-        }
-
-        .custom-confirm-btn.yes {
-            background: linear-gradient(135deg, #EF476F, #FF4D6D);
-            color: white;
-        }
-
-        .custom-confirm-btn.no {
-            background: linear-gradient(135deg, #4ECDC4, #06D6A0);
-            color: white;
-        }
-
-        .custom-confirm-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        @media (max-width: 480px) {
+            .logo-text {
+                display: none;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .file-label, .extract-btn {
+                font-size: 0.9rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .question-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .question-bubble {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -2236,18 +2111,6 @@
         <div class="doodle doodle-4">🎓</div>
         <div class="doodle-5" style="top: 15%; right: 10%;"></div>
         <div class="doodle-6" style="bottom: 10%; left: 10%;"></div>
-    </div>
-
-    <!-- Custom Confirmation Modal -->
-    <div class="custom-confirm" id="customConfirmModal">
-        <div class="custom-confirm-content">
-            <div class="custom-confirm-title" id="customConfirmTitle">Confirm Submission</div>
-            <div class="custom-confirm-text" id="customConfirmText">Are you sure you want to submit the quiz?</div>
-            <div class="custom-confirm-buttons">
-                <button class="custom-confirm-btn yes" id="customConfirmYes">Yes, Submit</button>
-                <button class="custom-confirm-btn no" id="customConfirmNo">No, Continue</button>
-            </div>
-        </div>
     </div>
 
     <!-- Name Input Modal -->
@@ -2316,7 +2179,7 @@
                 <!-- Upload Section -->
                 <section class="upload-section" id="uploadSection">
                     <div class="upload-image-container" id="uploadImageContainer">
-                        <img src="https://image2url.com/r2/bucket1/images/1766563557516-9a5da56c-672d-40be-bfb2-4c234bfdc027.png" alt="Upload PDF to make quiz" class="upload-image">
+                        <img src="https://image2url.com/images/1766474540383-f0b8f928-36a3-461d-9dc6-dd3d6849e33e.png" alt="Upload PDF to make quiz" class="upload-image">
                         <div class="upload-image-overlay">
                             <i class="fas fa-upload"></i> Click to Upload File
                         </div>
@@ -2324,7 +2187,7 @@
                     <h1 class="upload-title">Smart Quiz Extractor</h1>
                     
                     <button class="how-it-works-btn" id="howItWorksBtn">
-                        <i class="fas fa-info-circle"></i> How this app works?
+                        <i class="fas fa-question-circle"></i> How this app works
                     </button>
                     
                     <div class="upload-tabs">
@@ -2333,9 +2196,6 @@
                         </button>
                         <button class="upload-tab" data-tab="paste">
                             <i class="fas fa-paste"></i> Paste Text
-                        </button>
-                        <button class="upload-tab" data-tab="howitworks">
-                            <i class="fas fa-question-circle"></i> How It Works
                         </button>
                     </div>
                     
@@ -2392,26 +2252,48 @@ Solution No. 4: **c)** Explanation text...
                             <div class="loading" id="pasteLoadingIndicator" style="display: none;"></div>
                         </button>
                     </div>
-                    
-                    <!-- How It Works Tab -->
-                    <div class="upload-tab-content" id="howItWorksTab">
-                        <div class="how-it-works-content">
-                            <h3><i class="fas fa-graduation-cap"></i> यह ऐप कैसे काम करता है? (Hindi में)</h3>
-                            <ol>
-                                <li><strong>फाइल अपलोड करें:</strong> PDF, TXT, DOC, DOCX या RTF फाइल अपलोड करें जिसमें प्रश्न और उत्तर हों।</li>
-                                <li><strong>टेक्स्ट पेस्ट करें:</strong> आप सीधे टेक्स्ट भी पेस्ट कर सकते हैं जिसमें Q.1, Q.2 जैसे प्रश्न और Sol.1, Sol.2 जैसे उत्तर हों।</li>
-                                <li><strong>स्वचालित प्रोसेसिंग:</strong> ऐप स्वचालित रूप से विषयों, टॉपिक्स और प्रश्नों को पहचानेगा और व्यवस्थित करेगा।</li>
-                                <li><strong>क्विज बनाएं:</strong> प्रश्नों को 25-प्रश्नों वाले क्विज में व्यवस्थित किया जाएगा।</li>
-                                <li><strong>अभ्यास करें:</strong> इंटरैक्टिव क्विज लें, अपने प्रदर्शन को ट्रैक करें, और गलत उत्तरों की समीक्षा करें।</li>
-                                <li><strong>प्रगति देखें:</strong> अपने स्कोर, सटीकता और समय को विस्तृत एनालिटिक्स के साथ देखें।</li>
-                            </ol>
-                            <div class="note">
-                                <strong>नोट:</strong> यह ऐप विभिन्न प्रारूपों को समझता है - Q.1, Question 1, प्रश्न 1, आदि। समाधान के लिए Sol.1, Solution 1, उत्तर 1, आदि।
-                            </div>
-                        </div>
-                        <button class="back-to-upload-btn" id="backToUploadBtn">
-                            <i class="fas fa-arrow-left"></i> Back to Upload
+                </section>
+
+                <!-- How It Works Section -->
+                <section class="how-it-works-section" id="howItWorksSection">
+                    <div class="how-it-works-header">
+                        <h2 class="how-it-works-title">How This App Works</h2>
+                        <button class="back-btn" id="backFromHowItWorksBtn">
+                            <i class="fas fa-arrow-left"></i> Back
                         </button>
+                    </div>
+                    <div class="how-it-works-content">
+                        <h3>📱 ऐप कैसे काम करता है?</h3>
+                        <p>यह ऐप आपके PDF, टेक्स्ट या DOC फाइल से ऑटोमेटिक तरीके से MCQ प्रश्न निकालता है और इंटरैक्टिव क्विज बनाता है।</p>
+                        
+                        <h3>📝 इस्तेमाल करने का तरीका:</h3>
+                        <ul>
+                            <li><strong>फाइल अपलोड करें:</strong> किसी भी PDF, TXT, DOC फाइल को अपलोड करें</li>
+                            <li><strong>टेक्स्ट पेस्ट करें:</strong> सीधे प्रश्न और उत्तर टेक्स्ट में पेस्ट करें</li>
+                            <li><strong>स्वतः संगठित:</strong> ऐप खुद ही विषय और टॉपिक पहचान लेगा</li>
+                            <li><strong>क्विज बन जाएगी:</strong> 25 प्रश्नों वाली क्विज ऑटोमेटिक बन जाएगी</li>
+                        </ul>
+                        
+                        <h3>📊 प्रश्न फॉर्मेट:</h3>
+                        <p>किसी भी फॉर्मेट में प्रश्न डाल सकते हैं:</p>
+                        <ul>
+                            <li>Q.1. प्रश्न टेक्स्ट... (a) विकल्प 1 (b) विकल्प 2 (c) विकल्प 3 (d) विकल्प 4</li>
+                            <li>Sol.1.(c) उत्तर की व्याख्या...</li>
+                            <li>या Question 1: प्रश्न... A) विकल्प1 B) विकल्प2 C) विकल्प3 D) विकल्प4</li>
+                            <li>Answer: C. व्याख्या...</li>
+                        </ul>
+                        
+                        <h3>🎯 विशेषताएं:</h3>
+                        <ul>
+                            <li>सभी प्रश्न स्थायी रूप से सेव होते हैं</li>
+                            <li>प्रदर्शन ट्रैकिंग और एनालिटिक्स</li>
+                            <li>डार्क/लाइट मोड</li>
+                            <li>रिस्पॉन्सिव डिज़ाइन - मोबाइल और डेस्कटॉप दोनों पर</li>
+                            <li>हिंदी और अंग्रेजी दोनों प्रश्न सपोर्टेड</li>
+                        </ul>
+                        
+                        <h3>🚀 शुरुआत कैसे करें?</h3>
+                        <p>बस ऊपर दिए गए "Upload File" या "Paste Text" टैब पर क्लिक करें और शुरू करें!</p>
                     </div>
                 </section>
 
@@ -2447,27 +2329,30 @@ Solution No. 4: **c)** Explanation text...
 
             <!-- Quiz Section -->
             <section class="quiz-section" id="quizSection">
+                <!-- Quiz Header -->
+                <div class="quiz-header">
+                    <div class="quiz-header-info">
+                        <div class="question-progress">
+                            <i class="fas fa-question-circle"></i>
+                            <span id="currentQuestionMobile">1</span>/<span id="totalQuestionsMobile">25</span>
+                        </div>
+                        <div class="quiz-timer" id="timerMobile">
+                            <i class="fas fa-clock"></i>
+                            <span id="timerValueMobile">00:00</span>
+                        </div>
+                        <button class="total-questions-btn" id="questionNavigatorBtnMobile">
+                            <i class="fas fa-list-ol"></i> Questions
+                        </button>
+                    </div>
+                </div>
+                
                 <!-- Main Quiz Content -->
                 <div class="quiz-main-content">
-                    <!-- Quiz Header -->
-                    <div class="quiz-header">
-                        <div class="quiz-header-info">
-                            <div class="question-progress">
-                                <i class="fas fa-question-circle"></i>
-                                <span id="currentQuestionMobile">1</span>/<span id="totalQuestionsMobile">25</span>
-                            </div>
-                            <div class="quiz-timer" id="timerMobile">
-                                <i class="fas fa-clock"></i>
-                                <span id="timerValueMobile">00:00</span>
-                            </div>
-                            <button class="total-questions-btn" id="questionNavigatorBtnMobile">
-                                <i class="fas fa-list-ol"></i> <span id="totalQuestionsBtn">25</span>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Question Container -->
                     <div class="question-container">
+                        <div class="question-number">
+                            Question <span id="questionNumber">1</span>
+                        </div>
+                        
                         <div class="question-text" id="questionText">
                             Question will appear here after extraction.
                         </div>
@@ -2486,52 +2371,53 @@ Solution No. 4: **c)** Explanation text...
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Fixed Quiz Controls at Bottom -->
+                <div class="quiz-controls">
+                    <button class="quiz-btn prev" id="prevBtn" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                        <span class="btn-text">Previous</span>
+                    </button>
+                    <button class="quiz-btn submit" id="submitQuizBtn">
+                        <i class="fas fa-paper-plane"></i> Submit Quiz
+                    </button>
+                    <button class="quiz-btn next" id="nextBtn">
+                        <span class="btn-text">Next</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Question Navigator Sidebar -->
+                <div class="quiz-sidebar" id="quizSidebar">
+                    <h3 class="navigator-title">
+                        <i class="fas fa-compass"></i> Questions Navigator
+                    </h3>
+                    <div class="question-grid" id="questionGrid">
+                        <!-- Question bubbles will be added here -->
+                    </div>
                     
-                    <!-- Quiz Controls - Fixed at Bottom -->
-                    <div class="quiz-controls">
-                        <button class="quiz-btn prev" id="prevBtn" disabled>
-                            <i class="fas fa-arrow-left"></i> Previous
-                        </button>
-                        <button class="quiz-btn submit" id="submitQuizBtn">
-                            <i class="fas fa-paper-plane"></i> Submit Quiz
-                        </button>
-                        <button class="quiz-btn next" id="nextBtn">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
+                    <!-- Statistics -->
+                    <div class="sidebar-stats">
+                        <div class="stat-item">
+                            <span class="stat-label-sidebar">Answered:</span>
+                            <span class="stat-value-sidebar" id="answeredCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label-sidebar">Correct:</span>
+                            <span class="stat-value-sidebar correct" id="correctCountSidebar">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label-sidebar">Wrong:</span>
+                            <span class="stat-value-sidebar incorrect" id="wrongCountSidebar">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label-sidebar">Skipped:</span>
+                            <span class="stat-value-sidebar skipped" id="skippedCountSidebar">0</span>
+                        </div>
                     </div>
                 </div>
             </section>
-
-            <!-- Question Navigator Sidebar -->
-            <div class="quiz-sidebar" id="quizSidebar">
-                <h3 class="navigator-title">
-                    <i class="fas fa-compass"></i> Questions Navigator
-                    <button class="close-navigator" id="closeNavigatorBtn">&times;</button>
-                </h3>
-                <div class="question-grid" id="questionGrid">
-                    <!-- Question bubbles will be added here -->
-                </div>
-                
-                <!-- Statistics -->
-                <div class="sidebar-stats">
-                    <div class="stat-item">
-                        <span class="stat-label-sidebar">Answered:</span>
-                        <span class="stat-value-sidebar" id="answeredCount">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label-sidebar">Correct:</span>
-                        <span class="stat-value-sidebar correct" id="correctCountSidebar">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label-sidebar">Wrong:</span>
-                        <span class="stat-value-sidebar incorrect" id="wrongCountSidebar">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label-sidebar">Skipped:</span>
-                        <span class="stat-value-sidebar skipped" id="skippedCountSidebar">0</span>
-                    </div>
-                </div>
-            </div>
 
             <!-- Results Section -->
             <section class="results-section" id="resultsSection">
@@ -2569,11 +2455,11 @@ Solution No. 4: **c)** Explanation text...
                     <button class="quiz-btn prev" id="reviewBtn">
                         <i class="fas fa-redo"></i> Practice Again
                     </button>
-                    <button class="quiz-btn next" id="practiceWrongBtn">
-                        <i class="fas fa-exclamation-triangle"></i> Practice Wrong Questions
-                    </button>
-                    <button class="quiz-btn submit" id="backToQuizzesBtn">
+                    <button class="quiz-btn next" id="backToQuizzesBtn">
                         <i class="fas fa-list"></i> Back to Quizzes
+                    </button>
+                    <button class="quiz-btn submit" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download Results
                     </button>
                 </div>
             </section>
@@ -2740,13 +2626,6 @@ Solution No. 4: **c)** Explanation text...
             cancelNameBtn: document.getElementById('cancelNameBtn'),
             confirmNameBtn: document.getElementById('confirmNameBtn'),
             
-            // Custom Confirm Modal
-            customConfirmModal: document.getElementById('customConfirmModal'),
-            customConfirmTitle: document.getElementById('customConfirmTitle'),
-            customConfirmText: document.getElementById('customConfirmText'),
-            customConfirmYes: document.getElementById('customConfirmYes'),
-            customConfirmNo: document.getElementById('customConfirmNo'),
-            
             // Rename Modal
             renameModal: document.getElementById('renameModal'),
             renameInput: document.getElementById('renameInput'),
@@ -2765,6 +2644,9 @@ Solution No. 4: **c)** Explanation text...
             loadingIndicator: document.getElementById('loadingIndicator'),
             fileInfo: document.getElementById('fileInfo'),
             uploadImageContainer: document.getElementById('uploadImageContainer'),
+            howItWorksBtn: document.getElementById('howItWorksBtn'),
+            howItWorksSection: document.getElementById('howItWorksSection'),
+            backFromHowItWorksBtn: document.getElementById('backFromHowItWorksBtn'),
             
             // Tab Elements
             uploadTabs: document.querySelectorAll('.upload-tab'),
@@ -2775,9 +2657,6 @@ Solution No. 4: **c)** Explanation text...
             pasteLoadingIndicator: document.getElementById('pasteLoadingIndicator'),
             copyExampleBtn: document.getElementById('copyExampleBtn'),
             exampleText: document.getElementById('exampleText'),
-            howItWorksBtn: document.getElementById('howItWorksBtn'),
-            howItWorksTab: document.getElementById('howItWorksTab'),
-            backToUploadBtn: document.getElementById('backToUploadBtn'),
             
             // Section Elements
             homeSection: document.getElementById('homeSection'),
@@ -2798,8 +2677,6 @@ Solution No. 4: **c)** Explanation text...
             quizSidebar: document.getElementById('quizSidebar'),
             questionGrid: document.getElementById('questionGrid'),
             questionNavigatorBtnMobile: document.getElementById('questionNavigatorBtnMobile'),
-            totalQuestionsBtn: document.getElementById('totalQuestionsBtn'),
-            closeNavigatorBtn: document.getElementById('closeNavigatorBtn'),
             
             // Quiz Content Elements
             currentQuestionMobile: document.getElementById('currentQuestionMobile'),
@@ -2811,16 +2688,19 @@ Solution No. 4: **c)** Explanation text...
             solutionContainer: document.getElementById('solutionContainer'),
             solutionText: document.getElementById('solutionText'),
             
-            // Control Buttons
-            prevBtn: document.getElementById('prevBtn'),
-            nextBtn: document.getElementById('nextBtn'),
-            submitQuizBtn: document.getElementById('submitQuizBtn'),
+            // Stats Elements
+            questionNumberElem: document.getElementById('questionNumber'),
             
             // Sidebar Stats
             answeredCount: document.getElementById('answeredCount'),
             correctCountSidebar: document.getElementById('correctCountSidebar'),
             wrongCountSidebar: document.getElementById('wrongCountSidebar'),
             skippedCountSidebar: document.getElementById('skippedCountSidebar'),
+            
+            // Control Buttons
+            prevBtn: document.getElementById('prevBtn'),
+            nextBtn: document.getElementById('nextBtn'),
+            submitQuizBtn: document.getElementById('submitQuizBtn'),
             
             // Results Elements
             finalScoreElem: document.getElementById('finalScore'),
@@ -2831,7 +2711,6 @@ Solution No. 4: **c)** Explanation text...
             resultsIcon: document.getElementById('resultsIcon'),
             ratingText: document.getElementById('ratingText'),
             reviewBtn: document.getElementById('reviewBtn'),
-            practiceWrongBtn: document.getElementById('practiceWrongBtn'),
             backToQuizzesBtn: document.getElementById('backToQuizzesBtn'),
             downloadBtn: document.getElementById('downloadBtn'),
             
@@ -2847,25 +2726,6 @@ Solution No. 4: **c)** Explanation text...
             closeOverlayBtn: document.getElementById('closeOverlayBtn')
         };
 
-        // Custom confirmation function
-        function showCustomConfirm(title, text) {
-            return new Promise((resolve) => {
-                elements.customConfirmTitle.textContent = title;
-                elements.customConfirmText.textContent = text;
-                elements.customConfirmModal.style.display = 'flex';
-                
-                elements.customConfirmYes.onclick = () => {
-                    elements.customConfirmModal.style.display = 'none';
-                    resolve(true);
-                };
-                
-                elements.customConfirmNo.onclick = () => {
-                    elements.customConfirmModal.style.display = 'none';
-                    resolve(false);
-                };
-            });
-        }
-
         // Event Listeners
         elements.homeLogo.addEventListener('click', showHome);
         elements.homeBtn.addEventListener('click', showHome);
@@ -2879,13 +2739,8 @@ Solution No. 4: **c)** Explanation text...
         });
         
         // How it works button
-        elements.howItWorksBtn.addEventListener('click', () => {
-            switchTab('howitworks');
-        });
-        
-        elements.backToUploadBtn.addEventListener('click', () => {
-            switchTab('file');
-        });
+        elements.howItWorksBtn.addEventListener('click', showHowItWorks);
+        elements.backFromHowItWorksBtn.addEventListener('click', hideHowItWorks);
         
         // Copy example button
         elements.copyExampleBtn.addEventListener('click', copyExampleText);
@@ -2905,20 +2760,12 @@ Solution No. 4: **c)** Explanation text...
         // Quiz Listeners
         elements.prevBtn.addEventListener('click', showPreviousQuestion);
         elements.nextBtn.addEventListener('click', showNextQuestion);
-        elements.submitQuizBtn.addEventListener('click', () => {
-            showCustomConfirm("Submit Quiz", "Are you ready to submit your quiz and see your results?")
-                .then(result => {
-                    if (result) {
-                        submitQuiz();
-                    }
-                });
-        });
+        elements.submitQuizBtn.addEventListener('click', submitQuiz);
         elements.reviewBtn.addEventListener('click', reviewWrongAnswers);
-        elements.practiceWrongBtn.addEventListener('click', practiceWrongQuestions);
         elements.backToQuizzesBtn.addEventListener('click', showQuizSelection);
         elements.backToLibraryBtn.addEventListener('click', showLibrary);
-        elements.questionNavigatorBtnMobile.addEventListener('click', showQuestionNavigator);
-        elements.closeNavigatorBtn.addEventListener('click', hideQuestionNavigator);
+        elements.downloadBtn.addEventListener('click', downloadResults);
+        elements.questionNavigatorBtnMobile.addEventListener('click', toggleQuizSidebar);
         
         // Theme and UI Listeners
         elements.themeBtn.addEventListener('click', toggleTheme);
@@ -2944,6 +2791,24 @@ Solution No. 4: **c)** Explanation text...
             loadLibrary();
         }
 
+        function showHowItWorks() {
+            elements.uploadSection.style.display = 'none';
+            elements.librarySection.style.display = 'none';
+            elements.howItWorksSection.style.display = 'block';
+        }
+
+        function hideHowItWorks() {
+            elements.howItWorksSection.style.display = 'none';
+            elements.uploadSection.style.display = 'block';
+            
+            // Show library if there are PDFs
+            const pdfs = StorageManager.getAllPDFs();
+            if (pdfs.length > 0) {
+                elements.librarySection.style.display = 'block';
+                elements.noQuizzesMessage.style.display = 'none';
+            }
+        }
+
         function switchTab(tabName) {
             state.currentTab = tabName;
             
@@ -2957,15 +2822,13 @@ Solution No. 4: **c)** Explanation text...
             });
             
             // Update tab content
-            const tabContents = ['fileUploadTab', 'pasteTextTab', 'howItWorksTab'];
-            tabContents.forEach(tabContent => {
-                const element = document.getElementById(tabContent);
-                if (tabContent === tabName + 'Tab' || (tabName === 'file' && tabContent === 'fileUploadTab')) {
-                    element.classList.add('active');
-                } else {
-                    element.classList.remove('active');
-                }
-            });
+            if (tabName === 'file') {
+                elements.fileUploadTab.classList.add('active');
+                elements.pasteTextTab.classList.remove('active');
+            } else if (tabName === 'paste') {
+                elements.pasteTextTab.classList.add('active');
+                elements.fileUploadTab.classList.remove('active');
+            }
         }
 
         function copyExampleText() {
@@ -2985,6 +2848,10 @@ Solution No. 4: **c)** Explanation text...
             elements.quizSelectionSection.style.display = 'none';
             elements.quizSection.style.display = 'none';
             elements.resultsSection.style.display = 'none';
+            elements.howItWorksSection.style.display = 'none';
+            
+            // Show upload section
+            elements.uploadSection.style.display = 'block';
             
             // Show library if there are PDFs
             const pdfs = StorageManager.getAllPDFs();
@@ -3077,13 +2944,10 @@ Solution No. 4: **c)** Explanation text...
                 const deleteBtn = folder.querySelector('.delete-pdf');
                 deleteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    showCustomConfirm("Delete Quiz Set", `Are you sure you want to delete "${pdf.customName || pdf.name}" and all its quizzes?`)
-                        .then(result => {
-                            if (result) {
-                                StorageManager.deletePDF(pdf.id);
-                                loadLibrary();
-                            }
-                        });
+                    if (confirm(`Are you sure you want to delete "${pdf.customName || pdf.name}" and all its quizzes?`)) {
+                        StorageManager.deletePDF(pdf.id);
+                        loadLibrary();
+                    }
                 });
                 
                 elements.libraryContainer.appendChild(folder);
@@ -3204,12 +3068,10 @@ Solution No. 4: **c)** Explanation text...
                 const fileExt = '.' + file.name.split('.').pop().toLowerCase();
                 
                 if (!validExtensions.includes(fileExt)) {
-                    showCustomConfirm("Invalid File", "Please select a PDF, TXT, DOC, DOCX, or RTF file.")
-                        .then(() => {
-                            elements.pdfFileInput.value = '';
-                            updateFileInfo();
-                            elements.extractBtn.disabled = true;
-                        });
+                    alert('Please select a PDF, TXT, DOC, DOCX, or RTF file.');
+                    elements.pdfFileInput.value = '';
+                    updateFileInfo();
+                    elements.extractBtn.disabled = true;
                     return;
                 }
                 
@@ -3225,7 +3087,7 @@ Solution No. 4: **c)** Explanation text...
         function handlePasteText() {
             const text = elements.pasteTextArea.value.trim();
             if (!text) {
-                showCustomConfirm("No Text", "Please paste some text containing questions and solutions.");
+                alert('Please paste some text containing questions and solutions.');
                 return;
             }
             
@@ -3259,7 +3121,7 @@ Solution No. 4: **c)** Explanation text...
         function confirmNameInput() {
             const folderName = elements.folderNameInput.value.trim();
             if (!folderName) {
-                showCustomConfirm("Folder Name Required", "Please enter a folder name.");
+                alert('Please enter a folder name.');
                 return;
             }
             
@@ -3360,11 +3222,11 @@ Solution No. 4: **c)** Explanation text...
                 state.pendingFile = null;
                 updateFileInfo();
                 
-                showCustomConfirm("Success", `Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
+                alert(`Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
                 
             } catch (error) {
                 console.error('Error extracting file:', error);
-                showCustomConfirm("Error", "Error processing file. Please ensure the file contains selectable text and try again.");
+                alert('Error processing file. Please ensure the file contains selectable text and try again.');
             } finally {
                 // Hide loading
                 elements.extractBtn.disabled = false;
@@ -3410,11 +3272,11 @@ Solution No. 4: **c)** Explanation text...
                 elements.pasteTextArea.value = '';
                 state.pendingText = null;
                 
-                showCustomConfirm("Success", `Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
+                alert(`Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
                 
             } catch (error) {
                 console.error('Error extracting text:', error);
-                showCustomConfirm("Error", "Error processing text. Please check the format and try again.");
+                alert('Error processing text. Please check the format and try again.');
             } finally {
                 // Hide loading
                 elements.extractFromPasteBtn.disabled = false;
@@ -3534,7 +3396,7 @@ Solution No. 4: **c)** Explanation text...
                         correctAnswer: null,
                         solution: null,
                         topic: 'General',
-                        subject: state.customFolderName || 'General'
+                        subject: 'General'
                     });
                 }
             }
@@ -3585,10 +3447,35 @@ Solution No. 4: **c)** Explanation text...
                 .filter(q => q.text.length > 3) // Filter out very short questions
                 .sort((a, b) => a.id - b.id);
             
-            // Use folder name as subject for all questions
-            const defaultSubject = state.customFolderName || 'General';
+            // Auto-detect subjects based on keywords
+            const subjectKeywords = {
+                'Mathematics': ['math', 'algebra', 'geometry', 'calculus', 'equation', 'formula', 'triangle', 'circle', 'angle', 'integral', 'derivative', 'solve', 'function'],
+                'Physics': ['physics', 'force', 'energy', 'velocity', 'acceleration', 'gravity', 'motion', 'electric', 'magnetic', 'wave', 'light', 'sound', 'heat'],
+                'Chemistry': ['chemistry', 'atom', 'molecule', 'chemical', 'reaction', 'element', 'compound', 'periodic', 'bond', 'acid', 'base', 'organic'],
+                'Biology': ['biology', 'cell', 'organism', 'dna', 'genetic', 'evolution', 'photosynthesis', 'respiration', 'plant', 'animal', 'human'],
+                'History': ['history', 'historical', 'century', 'war', 'king', 'empire', 'revolution', 'ancient', 'medieval', 'battle', 'civilization'],
+                'Geography': ['geography', 'map', 'country', 'river', 'mountain', 'climate', 'population', 'continent', 'ocean', 'earth', 'weather'],
+                'English': ['english', 'grammar', 'vocabulary', 'sentence', 'paragraph', 'essay', 'literature', 'poem', 'word', 'meaning', 'synonym'],
+                'General Knowledge': ['general knowledge', 'gk', 'current affairs', 'static', 'awareness', 'world', 'famous', 'important']
+            };
+            
             state.extractedData.allQuestions.forEach(question => {
-                question.subject = defaultSubject;
+                const questionText = (question.text + ' ' + question.originalText).toLowerCase();
+                let detectedSubject = 'General Knowledge';
+                let maxMatches = 0;
+                
+                for (const [subject, keywords] of Object.entries(subjectKeywords)) {
+                    const matches = keywords.filter(keyword => 
+                        questionText.includes(keyword.toLowerCase())
+                    ).length;
+                    
+                    if (matches > maxMatches) {
+                        maxMatches = matches;
+                        detectedSubject = subject;
+                    }
+                }
+                
+                question.subject = detectedSubject;
             });
             
             // Group by subject for statistics
@@ -3703,29 +3590,41 @@ Solution No. 4: **c)** Explanation text...
             const quizzes = [];
             const chunkSize = 25;
             
-            // Group all questions together and split into chunks of 25
-            for (let i = 0; i < questions.length; i += chunkSize) {
-                const chunk = questions.slice(i, i + chunkSize);
-                const quizNumber = Math.floor(i / chunkSize) + 1;
-                
-                quizzes.push({
-                    id: `quiz_${Date.now()}_${quizNumber}`,
-                    name: `${state.customFolderName || 'Quiz'} ${quizNumber}`,
-                    subject: state.customFolderName || 'General',
-                    questions: chunk,
-                    totalQuestions: chunk.length,
-                    bestScore: 0,
-                    attempts: 0,
-                    lastAttempt: null
-                });
-            }
+            // Group questions by subject first
+            const questionsBySubject = {};
+            questions.forEach(q => {
+                if (!questionsBySubject[q.subject]) {
+                    questionsBySubject[q.subject] = [];
+                }
+                questionsBySubject[q.subject].push(q);
+            });
+            
+            // Create quizzes from each subject group
+            Object.entries(questionsBySubject).forEach(([subject, subjectQuestions]) => {
+                // Split into chunks of 25
+                for (let i = 0; i < subjectQuestions.length; i += chunkSize) {
+                    const chunk = subjectQuestions.slice(i, i + chunkSize);
+                    const quizNumber = Math.floor(i / chunkSize) + 1;
+                    
+                    quizzes.push({
+                        id: `quiz_${Date.now()}_${subject}_${quizNumber}`,
+                        name: `${state.customFolderName || 'Quiz'} ${quizNumber}`,
+                        subject: subject,
+                        questions: chunk,
+                        totalQuestions: chunk.length,
+                        bestScore: 0,
+                        attempts: 0,
+                        lastAttempt: null
+                    });
+                }
+            });
             
             // If we have less than chunkSize questions, create one quiz
             if (quizzes.length === 0 && questions.length > 0) {
                 quizzes.push({
                     id: `quiz_${Date.now()}_1`,
                     name: `${state.customFolderName || 'Quiz'} 1`,
-                    subject: state.customFolderName || 'General',
+                    subject: 'General Knowledge',
                     questions: questions.slice(0, chunkSize),
                     totalQuestions: Math.min(questions.length, chunkSize),
                     bestScore: 0,
@@ -3808,6 +3707,10 @@ Solution No. 4: **c)** Explanation text...
                             <span class="meta-label">Questions</span>
                         </div>
                         <div class="meta-item">
+                            <span class="meta-value">25</span>
+                            <span class="meta-label">Max per Quiz</span>
+                        </div>
+                        <div class="meta-item">
                             <span class="meta-value">${attempts}</span>
                             <span class="meta-label">Attempts</span>
                         </div>
@@ -3844,27 +3747,17 @@ Solution No. 4: **c)** Explanation text...
             
             // Update UI
             elements.quizSelectionSection.style.display = 'none';
-            elements.quizSection.style.display = 'flex';
+            elements.quizSection.style.display = 'block';
             elements.resultsSection.style.display = 'none';
-            elements.quizSidebar.classList.remove('show');
             
             // Update quiz info
             const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
             elements.totalQuestionsMobile.textContent = currentQuiz.questions.length;
-            elements.totalQuestionsBtn.textContent = currentQuiz.questions.length;
             
             // Display first question
             displayCurrentQuestion();
             updateQuestionGrid();
             updateSidebarStats();
-        }
-
-        function showQuestionNavigator() {
-            elements.quizSidebar.classList.add('show');
-        }
-
-        function hideQuestionNavigator() {
-            elements.quizSidebar.classList.remove('show');
         }
 
         function updateQuestionGrid() {
@@ -3901,7 +3794,7 @@ Solution No. 4: **c)** Explanation text...
                     state.currentQuestionIndex = index;
                     displayCurrentQuestion();
                     updateQuestionGrid();
-                    hideQuestionNavigator();
+                    elements.quizSidebar.classList.remove('show');
                 });
                 
                 elements.questionGrid.appendChild(bubble);
@@ -3955,6 +3848,7 @@ Solution No. 4: **c)** Explanation text...
             startQuestionTimer();
             
             // Update question display
+            elements.questionNumberElem.textContent = state.currentQuestionIndex + 1;
             elements.currentQuestionMobile.textContent = state.currentQuestionIndex + 1;
             elements.questionText.textContent = question.text;
             
@@ -3966,11 +3860,6 @@ Solution No. 4: **c)** Explanation text...
                 question.options.forEach(option => {
                     const optionElem = document.createElement('div');
                     optionElem.className = 'option';
-                    
-                    // Check if option text is long (more than 60 characters)
-                    if (option.text.length > 60) {
-                        optionElem.classList.add('long-text');
-                    }
                     
                     const questionId = question.id;
                     const userAnswer = state.userAnswers[questionId];
@@ -4044,7 +3933,7 @@ Solution No. 4: **c)** Explanation text...
                 
                 // Add warning after 60 seconds
                 if (currentTime > 60) {
-                    elements.timerMobile.style.background = 'linear-gradient(135deg, var(--warning) 0%, #FF9A3D 100%)';
+                    elements.timerMobile.style.background = 'rgba(255, 154, 61, 0.3)';
                 }
             }, 1000);
         }
@@ -4145,6 +4034,9 @@ Solution No. 4: **c)** Explanation text...
             
             elements.solutionText.innerHTML = solutionHTML;
             elements.solutionContainer.style.display = 'block';
+            
+            // Scroll to solution
+            elements.solutionContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         function showPreviousQuestion() {
@@ -4165,6 +4057,9 @@ Solution No. 4: **c)** Explanation text...
                 state.currentQuestionIndex--;
                 displayCurrentQuestion();
                 updateQuestionGrid();
+                
+                // Scroll to top of question
+                window.scrollTo(0, 0);
             }
         }
 
@@ -4188,6 +4083,9 @@ Solution No. 4: **c)** Explanation text...
                 state.currentQuestionIndex++;
                 displayCurrentQuestion();
                 updateQuestionGrid();
+                
+                // Scroll to top of question
+                window.scrollTo(0, 0);
             } else {
                 // If on last question and answered, enable submit
                 const lastQuestionId = currentQuiz.questions[currentQuiz.questions.length - 1].id;
@@ -4197,7 +4095,15 @@ Solution No. 4: **c)** Explanation text...
             }
         }
 
+        function toggleQuizSidebar() {
+            elements.quizSidebar.classList.toggle('show');
+        }
+
         function submitQuiz() {
+            if (!confirm("Are you sure you want to submit the quiz? You can still review answers after submission.")) {
+                return;
+            }
+            
             // Stop timer
             if (state.currentQuestionStartTime) {
                 const timeSpent = Math.floor((Date.now() - state.currentQuestionStartTime) / 1000);
@@ -4244,7 +4150,6 @@ Solution No. 4: **c)** Explanation text...
             document.body.classList.remove('quiz-active');
             elements.quizSection.style.display = 'none';
             elements.resultsSection.style.display = 'block';
-            elements.quizSidebar.classList.remove('show');
             
             const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
             const total = currentQuiz.questions.length;
@@ -4314,51 +4219,12 @@ Solution No. 4: **c)** Explanation text...
             
             // Update UI
             elements.resultsSection.style.display = 'none';
-            elements.quizSection.style.display = 'flex';
-            elements.quizSidebar.classList.remove('show');
+            elements.quizSection.style.display = 'block';
             
             // Display first question
             displayCurrentQuestion();
             updateQuestionGrid();
             updateSidebarStats();
-        }
-
-        function practiceWrongQuestions() {
-            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
-            const wrongQuestions = currentQuiz.questions.filter(question => {
-                const userAnswer = state.userAnswers[question.id];
-                return userAnswer !== question.correctAnswer || userAnswer === undefined;
-            });
-            
-            if (wrongQuestions.length === 0) {
-                showCustomConfirm("No Wrong Questions", "You answered all questions correctly! There are no wrong or skipped questions to practice.");
-                return;
-            }
-            
-            // Create a new quiz with only wrong questions
-            const practiceQuiz = {
-                id: `practice_${Date.now()}`,
-                name: `Practice Wrong Questions`,
-                subject: currentQuiz.subject,
-                questions: wrongQuestions,
-                totalQuestions: wrongQuestions.length,
-                bestScore: 0,
-                attempts: 0,
-                lastAttempt: null
-            };
-            
-            // Store the original quiz
-            const originalQuiz = state.currentQuizzes[state.currentQuizIndex];
-            
-            // Replace current quizzes with practice quiz
-            state.currentQuizzes = [practiceQuiz];
-            state.currentQuizIndex = 0;
-            
-            // Start the practice quiz
-            startQuiz(0);
-            
-            // Restore original quizzes after practice
-            state.currentQuizzes = [originalQuiz];
         }
 
         function toggleTheme() {
@@ -4431,12 +4297,46 @@ Solution No. 4: **c)** Explanation text...
             elements.renameModal.style.display = 'none';
         }
 
+        function downloadResults() {
+            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
+            const results = {
+                quizDate: new Date().toISOString(),
+                quizName: currentQuiz.name,
+                subject: currentQuiz.subject,
+                totalQuestions: currentQuiz.questions.length,
+                correctAnswers: state.correctAnswers,
+                incorrectAnswers: state.incorrectAnswers,
+                skippedAnswers: state.skippedAnswers,
+                score: Math.round((state.correctAnswers / currentQuiz.questions.length) * 100),
+                timeTaken: state.totalTime,
+                questions: currentQuiz.questions.map(q => ({
+                    id: q.id,
+                    text: q.text,
+                    userAnswer: state.userAnswers[q.id],
+                    correctAnswer: q.correctAnswer,
+                    isCorrect: state.userAnswers[q.id] === q.correctAnswer,
+                    isSkipped: state.userAnswers[q.id] === undefined,
+                    solution: q.solution
+                }))
+            };
+            
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `quiz-results-${currentQuiz.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${new Date().toISOString().slice(0,10)}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
         // Global functions for overlay
         window.copyShareUrl = function() {
             const shareUrlInput = document.getElementById('shareUrl');
             shareUrlInput.select();
             document.execCommand('copy');
-            showCustomConfirm("Link Copied", "Link copied to clipboard! 🚀 Share with friends!");
+            alert('Link copied to clipboard! 🚀 Share with friends!');
         };
 
         // Close drawer when clicking outside on mobile
@@ -4448,17 +4348,17 @@ Solution No. 4: **c)** Explanation text...
                 toggleDrawer();
             }
             
-            // Close quiz sidebar when clicking outside
+            // Close quiz sidebar when clicking outside on mobile
             if (!elements.quizSidebar.contains(event.target) && 
-                !elements.questionNavigatorBtnMobile.contains(event.target) &&
+                !elements.questionNavigatorBtnMobile.contains(event.target) && 
                 elements.quizSidebar.classList.contains('show')) {
-                hideQuestionNavigator();
+                toggleQuizSidebar();
             }
         });
 
         // Keyboard shortcuts
         document.addEventListener('keydown', (event) => {
-            if (elements.quizSection.style.display === 'flex') {
+            if (elements.quizSection.style.display === 'block') {
                 switch(event.key) {
                     case 'ArrowLeft':
                         if (!elements.prevBtn.disabled) showPreviousQuestion();
