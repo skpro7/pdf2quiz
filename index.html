@@ -453,7 +453,7 @@
             position: relative;
             width: 100%;
             max-width: 400px;
-            height: 250px;
+            height: 200px;
             margin: 0 auto 1.5rem;
             cursor: pointer;
             border-radius: 16px;
@@ -1201,6 +1201,8 @@
             align-items: center;
             flex-wrap: nowrap;
             overflow-x: auto;
+            width: 100%;
+            justify-content: space-between;
         }
 
         .quiz-header-info::-webkit-scrollbar {
@@ -1291,21 +1293,7 @@
             overflow-y: auto;
         }
 
-        .question-number {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            padding: 0.8rem 1rem;
-            background: rgba(255, 107, 107, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .dark-mode .question-number {
-            background: rgba(255, 107, 107, 0.2);
-            color: #FFB3B3;
-        }
+        /* REMOVED: .question-number class - Red text removed */
 
         .question-text {
             font-size: 1.1rem;
@@ -1488,6 +1476,7 @@
         .quiz-btn.prev {
             background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
             color: var(--dark);
+            order: 1;
         }
 
         .dark-mode .quiz-btn.prev {
@@ -1503,6 +1492,7 @@
         .quiz-btn.next {
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             color: white;
+            order: 3;
         }
 
         .quiz-btn.next:hover:not(:disabled) {
@@ -1513,6 +1503,7 @@
         .quiz-btn.submit {
             background: linear-gradient(135deg, var(--accent) 0%, var(--warning) 100%);
             color: var(--dark);
+            order: 2;
         }
 
         .quiz-btn.submit:hover {
@@ -1561,6 +1552,8 @@
             overflow-y: auto;
             z-index: 2000;
             display: none;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .dark-mode .quiz-sidebar {
@@ -1571,6 +1564,8 @@
         .quiz-sidebar.show {
             display: block;
             animation: scaleIn 0.3s ease-out;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .navigator-title {
@@ -1689,13 +1684,13 @@
             color: #A0AEC0;
         }
 
-        /* Results Section */
+        /* Results Section - Fixed small boxes */
         .results-section {
             display: none;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-radius: var(--border-radius);
-            padding: 2rem;
+            padding: 1.5rem;
             box-shadow: var(--box-shadow);
             text-align: center;
             animation: fadeIn 0.6s ease-out;
@@ -1703,6 +1698,8 @@
             overflow: hidden;
             max-width: 800px;
             margin: 0 auto;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         .results-section::before {
@@ -1720,12 +1717,12 @@
         }
 
         .results-icon {
-            font-size: 4rem;
-            margin-bottom: 1.2rem;
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         .results-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
             -webkit-background-clip: text;
@@ -1735,13 +1732,13 @@
         }
 
         .score-display {
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--accent), var(--success));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin: 1.5rem 0;
+            margin: 1rem 0;
             text-shadow: 0 5px 20px rgba(0,0,0,0.2);
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -1756,17 +1753,17 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin: 1.5rem 0;
-            font-size: 1.5rem;
+            margin: 1rem 0;
+            font-size: 1.3rem;
             font-weight: 700;
         }
 
         .rating-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
         .rating-text {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
         }
 
         .rating-excellent { color: var(--success); }
@@ -1779,22 +1776,22 @@
         .results-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 0.8rem;
+            margin: 1rem 0;
         }
 
         .result-stat {
-            padding: 1.2rem;
-            border-radius: 12px;
+            padding: 0.8rem;
+            border-radius: 10px;
             background: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             transition: var(--transition);
             border: 2px solid transparent;
         }
 
         .result-stat:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
         }
 
         .dark-mode .result-stat {
@@ -1814,14 +1811,14 @@
         }
 
         .result-stat .value {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 800;
             display: block;
             margin-bottom: 0.2rem;
         }
 
         .result-stat .label {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             opacity: 0.9;
         }
 
@@ -1981,6 +1978,111 @@
             font-size: 1rem;
         }
 
+        /* Custom Confirmation Modal */
+        .custom-confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2001;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .custom-confirm-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .custom-confirm-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--success));
+        }
+
+        .dark-mode .custom-confirm-content {
+            background: #2D3047;
+        }
+
+        .custom-confirm-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .custom-confirm-message {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            color: var(--dark);
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .dark-mode .custom-confirm-message {
+            color: white;
+        }
+
+        .custom-confirm-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .custom-confirm-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 100px;
+            justify-content: center;
+        }
+
+        .custom-confirm-btn.cancel {
+            background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
+            color: var(--dark);
+            order: 1;
+        }
+
+        .dark-mode .custom-confirm-btn.cancel {
+            background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
+            color: white;
+        }
+
+        .custom-confirm-btn.confirm {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
+            order: 2;
+        }
+
+        .custom-confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -2018,7 +2120,7 @@
             }
             
             .upload-image-container {
-                height: 180px;
+                height: 150px;
             }
             
             .quiz-selection-section, .library-section {
@@ -2056,19 +2158,24 @@
             
             .results-section {
                 padding: 1rem;
+                max-height: 85vh;
             }
             
             .score-display {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             
             .results-stats {
                 grid-template-columns: 1fr;
-                gap: 0.8rem;
+                gap: 0.6rem;
             }
             
             .result-stat {
-                padding: 1rem;
+                padding: 0.6rem;
+            }
+            
+            .result-stat .value {
+                font-size: 1.5rem;
             }
             
             .how-it-works-section {
@@ -2111,6 +2218,24 @@
         <div class="doodle doodle-4">🎓</div>
         <div class="doodle-5" style="top: 15%; right: 10%;"></div>
         <div class="doodle-6" style="bottom: 10%; left: 10%;"></div>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div class="custom-confirm-modal" id="customConfirmModal">
+        <div class="custom-confirm-content">
+            <h3 class="custom-confirm-title" id="customConfirmTitle">Confirm Action</h3>
+            <div class="custom-confirm-message" id="customConfirmMessage">
+                Are you sure you want to perform this action?
+            </div>
+            <div class="custom-confirm-buttons">
+                <button class="custom-confirm-btn cancel" id="customConfirmCancelBtn">
+                    <i class="fas fa-times"></i> No, Cancel
+                </button>
+                <button class="custom-confirm-btn confirm" id="customConfirmOkBtn">
+                    <i class="fas fa-check"></i> Yes, Continue
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Name Input Modal -->
@@ -2179,7 +2304,7 @@
                 <!-- Upload Section -->
                 <section class="upload-section" id="uploadSection">
                     <div class="upload-image-container" id="uploadImageContainer">
-                        <img src="https://image2url.com/images/1766474540383-f0b8f928-36a3-461d-9dc6-dd3d6849e33e.png" alt="Upload PDF to make quiz" class="upload-image">
+                        <img src="https://image2url.com/r2/bucket1/images/1766563557516-9a5da56c-672d-40be-bfb2-4c234bfdc027.png" alt="Upload PDF to make quiz" class="upload-image">
                         <div class="upload-image-overlay">
                             <i class="fas fa-upload"></i> Click to Upload File
                         </div>
@@ -2229,21 +2354,6 @@
                                (a) London (b) Berlin (c) Paris (d) Madrid<br>
                                Sol.1.(c) Paris is the capital of France.</p>
                             <pre id="exampleText">
-Q.1. Question text...
-(a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4
-Sol.1.(c) Explanation...
-
-Q.2. Another question...
-(a) Option A (b) Option B (c) Option C (d) Option D
-Sol.2.(a) Explanation...
-
-Q3: Third question?
-A: Option1; B: Option2; C: Option3; D: Option4
-Answer: C. Explanation text...
-
-Question No. 4: Fourth question?
-**a)** Option1 **b)** Option2 **c)** Option3 **d)** Option4
-Solution No. 4: **c)** Explanation text...
                             </pre>
                         </div>
                         
@@ -2349,9 +2459,7 @@ Solution No. 4: **c)** Explanation text...
                 <!-- Main Quiz Content -->
                 <div class="quiz-main-content">
                     <div class="question-container">
-                        <div class="question-number">
-                            Question <span id="questionNumber">1</span>
-                        </div>
+                        <!-- REMOVED: Red "Question X" text -->
                         
                         <div class="question-text" id="questionText">
                             Question will appear here after extraction.
@@ -2452,8 +2560,8 @@ Solution No. 4: **c)** Explanation text...
                 </div>
                 
                 <div class="result-actions">
-                    <button class="quiz-btn prev" id="reviewBtn">
-                        <i class="fas fa-redo"></i> Practice Again
+                    <button class="quiz-btn prev" id="reviewBtn" style="display: none;">
+                        <i class="fas fa-redo"></i> Practice Wrong Questions
                     </button>
                     <button class="quiz-btn next" id="backToQuizzesBtn">
                         <i class="fas fa-list"></i> Back to Quizzes
@@ -2620,6 +2728,13 @@ Solution No. 4: **c)** Explanation text...
 
         // DOM Elements
         const elements = {
+            // Custom Confirm Modal Elements
+            customConfirmModal: document.getElementById('customConfirmModal'),
+            customConfirmTitle: document.getElementById('customConfirmTitle'),
+            customConfirmMessage: document.getElementById('customConfirmMessage'),
+            customConfirmCancelBtn: document.getElementById('customConfirmCancelBtn'),
+            customConfirmOkBtn: document.getElementById('customConfirmOkBtn'),
+            
             // Modal Elements
             nameModal: document.getElementById('nameModal'),
             folderNameInput: document.getElementById('folderNameInput'),
@@ -2726,6 +2841,51 @@ Solution No. 4: **c)** Explanation text...
             closeOverlayBtn: document.getElementById('closeOverlayBtn')
         };
 
+        // Custom Confirm Function
+        function showCustomConfirm(title, message) {
+            return new Promise((resolve) => {
+                elements.customConfirmTitle.textContent = title;
+                elements.customConfirmMessage.textContent = message;
+                elements.customConfirmModal.style.display = 'flex';
+                
+                const handleConfirm = () => {
+                    elements.customConfirmModal.style.display = 'none';
+                    elements.customConfirmOkBtn.removeEventListener('click', handleConfirm);
+                    elements.customConfirmCancelBtn.removeEventListener('click', handleCancel);
+                    resolve(true);
+                };
+                
+                const handleCancel = () => {
+                    elements.customConfirmModal.style.display = 'none';
+                    elements.customConfirmOkBtn.removeEventListener('click', handleConfirm);
+                    elements.customConfirmCancelBtn.removeEventListener('click', handleCancel);
+                    resolve(false);
+                };
+                
+                elements.customConfirmOkBtn.addEventListener('click', handleConfirm);
+                elements.customConfirmCancelBtn.addEventListener('click', handleCancel);
+            });
+        }
+
+        // Custom Alert Function
+        function showCustomAlert(title, message) {
+            return new Promise((resolve) => {
+                elements.customConfirmTitle.textContent = title;
+                elements.customConfirmMessage.textContent = message;
+                elements.customConfirmCancelBtn.style.display = 'none';
+                elements.customConfirmModal.style.display = 'flex';
+                
+                const handleOk = () => {
+                    elements.customConfirmModal.style.display = 'none';
+                    elements.customConfirmOkBtn.removeEventListener('click', handleOk);
+                    elements.customConfirmCancelBtn.style.display = 'block';
+                    resolve();
+                };
+                
+                elements.customConfirmOkBtn.addEventListener('click', handleOk);
+            });
+        }
+
         // Event Listeners
         elements.homeLogo.addEventListener('click', showHome);
         elements.homeBtn.addEventListener('click', showHome);
@@ -2761,7 +2921,7 @@ Solution No. 4: **c)** Explanation text...
         elements.prevBtn.addEventListener('click', showPreviousQuestion);
         elements.nextBtn.addEventListener('click', showNextQuestion);
         elements.submitQuizBtn.addEventListener('click', submitQuiz);
-        elements.reviewBtn.addEventListener('click', reviewWrongAnswers);
+        elements.reviewBtn.addEventListener('click', reviewWrongQuestions);
         elements.backToQuizzesBtn.addEventListener('click', showQuizSelection);
         elements.backToLibraryBtn.addEventListener('click', showLibrary);
         elements.downloadBtn.addEventListener('click', downloadResults);
@@ -2834,11 +2994,7 @@ Solution No. 4: **c)** Explanation text...
         function copyExampleText() {
             const exampleText = elements.exampleText.textContent;
             navigator.clipboard.writeText(exampleText).then(() => {
-                const originalText = elements.copyExampleBtn.innerHTML;
-                elements.copyExampleBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                setTimeout(() => {
-                    elements.copyExampleBtn.innerHTML = originalText;
-                }, 2000);
+                showCustomAlert('Copied!', 'Example text has been copied to clipboard!');
             });
         }
 
@@ -2944,10 +3100,13 @@ Solution No. 4: **c)** Explanation text...
                 const deleteBtn = folder.querySelector('.delete-pdf');
                 deleteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    if (confirm(`Are you sure you want to delete "${pdf.customName || pdf.name}" and all its quizzes?`)) {
-                        StorageManager.deletePDF(pdf.id);
-                        loadLibrary();
-                    }
+                    showCustomConfirm('Delete Quiz Set', `Are you sure you want to delete "${pdf.customName || pdf.name}" and all its quizzes?`)
+                        .then((confirmed) => {
+                            if (confirmed) {
+                                StorageManager.deletePDF(pdf.id);
+                                loadLibrary();
+                            }
+                        });
                 });
                 
                 elements.libraryContainer.appendChild(folder);
@@ -3068,7 +3227,7 @@ Solution No. 4: **c)** Explanation text...
                 const fileExt = '.' + file.name.split('.').pop().toLowerCase();
                 
                 if (!validExtensions.includes(fileExt)) {
-                    alert('Please select a PDF, TXT, DOC, DOCX, or RTF file.');
+                    showCustomAlert('Invalid File', 'Please select a PDF, TXT, DOC, DOCX, or RTF file.');
                     elements.pdfFileInput.value = '';
                     updateFileInfo();
                     elements.extractBtn.disabled = true;
@@ -3087,7 +3246,7 @@ Solution No. 4: **c)** Explanation text...
         function handlePasteText() {
             const text = elements.pasteTextArea.value.trim();
             if (!text) {
-                alert('Please paste some text containing questions and solutions.');
+                showCustomAlert('Empty Text', 'Please paste some text containing questions and solutions.');
                 return;
             }
             
@@ -3121,7 +3280,7 @@ Solution No. 4: **c)** Explanation text...
         function confirmNameInput() {
             const folderName = elements.folderNameInput.value.trim();
             if (!folderName) {
-                alert('Please enter a folder name.');
+                showCustomAlert('Folder Name Required', 'Please enter a folder name.');
                 return;
             }
             
@@ -3222,11 +3381,11 @@ Solution No. 4: **c)** Explanation text...
                 state.pendingFile = null;
                 updateFileInfo();
                 
-                alert(`Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
+                showCustomAlert('Success', `Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
                 
             } catch (error) {
                 console.error('Error extracting file:', error);
-                alert('Error processing file. Please ensure the file contains selectable text and try again.');
+                showCustomAlert('Error', 'Error processing file. Please ensure the file contains selectable text and try again.');
             } finally {
                 // Hide loading
                 elements.extractBtn.disabled = false;
@@ -3272,11 +3431,11 @@ Solution No. 4: **c)** Explanation text...
                 elements.pasteTextArea.value = '';
                 state.pendingText = null;
                 
-                alert(`Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
+                showCustomAlert('Success', `Successfully extracted ${state.extractedData.allQuestions.length} questions and created ${quizzes.length} quizzes!`);
                 
             } catch (error) {
                 console.error('Error extracting text:', error);
-                alert('Error processing text. Please check the format and try again.');
+                showCustomAlert('Error', 'Error processing text. Please check the format and try again.');
             } finally {
                 // Hide loading
                 elements.extractFromPasteBtn.disabled = false;
@@ -3848,7 +4007,6 @@ Solution No. 4: **c)** Explanation text...
             startQuestionTimer();
             
             // Update question display
-            elements.questionNumberElem.textContent = state.currentQuestionIndex + 1;
             elements.currentQuestionMobile.textContent = state.currentQuestionIndex + 1;
             elements.questionText.textContent = question.text;
             
@@ -4099,8 +4257,10 @@ Solution No. 4: **c)** Explanation text...
             elements.quizSidebar.classList.toggle('show');
         }
 
-        function submitQuiz() {
-            if (!confirm("Are you sure you want to submit the quiz? You can still review answers after submission.")) {
+        async function submitQuiz() {
+            const confirmed = await showCustomConfirm('Submit Quiz', 'Are you sure you want to submit the quiz? You can still review answers after submission.');
+            
+            if (!confirmed) {
                 return;
             }
             
@@ -4199,10 +4359,48 @@ Solution No. 4: **c)** Explanation text...
             elements.ratingText.textContent = ratingText;
             elements.ratingText.className = `rating-text ${ratingClass}`;
             elements.resultsIcon.innerHTML = `<i class="${ratingIcon}"></i>`;
+            
+            // Show "Practice Wrong Questions" button only if there are wrong answers
+            if (state.incorrectAnswers > 0) {
+                elements.reviewBtn.style.display = 'flex';
+                elements.reviewBtn.innerHTML = '<i class="fas fa-redo"></i> Practice Wrong Questions';
+            } else {
+                elements.reviewBtn.style.display = 'none';
+            }
         }
 
-        function reviewWrongAnswers() {
-            // Restart the same quiz
+        function reviewWrongQuestions() {
+            // Create a new quiz with only wrong questions
+            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
+            const wrongQuestions = currentQuiz.questions.filter(question => {
+                const userAnswer = state.userAnswers[question.id];
+                return userAnswer !== undefined && userAnswer !== question.correctAnswer;
+            });
+            
+            if (wrongQuestions.length === 0) {
+                showCustomAlert('No Wrong Questions', 'You have no wrong questions to practice!');
+                return;
+            }
+            
+            // Create a temporary quiz for wrong questions
+            const wrongQuiz = {
+                id: `wrong_${Date.now()}`,
+                name: 'Practice Wrong Questions',
+                subject: currentQuiz.subject,
+                questions: wrongQuestions,
+                totalQuestions: wrongQuestions.length,
+                bestScore: 0,
+                attempts: 0,
+                lastAttempt: null
+            };
+            
+            // Save the current state
+            const originalQuizIndex = state.currentQuizIndex;
+            const originalQuizzes = state.currentQuizzes;
+            
+            // Replace current quiz with wrong questions quiz
+            state.currentQuizzes = [wrongQuiz];
+            state.currentQuizIndex = 0;
             state.currentQuestionIndex = 0;
             state.userAnswers = {};
             state.quizStarted = true;
@@ -4221,10 +4419,26 @@ Solution No. 4: **c)** Explanation text...
             elements.resultsSection.style.display = 'none';
             elements.quizSection.style.display = 'block';
             
+            // Update quiz info
+            elements.totalQuestionsMobile.textContent = wrongQuestions.length;
+            
             // Display first question
             displayCurrentQuestion();
             updateQuestionGrid();
             updateSidebarStats();
+            
+            // Restore original state when quiz is submitted
+            const originalSubmitBtn = elements.submitQuizBtn.onclick;
+            elements.submitQuizBtn.onclick = async function() {
+                const confirmed = await showCustomConfirm('Finish Practice', 'Are you sure you want to finish practicing wrong questions?');
+                if (confirmed) {
+                    // Restore original state
+                    state.currentQuizzes = originalQuizzes;
+                    state.currentQuizIndex = originalQuizIndex;
+                    elements.submitQuizBtn.onclick = originalSubmitBtn;
+                    showResults();
+                }
+            };
         }
 
         function toggleTheme() {
@@ -4336,7 +4550,7 @@ Solution No. 4: **c)** Explanation text...
             const shareUrlInput = document.getElementById('shareUrl');
             shareUrlInput.select();
             document.execCommand('copy');
-            alert('Link copied to clipboard! 🚀 Share with friends!');
+            showCustomAlert('Copied!', 'Link copied to clipboard! 🚀 Share with friends!');
         };
 
         // Close drawer when clicking outside on mobile
