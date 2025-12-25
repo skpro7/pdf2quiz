@@ -2348,15 +2348,33 @@
                         <div class="paste-example">
                             <h4><i class="fas fa-lightbulb"></i> Example Format:</h4>
                             <button class="copy-example-btn" id="copyExampleBtn">
-                                <i class="fas fa-copy"></i> Copy Example
+                                <i class="fas fa-copy"></i> Copy Eg. for AI
                             </button>
                             <p>Q.1. What is the capital of France?<br>
                                (a) London (b) Berlin (c) Paris (d) Madrid<br>
                                Sol.1.(c) Paris is the capital of France.</p>
                             <pre id="exampleText">
+You are an SSC & Railway exam MCQ generator.
+
+INPUT:
+TOPIC: {Topic name}
+QUESTIONS: {25}
+LANGUAGE: {HINDI / ENGLISH}
+
+TASK:
+Generate exam-oriented MCQs (SSC + RRB level).
+
+FORMAT (STRICT):
 Q.1. Question text...
 (a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4
-Sol.1.(c) Explanation...
+Sol.1. (c) Short explanation...
+
+RULES:
+- Language as per input
+- PYQ-based + important concepts
+- No extra text, only MCQs
+- Same format for all questions
+
                             </pre>
                         </div>
                         
@@ -2905,7 +2923,7 @@ Sol.1.(c) Explanation...
         elements.howItWorksBtn.addEventListener('click', showHowItWorks);
         elements.backFromHowItWorksBtn.addEventListener('click', hideHowItWorks);
         
-        // Copy example button
+        // Copy Eg. for AI button
         elements.copyExampleBtn.addEventListener('click', copyExampleText);
         
         // Tab listeners
