@@ -314,10 +314,6 @@
                 height: 40px;
             }
             
-            .logo-text {
-                display: none;
-            }
-            
             .sidebar {
                 width: 100%;
             }
@@ -1248,10 +1244,12 @@
             border: none;
             color: white;
             white-space: nowrap;
+            transition: var(--transition);
         }
 
         .total-questions-btn:hover {
             background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
@@ -1292,8 +1290,6 @@
             flex-direction: column;
             overflow-y: auto;
         }
-
-        /* REMOVED: .question-number class - Red text removed */
 
         .question-text {
             font-size: 1.1rem;
@@ -1551,7 +1547,7 @@
             max-width: 400px;
             overflow-y: auto;
             z-index: 2000;
-            display: none;
+            visibility: hidden;
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -1562,8 +1558,7 @@
         }
 
         .quiz-sidebar.show {
-            display: block;
-            animation: scaleIn 0.3s ease-out;
+            visibility: visible;
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
         }
@@ -2184,10 +2179,6 @@
         }
 
         @media (max-width: 480px) {
-            .logo-text {
-                display: none;
-            }
-            
             .sidebar {
                 width: 100%;
             }
@@ -2480,8 +2471,6 @@ RULES:
                 <!-- Main Quiz Content -->
                 <div class="quiz-main-content">
                     <div class="question-container">
-                        <!-- REMOVED: Red "Question X" text -->
-                        
                         <div class="question-text" id="questionText">
                             Question will appear here after extraction.
                         </div>
@@ -2587,9 +2576,6 @@ RULES:
                     <button class="quiz-btn next" id="backToQuizzesBtn">
                         <i class="fas fa-list"></i> Back to Quizzes
                     </button>
-                    <button class="quiz-btn submit" id="downloadBtn">
-                        <i class="fas fa-download"></i> Download Results
-                    </button>
                 </div>
             </section>
         </main>
@@ -2606,7 +2592,9 @@ RULES:
                 25-question quizzes with detailed analytics and performance tracking.
             </div>
             <div class="overlay-buttons">
-                <button class="quiz-btn prev" id="closeOverlayBtn">Close</button>
+                <button class="quiz-btn prev" id="closeOverlayBtn">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
             </div>
         </div>
     </div>
@@ -2747,6 +2735,35 @@ RULES:
             waitingForNext: false
         };
 
+        // Navigation history stack
+        const navigationHistory = {
+            stack: [],
+            currentIndex: -1,
+            
+            push: function(section) {
+                // Remove any forward history
+                this.stack = this.stack.slice(0, this.currentIndex + 1);
+                this.stack.push(section);
+                this.currentIndex++;
+            },
+            
+            pop: function() {
+                if (this.currentIndex > 0) {
+                    this.currentIndex--;
+                    return this.stack[this.currentIndex];
+                }
+                return null;
+            },
+            
+            getCurrent: function() {
+                return this.stack[this.currentIndex] || 'home';
+            },
+            
+            canGoBack: function() {
+                return this.currentIndex > 0;
+            }
+        };
+
         // DOM Elements
         const elements = {
             // Custom Confirm Modal Elements
@@ -2824,9 +2841,6 @@ RULES:
             solutionContainer: document.getElementById('solutionContainer'),
             solutionText: document.getElementById('solutionText'),
             
-            // Stats Elements
-            questionNumberElem: document.getElementById('questionNumber'),
-            
             // Sidebar Stats
             answeredCount: document.getElementById('answeredCount'),
             correctCountSidebar: document.getElementById('correctCountSidebar'),
@@ -2848,7 +2862,6 @@ RULES:
             ratingText: document.getElementById('ratingText'),
             reviewBtn: document.getElementById('reviewBtn'),
             backToQuizzesBtn: document.getElementById('backToQuizzesBtn'),
-            downloadBtn: document.getElementById('downloadBtn'),
             
             // Sidebar Buttons
             themeBtn: document.getElementById('themeBtn'),
@@ -2907,9 +2920,56 @@ RULES:
             });
         }
 
+        // Navigation Functions
+        function navigateTo(section) {
+            navigationHistory.push(section);
+            
+            switch(section) {
+                case 'home':
+                    showHome();
+                    break;
+                case 'library':
+                    showLibrary();
+                    break;
+                case 'quizSelection':
+                    showQuizSelection();
+                    break;
+                case 'quiz':
+                    // Already handled by startQuiz
+                    break;
+                case 'results':
+                    // Already handled by showResults
+                    break;
+                case 'howItWorks':
+                    showHowItWorks();
+                    break;
+            }
+        }
+
+        function handleBackNavigation() {
+            if (navigationHistory.canGoBack()) {
+                const prevSection = navigationHistory.pop();
+                switch(prevSection) {
+                    case 'home':
+                        showHome();
+                        break;
+                    case 'library':
+                        showLibrary();
+                        break;
+                    case 'quizSelection':
+                        showQuizSelection();
+                        break;
+                    default:
+                        showHome();
+                }
+                return true;
+            }
+            return false;
+        }
+
         // Event Listeners
-        elements.homeLogo.addEventListener('click', showHome);
-        elements.homeBtn.addEventListener('click', showHome);
+        elements.homeLogo.addEventListener('click', () => navigateTo('home'));
+        elements.homeBtn.addEventListener('click', () => navigateTo('home'));
         elements.pdfFileInput.addEventListener('change', handleFileSelect);
         elements.extractBtn.addEventListener('click', showNameModal);
         elements.extractFromPasteBtn.addEventListener('click', handlePasteText);
@@ -2920,8 +2980,8 @@ RULES:
         });
         
         // How it works button
-        elements.howItWorksBtn.addEventListener('click', showHowItWorks);
-        elements.backFromHowItWorksBtn.addEventListener('click', hideHowItWorks);
+        elements.howItWorksBtn.addEventListener('click', () => navigateTo('howItWorks'));
+        elements.backFromHowItWorksBtn.addEventListener('click', () => handleBackNavigation());
         
         // Copy Eg. for AI button
         elements.copyExampleBtn.addEventListener('click', copyExampleText);
@@ -2943,9 +3003,8 @@ RULES:
         elements.nextBtn.addEventListener('click', showNextQuestion);
         elements.submitQuizBtn.addEventListener('click', submitQuiz);
         elements.reviewBtn.addEventListener('click', reviewWrongQuestions);
-        elements.backToQuizzesBtn.addEventListener('click', showQuizSelection);
-        elements.backToLibraryBtn.addEventListener('click', showLibrary);
-        elements.downloadBtn.addEventListener('click', downloadResults);
+        elements.backToQuizzesBtn.addEventListener('click', () => navigateTo('quizSelection'));
+        elements.backToLibraryBtn.addEventListener('click', () => navigateTo('library'));
         elements.questionNavigatorBtnMobile.addEventListener('click', toggleQuizSidebar);
         
         // Theme and UI Listeners
@@ -2968,8 +3027,19 @@ RULES:
             }
             
             updateFileInfo();
-            showHome();
+            navigateTo('home');
             loadLibrary();
+            
+            // Initialize navigation history
+            navigationHistory.push('home');
+            
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', function(event) {
+                if (!handleBackNavigation()) {
+                    // If can't go back in app history, let browser handle it
+                    window.history.forward();
+                }
+            });
         }
 
         function showHowItWorks() {
@@ -3238,7 +3308,7 @@ RULES:
             });
             state.subjects = Array.from(subjectsSet);
             
-            showQuizSelection();
+            navigateTo('quizSelection');
         }
 
         function handleFileSelect(event) {
@@ -3394,7 +3464,7 @@ RULES:
                 StorageManager.addPDF(pdfData);
                 
                 // Update UI
-                showHome();
+                navigateTo('home');
                 loadLibrary();
                 
                 // Clear inputs
@@ -3445,7 +3515,7 @@ RULES:
                 StorageManager.addPDF(pdfData);
                 
                 // Update UI
-                showHome();
+                navigateTo('home');
                 loadLibrary();
                 
                 // Clear textarea
@@ -3781,14 +3851,17 @@ RULES:
             
             // Create quizzes from each subject group
             Object.entries(questionsBySubject).forEach(([subject, subjectQuestions]) => {
-                // Split into chunks of 25
-                for (let i = 0; i < subjectQuestions.length; i += chunkSize) {
-                    const chunk = subjectQuestions.slice(i, i + chunkSize);
-                    const quizNumber = Math.floor(i / chunkSize) + 1;
+                // Calculate total chunks
+                const totalChunks = Math.ceil(subjectQuestions.length / chunkSize);
+                
+                // Create full chunks first
+                for (let i = 0; i < totalChunks - 1; i++) {
+                    const start = i * chunkSize;
+                    const chunk = subjectQuestions.slice(start, start + chunkSize);
                     
                     quizzes.push({
-                        id: `quiz_${Date.now()}_${subject}_${quizNumber}`,
-                        name: `${state.customFolderName || 'Quiz'} ${quizNumber}`,
+                        id: `quiz_${Date.now()}_${subject}_${i + 1}`,
+                        name: `${state.customFolderName || 'Quiz'} ${i + 1}`,
                         subject: subject,
                         questions: chunk,
                         totalQuestions: chunk.length,
@@ -3797,16 +3870,49 @@ RULES:
                         lastAttempt: null
                     });
                 }
+                
+                // Handle the last chunk
+                if (totalChunks > 0) {
+                    const lastStart = (totalChunks - 1) * chunkSize;
+                    const lastChunk = subjectQuestions.slice(lastStart);
+                    
+                    // If last chunk has less than 10 questions and we have more than one chunk,
+                    // merge it with the previous chunk instead of creating a small quiz
+                    if (lastChunk.length < 10 && totalChunks > 1) {
+                        // Remove the last quiz to merge
+                        const lastQuiz = quizzes.pop();
+                        // Merge questions
+                        const mergedQuestions = [...lastQuiz.questions, ...lastChunk];
+                        
+                        // Update the last quiz with merged questions
+                        lastQuiz.questions = mergedQuestions;
+                        lastQuiz.totalQuestions = mergedQuestions.length;
+                        quizzes.push(lastQuiz);
+                    } else {
+                        // Create a normal last chunk quiz
+                        quizzes.push({
+                            id: `quiz_${Date.now()}_${subject}_${totalChunks}`,
+                            name: `${state.customFolderName || 'Quiz'} ${totalChunks}`,
+                            subject: subject,
+                            questions: lastChunk,
+                            totalQuestions: lastChunk.length,
+                            bestScore: 0,
+                            attempts: 0,
+                            lastAttempt: null
+                        });
+                    }
+                }
             });
             
-            // If we have less than chunkSize questions, create one quiz
+            // If we have less than chunkSize questions overall, create one quiz
             if (quizzes.length === 0 && questions.length > 0) {
+                const subject = questions[0].subject || 'General Knowledge';
                 quizzes.push({
                     id: `quiz_${Date.now()}_1`,
                     name: `${state.customFolderName || 'Quiz'} 1`,
-                    subject: 'General Knowledge',
-                    questions: questions.slice(0, chunkSize),
-                    totalQuestions: Math.min(questions.length, chunkSize),
+                    subject: subject,
+                    questions: questions.slice(0, Math.min(questions.length, 30)), // Allow slightly more than 25
+                    totalQuestions: Math.min(questions.length, 30),
                     bestScore: 0,
                     attempts: 0,
                     lastAttempt: null
@@ -3938,6 +4044,9 @@ RULES:
             displayCurrentQuestion();
             updateQuestionGrid();
             updateSidebarStats();
+            
+            // Add to navigation history
+            navigationHistory.push('quiz');
         }
 
         function updateQuestionGrid() {
@@ -4388,6 +4497,9 @@ RULES:
             } else {
                 elements.reviewBtn.style.display = 'none';
             }
+            
+            // Add to navigation history
+            navigationHistory.push('results');
         }
 
         function reviewWrongQuestions() {
@@ -4530,40 +4642,6 @@ RULES:
         function closeOverlay() {
             elements.overlay.style.display = 'none';
             elements.renameModal.style.display = 'none';
-        }
-
-        function downloadResults() {
-            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
-            const results = {
-                quizDate: new Date().toISOString(),
-                quizName: currentQuiz.name,
-                subject: currentQuiz.subject,
-                totalQuestions: currentQuiz.questions.length,
-                correctAnswers: state.correctAnswers,
-                incorrectAnswers: state.incorrectAnswers,
-                skippedAnswers: state.skippedAnswers,
-                score: Math.round((state.correctAnswers / currentQuiz.questions.length) * 100),
-                timeTaken: state.totalTime,
-                questions: currentQuiz.questions.map(q => ({
-                    id: q.id,
-                    text: q.text,
-                    userAnswer: state.userAnswers[q.id],
-                    correctAnswer: q.correctAnswer,
-                    isCorrect: state.userAnswers[q.id] === q.correctAnswer,
-                    isSkipped: state.userAnswers[q.id] === undefined,
-                    solution: q.solution
-                }))
-            };
-            
-            const dataStr = JSON.stringify(results, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-            
-            const exportFileDefaultName = `quiz-results-${currentQuiz.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-${new Date().toISOString().slice(0,10)}.json`;
-            
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
         }
 
         // Global functions for overlay
