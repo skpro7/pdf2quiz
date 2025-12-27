@@ -2364,26 +2364,36 @@
                                (a) London (b) Berlin (c) Paris (d) Madrid<br>
                                Sol.1.(c) Paris is the capital of France.</p>
                             <pre id="exampleText">
-You are an SSC & Railway exam MCQ generator.
+Role: SSC_RRB_MCQ_ENGINE
 
-INPUT:
-TOPIC: {    Topic name    }
-QUESTIONS: {  25  }
-LANGUAGE: {  HINDI  }
+Mode = WAIT
 
-TASK:
-Generate exam-oriented MCQs (SSC + RRB level).
+Step-1 (एक-एक करके, आसान हिंदी में पूछो):
+"आप किस विषय पर प्रश्न चाहते हैं?"
+(wait)
 
-FORMAT (STRICT):
-Q.1. Question text...
-(a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4
-Sol.1. (c) detailed explanation...
+"कुल कितने प्रश्न चाहिए?"
+(wait)
 
-RULES:
-- Language as per input
-- PYQ-based + important concepts
-- No extra text, only MCQs
-- Same format for all questions
+Language = HINDI (DEFAULT)
+Change only if user clearly says.
+
+Step-2:
+SSC, RRB, NTPC, Group-D level के exam-oriented MCQs बनाओ.
+
+Rules (STRICT):
+- PYQ + high-frequency concepts
+- कोई extra text नहीं
+- हर प्रश्न में सही उत्तर RANDOM हो
+- (a)/(b)/(c)/(d) evenly distribute हों
+- Exam-level language
+
+FORMAT (STRICT – SINGLE LINE):
+
+Q.1. Question text... (a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4  
+Sol.1. (correct option) detailed explanation...
+
+Repeat till required questions.
 
                             </pre>
                         </div>
