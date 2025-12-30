@@ -2240,7 +2240,7 @@
         <div class="logo-container" id="homeLogo">
             <!-- Changed img to video for loop -->
             <video class="logo-video" id="logoVideo" loop muted playsinline preload="metadata">
-                <source src="httpsimage2url.comr2bucket3videos1767073735315-3606e631-495d-4e47-ad51-2c4188159e19.mp4" type="video/mp4">
+                <source src="https://image2url.com/r2/default/videos/1767101271439-ba9e9a7d-0d45-438e-bb0d-98533f8fd0c3.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <span class="logo-text">PDF2QUIZ</span>
@@ -4555,7 +4555,7 @@ Repeat till required questions.
             const totalWrong = state.incorrectAnswers + state.skippedAnswers;
             if (totalWrong > 0) {
                 elements.reviewBtn.style.display = 'flex';
-                elements.reviewBtn.innerHTML = `<i class="fas fa-redo"></i> Practice ${totalWrong} Wrong/Skipped Questions`;
+                elements.reviewBtn.innerHTML = `<i class="fas fa-redo"></i> Practice `;
             } else {
                 elements.reviewBtn.style.display = 'none';
             }
@@ -4579,7 +4579,7 @@ Repeat till required questions.
             // Create a temporary quiz for review questions
             const reviewQuiz = {
                 id: `review_${Date.now()}`,
-                name: 'Practice Wrong/Skipped Questions',
+                name: 'Practice ',
                 subject: currentQuiz.subject,
                 questions: reviewQuestions,
                 totalQuestions: reviewQuestions.length,
