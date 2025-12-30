@@ -1274,7 +1274,7 @@
 
         /* Question text - Bigger and stylish */
         .question-text {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 1.5;
             margin-bottom: 1.5rem;
             color: var(--dark);
@@ -1318,7 +1318,7 @@
             font-weight: 500;
             background: white;
             min-height: 50px;
-            font-size: 1rem;
+            font-size: 1.1rem;
         }
 
         .dark-mode .option {
@@ -2240,7 +2240,7 @@
         <div class="logo-container" id="homeLogo">
             <!-- Changed img to video for loop -->
             <video class="logo-video" id="logoVideo" loop muted playsinline preload="metadata">
-                <source src="https://image2url.com/r2/bucket2/videos/1766794908205-48516394-f5f4-4138-9c6b-01e68c798c43.mp4" type="video/mp4">
+                <source src="httpsimage2url.comr2defaultvideos1767098623122-21d7bfb1-2014-47fc-be17-d60ce5e4a0ab.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <span class="logo-text">PDF2QUIZ</span>
@@ -2338,39 +2338,9 @@
         </button>
 
         <div class="simple-example" id="exampleText">
-Role: SSC_RRB_MCQ_ENGINE
-
-Mode = WAIT
-
-Step-1 (एक-एक करके, आसान हिंदी में पूछो):
-"आप किस विषय पर प्रश्न चाहते हैं?"
-(wait)
-
-"कुल कितने प्रश्न चाहिए?"
-(wait)
-
-Language = HINDI (DEFAULT)
-Change only if user clearly says.
-
-Step-2:
-SSC, RRB, NTPC, Group-D level के exam-oriented MCQs बनाओ.
-
-Rules (STRICT):
-- PYQ + high-frequency concepts
-- medium , hard level questions
-- कोई extra text नहीं
-- हर प्रश्न में सही उत्तर RANDOM हो
-- (a)/(b)/(c)/(d) evenly distribute हों
-- Exam-level language
-- Cross check Answer and solution in evry question.
-
-FORMAT (STRICT – SINGLE LINE):
-
-Q.1. Question text...
-(i) Option 1 (ii) Option 2 (iii) Option 3 (iv) Option 4
-Sol.1. (correct option) detailed explanation...
-
-Repeat till required questions.
+Q.1. What is the capital of France?
+(a) London (b) Berlin (c) Paris (d) Madrid
+Sol.1.(c) Paris is the capital of France.
         </div>
     </div>
 
@@ -3167,9 +3137,30 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
         }
 
         function copyExampleText() {
-            const exampleText = `Q.1. What is the capital of France?
-(a) London (b) Berlin (c) Paris (d) Madrid
-Sol.1.(c) Paris is the capital of France.`;
+            const exampleText = `Role: SSC_RRB_MCQ_ENGINE
+Mode = WAIT
+Step-1 (एक-एक करके, आसान हिंदी में पूछो):
+"आप किस विषय पर प्रश्न चाहते हैं?"
+(wait)
+"कुल कितने प्रश्न चाहिए?"
+(wait)
+Language = HINDI (DEFAULT)
+Change only if user clearly says.
+Step-2:
+SSC(CGL,CHSL,MTS etc.), RRB(NTPC, Group-D, ALP etc.) level के exam-oriented MCQs बनाओ.
+Rules (STRICT):
+- PYQ + high-frequency concepts +imp questions
+- all PYQ questions ke saath unke exam and shift likhi ho.
+- no extra text direct questions .
+- हर प्रश्न में सही उत्तर RANDOM हो
+- (a)/(b)/(c)/(d) evenly distribute हों
+- Exam-level language and medium, hard level questions .
+FORMAT (STRICT – SINGLE LINE):
+Q.1. Question text... 
+(a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4
+Sol.1. (correct option) detailed explanation...
+Repeat till required questions.
+                            `;
             
             navigator.clipboard.writeText(exampleText).then(() => {
                 showCustomAlert('Copied!', 'Example text has been copied to clipboard!');
