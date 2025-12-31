@@ -120,6 +120,38 @@
             66% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
         }
 
+        /* Quiz Background Doodles */
+        .quiz-bg-doodle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+        }
+
+        .quiz-doodle {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: quizFloat 15s infinite ease-in-out;
+        }
+
+        .quiz-doodle-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .quiz-doodle-2 { top: 70%; right: 10%; animation-delay: 2s; }
+        .quiz-doodle-3 { bottom: 30%; left: 15%; animation-delay: 4s; }
+        .quiz-doodle-4 { top: 40%; right: 25%; animation-delay: 6s; }
+        .quiz-doodle-5 { top: 20%; right: 40%; animation-delay: 8s; }
+        .quiz-doodle-6 { bottom: 40%; left: 40%; animation-delay: 10s; }
+
+        @keyframes quizFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.1; }
+            33% { transform: translateY(-20px) rotate(5deg) scale(1.1); opacity: 0.15; }
+            66% { transform: translateY(10px) rotate(-5deg) scale(0.9); opacity: 0.08; }
+        }
+
         /* Header - Hidden during quiz on mobile */
         .header {
             background: rgba(255, 255, 255, 0.95);
@@ -153,23 +185,19 @@
             cursor: pointer;
         }
 
-        .logo {
-            height: 50px;
-            width: auto;
-            border-radius: 10px;
-            animation: logoPulse 3s ease-in-out infinite;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            object-fit: contain;
-        }
-
-        /* Video logo styling */
         .logo-video {
             height: 50px;
             width: auto;
             border-radius: 10px;
+            object-fit: cover;
+            transition: var(--transition);
+            display: none;
+        }
+
+        .logo-video.active {
+            display: block;
             animation: logoPulse 3s ease-in-out infinite;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            object-fit: cover;
         }
 
         @keyframes logoPulse {
@@ -226,31 +254,33 @@
             min-height: calc(100vh - 70px);
         }
 
-        /* Sidebar/Drawer - FIXED: Smooth opening */
+        /* Sidebar/Drawer - Fixed hanging issue */
         .sidebar {
             width: var(--sidebar-width);
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
             padding: 2rem 1.5rem;
             overflow-y: auto;
-            box-shadow: 10px 0 25px rgba(0, 0, 0, 0.08);
+            box-shadow: 10px 0 25px rgba(0, 0, 0, 0.15);
             transform: translateX(-100%);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: fixed;
             top: 70px;
             bottom: 0;
             z-index: 999;
             border-right: 2px solid var(--primary);
+            opacity: 0;
             visibility: hidden;
         }
 
         .dark-mode .sidebar {
-            background: rgba(45, 48, 71, 0.95);
+            background: rgba(45, 48, 71, 0.98);
             border-right-color: var(--accent);
         }
 
         .sidebar.open {
             transform: translateX(0);
+            opacity: 1;
             visibility: visible;
         }
 
@@ -322,7 +352,7 @@
                 padding: 0.8rem 1rem;
             }
             
-            .logo, .logo-video {
+            .logo-video {
                 height: 40px;
             }
             
@@ -481,6 +511,11 @@
             height: 100%;
             object-fit: cover;
             transition: var(--transition);
+            display: none;
+        }
+
+        .upload-video.active {
+            display: block;
         }
 
         .upload-image-overlay {
@@ -1017,7 +1052,10 @@
             box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
         }
 
-        /* Quiz Cards Container */
+        .subject-filters {
+            display: none; /* Hidden as per requirement */
+        }
+
         .quiz-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1270,11 +1308,20 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            border-radius: var(--border-radius);
+            padding: 1rem;
         }
 
-        /* Question text - Bigger and stylish */
+        .dark-mode .question-container {
+            background: rgba(45, 48, 71, 0.7);
+        }
+
         .question-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 1.5;
             margin-bottom: 1.5rem;
             color: var(--dark);
@@ -1282,9 +1329,8 @@
             background: linear-gradient(135deg, #F8FAFC 0%, #EDF2F7 100%);
             border-radius: 10px;
             border: 1px solid var(--gray-light);
-            font-weight: 700;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
         }
 
         .dark-mode .question-text {
@@ -1298,6 +1344,8 @@
             grid-template-columns: 1fr;
             gap: 0.6rem;
             margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
         }
 
         @media (min-width: 768px) {
@@ -1318,7 +1366,8 @@
             font-weight: 500;
             background: white;
             min-height: 50px;
-            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
         }
 
         .dark-mode .option {
@@ -1391,6 +1440,8 @@
             animation: slideIn 0.4s ease-out;
             max-height: none;
             overflow: visible;
+            position: relative;
+            z-index: 2;
         }
 
         .dark-mode .solution-container {
@@ -1931,6 +1982,34 @@
             gap: 0.8rem;
         }
 
+        /* Rename Quiz Modal */
+        .rename-modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            z-index: 1001;
+            display: none;
+            min-width: 300px;
+        }
+
+        .dark-mode .rename-modal {
+            background: #2D3047;
+        }
+
+        .rename-modal input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
         /* Custom Confirmation Modal */
         .custom-confirm-modal {
             display: none;
@@ -2094,7 +2173,7 @@
             }
             
             .question-text {
-                font-size: 1.2rem;
+                font-size: 1rem;
                 padding: 0.8rem;
             }
             
@@ -2156,53 +2235,28 @@
                 font-size: 0.8rem;
             }
         }
-        
-        /* Hide the long AI text in example */
-        .paste-example pre#exampleText {
-            display: none;
-        }
-        
-        /* Show only the simple example */
-        .paste-example .simple-example {
-            display: block;
-            background: rgba(0,0,0,0.05);
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            margin-top: 0.8rem;
-        }
-        
-        .dark-mode .paste-example .simple-example {
-            background: rgba(255,255,255,0.1);
-        }
-        
-        /* Added styles for Roman numeral options */
-        .option-roman {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-        
-        .overlay-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.3);
-            z-index: 1999;
-            display: none;
-        }
-        
-        .overlay-backdrop.show {
-            display: block;
-        }
     </style>
 </head>
 <body>
-    <!-- Overlay backdrop for sidebar -->
-    <div class="overlay-backdrop" id="overlayBackdrop"></div>
+    <!-- Background Doodles -->
+    <div class="bg-doodle">
+        <div class="doodle doodle-1">✏️</div>
+        <div class="doodle doodle-2">📚</div>
+        <div class="doodle doodle-3">🧠</div>
+        <div class="doodle doodle-4">🎓</div>
+        <div class="doodle-5" style="top: 15%; right: 10%;"></div>
+        <div class="doodle-6" style="bottom: 10%; left: 10%;"></div>
+    </div>
+
+    <!-- Quiz Background Doodles -->
+    <div class="quiz-bg-doodle" id="quizBgDoodle" style="display: none;">
+        <div class="quiz-doodle quiz-doodle-1">❓</div>
+        <div class="quiz-doodle quiz-doodle-2">✓</div>
+        <div class="quiz-doodle quiz-doodle-3">✗</div>
+        <div class="quiz-doodle quiz-doodle-4">🔍</div>
+        <div class="quiz-doodle quiz-doodle-5">📝</div>
+        <div class="quiz-doodle quiz-doodle-6">🎯</div>
+    </div>
 
     <!-- Custom Confirmation Modal -->
     <div class="custom-confirm-modal" id="customConfirmModal">
@@ -2235,11 +2289,24 @@
         </div>
     </div>
 
+    <!-- Rename Quiz Modal -->
+    <div class="modal-overlay" id="renameModal">
+        <div class="modal-content">
+            <h3 class="modal-title">Rename Quiz</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--dark);">Enter a new name for this quiz:</p>
+            <input type="text" id="renameInput" class="modal-input" placeholder="Enter new quiz name" value="">
+            <div class="modal-buttons">
+                <button class="quiz-btn prev" id="cancelRenameBtn">Cancel</button>
+                <button class="quiz-btn next" id="confirmRenameBtn">Save</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header">
         <div class="logo-container" id="homeLogo">
-            <!-- Changed img to video for loop -->
-            <video class="logo-video" id="logoVideo" loop muted playsinline preload="metadata">
+            <!-- Logo Video -->
+            <video class="logo-video" id="logoVideo" muted playsinline>
                 <source src="https://image2url.com/r2/default/videos/1767101271439-ba9e9a7d-0d45-438e-bb0d-98533f8fd0c3.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -2279,9 +2346,9 @@
                 <!-- Upload Section -->
                 <section class="upload-section" id="uploadSection">
                     <div class="upload-image-container" id="uploadImageContainer">
-                        <!-- Changed img to video for loop -->
-                        <video class="upload-video" id="uploadVideo" loop muted playsinline preload="metadata">
-                            <source src="https://image2url.com/r2/bucket2/videos/1766793736807-3edeae88-df7a-4b52-9385-183db654ef7e.mp4" type="video/mp4">
+                        <!-- Upload Video -->
+                        <video class="upload-video" id="uploadVideo" muted playsinline>
+                            <source src="https://image2url.com/r2/default/videos/1767163812648-d0d484a1-f252-4c1d-8f6c-853fd8c53c34.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                         <div class="upload-image-overlay">
@@ -2303,91 +2370,43 @@
                         </button>
                     </div>
                     
-                    <!-- ================= FILE UPLOAD TAB ================= -->
-<div class="upload-tab-content active" id="fileUploadTab">
-
-    <div class="file-input-wrapper">
-        <input type="file" id="pdfFileInput" class="file-input" accept=".pdf,.txt,.doc,.docx,.rtf">
-        <label for="pdfFileInput" class="file-label">
-            <i class="fas fa-cloud-upload-alt"></i> Choose File (PDF/TXT/DOC)
-        </label>
-    </div>
-
-    <p class="file-info" id="fileInfo">
-        No file selected. Supports: PDF, TXT, DOC, DOCX, RTF
-    </p>
-
-    <button class="extract-btn" id="extractBtn" disabled>
-        <span>Extract & Organize Questions</span>
-        <div class="loading" id="loadingIndicator" style="display:none;"></div>
-    </button>
-
-</div>
-
-<!-- ================= PASTE TEXT TAB ================= -->
-<div class="upload-tab-content" id="pasteTextTab">
-
-    <textarea class="paste-textarea" id="pasteTextArea"
-        placeholder="Paste your text here with questions and solutions..."></textarea>
-
-    <div class="paste-example">
-        <h4><i class="fas fa-lightbulb"></i> Example Format:</h4>
-
-        <button class="copy-example-btn" id="copyExampleBtn">
-            <i class="fas fa-copy"></i> Copy Example
-        </button>
-
-        <div class="simple-example" id="exampleText">
-Q.1. What is the capital of France?
-(a) London (b) Berlin (c) Paris (d) Madrid
-Sol.1.(c) Paris is the capital of France.
-        </div>
-    </div>
-
-    <button class="extract-btn" id="extractFromPasteBtn">
-        <span>Extract from Pasted Text</span>
-        <div class="loading" id="pasteLoadingIndicator" style="display:none;"></div>
-    </button>
-
-</div>
-
-<!-- ================= SCRIPT ================= -->
-<script>
-/* ---------- COPY EXAMPLE BUTTON ---------- */
-document.getElementById("copyExampleBtn").addEventListener("click", function () {
-
-    const text = document.getElementById("exampleText").innerText;
-
-    navigator.clipboard.writeText(text).then(() => {
-        const btn = this;
-        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        btn.style.background = "#28a745";
-
-        setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-copy"></i> Copy Example';
-            btn.style.background = "";
-        }, 2000);
-
-    }).catch(() => {
-        alert("Copy failed! Please try again.");
-    });
-
-});
-
-/* ---------- FILE SELECT HANDLER ---------- */
-document.getElementById("pdfFileInput").addEventListener("change", function () {
-    const fileInfo = document.getElementById("fileInfo");
-    const extractBtn = document.getElementById("extractBtn");
-
-    if (this.files.length > 0) {
-        fileInfo.innerText = "Selected File: " + this.files[0].name;
-        extractBtn.disabled = false;
-    } else {
-        fileInfo.innerText = "No file selected.";
-        extractBtn.disabled = true;
-    }
-});
-</script>
+                    <!-- File Upload Tab -->
+                    <div class="upload-tab-content active" id="fileUploadTab">
+                        <div class="file-input-wrapper">
+                            <input type="file" id="pdfFileInput" class="file-input" accept=".pdf,.txt,.doc,.docx,.rtf">
+                            <label for="pdfFileInput" class="file-label">
+                                <i class="fas fa-cloud-upload-alt"></i> Choose File (PDF/TXT/DOC)
+                            </label>
+                        </div>
+                        
+                        <p class="file-info" id="fileInfo">No file selected. Supports: PDF, TXT, DOC, DOCX, RTF</p>
+                        
+                        <button class="extract-btn" id="extractBtn" disabled>
+                            <span>Extract & Organize Questions</span>
+                            <div class="loading" id="loadingIndicator" style="display: none;"></div>
+                        </button>
+                    </div>
+                    
+                    <!-- Paste Text Tab -->
+                    <div class="upload-tab-content" id="pasteTextTab">
+                        <textarea class="paste-textarea" id="pasteTextArea" placeholder="Paste your text here with questions and solutions..."></textarea>
+                        
+                        <div class="paste-example">
+                            <h4><i class="fas fa-lightbulb"></i> Example Format:</h4>
+                            <button class="copy-example-btn" id="copyExampleBtn">
+                                <i class="fas fa-copy"></i> Copy Ex. For AI
+                            </button>
+                            <p>Q.1. What is the capital of France?<br>
+                               (a) London (b) Berlin (c) Paris (d) Madrid<br>
+                               Sol.1.(c) Paris is the capital of France.</p>
+                        </div>
+                        
+                        <button class="extract-btn" id="extractFromPasteBtn">
+                            <span>Extract from Pasted Text</span>
+                            <div class="loading" id="pasteLoadingIndicator" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
 
                 <!-- How It Works Section -->
                 <section class="how-it-works-section" id="howItWorksSection">
@@ -2398,37 +2417,37 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
                         </button>
                     </div>
                     <div class="how-it-works-content">
-                        <h3>📱 How the App Works?</h3>
-                        <p>This app automatically extracts MCQ questions from PDF, text, or DOC files and creates interactive quizzes.</p>
+                        <h3>📱 ऐप कैसे काम करता है?</h3>
+                        <p>यह ऐप आपके PDF, टेक्स्ट या DOC फाइल से ऑटोमेटिक तरीके से MCQ प्रश्न निकालता है और इंटरैक्टिव क्विज बनाता है।</p>
                         
-                        <h3>📝 How to Use:</h3>
+                        <h3>📝 इस्तेमाल करने का तरीका:</h3>
                         <ul>
-                            <li><strong>Upload File:</strong> Upload any PDF, TXT, DOC file</li>
-                            <li><strong>Paste Text:</strong> Directly paste questions and answers in text</li>
-                            <li><strong>Auto Organize:</strong> App will automatically identify subjects and topics</li>
-                            <li><strong>Quiz Created:</strong> 25-question quiz will be automatically created</li>
+                            <li><strong>फाइल अपलोड करें:</strong> किसी भी PDF, TXT, DOC फाइल को अपलोड करें</li>
+                            <li><strong>टेक्स्ट पेस्ट करें:</strong> सीधे प्रश्न और उत्तर टेक्स्ट में पेस्ट करें</li>
+                            <li><strong>स्वतः संगठित:</strong> ऐप खुद ही विषय और टॉपिक पहचान लेगा</li>
+                            <li><strong>क्विज बन जाएगी:</strong> 25 प्रश्नों वाली क्विज ऑटोमेटिक बन जाएगी</li>
                         </ul>
                         
-                        <h3>📊 Question Format:</h3>
-                        <p>You can input questions in any format:</p>
+                        <h3>📊 प्रश्न फॉर्मेट:</h3>
+                        <p>किसी भी फॉर्मेट में प्रश्न डाल सकते हैं:</p>
                         <ul>
-                            <li>Q.1. Question text... (a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4</li>
-                            <li>Sol.1.(c) Explanation...</li>
-                            <li>Or Question 1: Question... A) Option1 B) Option2 C) Option3 D) Option4</li>
-                            <li>Answer: C. Explanation...</li>
+                            <li>Q.1. प्रश्न टेक्स्ट... (a) विकल्प 1 (b) विकल्प 2 (c) विकल्प 3 (d) विकल्प 4</li>
+                            <li>Sol.1.(c) उत्तर की व्याख्या...</li>
+                            <li>या Question 1: प्रश्न... A) विकल्प1 B) विकल्प2 C) विकल्प3 D) विकल्प4</li>
+                            <li>Answer: C. व्याख्या...</li>
                         </ul>
                         
-                        <h3>🎯 Features:</h3>
+                        <h3>🎯 विशेषताएं:</h3>
                         <ul>
-                            <li>All questions are permanently saved</li>
-                            <li>Performance tracking and analytics</li>
-                            <li>Dark/Light mode</li>
-                            <li>Responsive design - works on both mobile and desktop</li>
-                            <li>Supports both Hindi and English questions</li>
+                            <li>सभी प्रश्न स्थायी रूप से सेव होते हैं</li>
+                            <li>प्रदर्शन ट्रैकिंग और एनालिटिक्स</li>
+                            <li>डार्क/लाइट मोड</li>
+                            <li>रिस्पॉन्सिव डिज़ाइन - मोबाइल और डेस्कटॉप दोनों पर</li>
+                            <li>हिंदी और अंग्रेजी दोनों प्रश्न सपोर्टेड</li>
                         </ul>
                         
-                        <h3>🚀 How to Start?</h3>
-                        <p>Just click on "Upload File" or "Paste Text" tab above and get started!</p>
+                        <h3>🚀 शुरुआत कैसे करें?</h3>
+                        <p>बस ऊपर दिए गए "Upload File" या "Paste Text" टैब पर क्लिक करें और शुरू करें!</p>
                     </div>
                 </section>
 
@@ -2454,6 +2473,7 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
                     </button>
                 </div>
                 <h2 class="selection-title">Select Your Quiz</h2>
+                <!-- Subject filters removed as per requirement -->
                 <div class="quiz-cards-container" id="quizCardsContainer">
                     <!-- Quiz cards will be added here -->
                 </div>
@@ -2580,8 +2600,8 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
                 </div>
                 
                 <div class="result-actions">
-                    <button class="quiz-btn prev" id="reviewBtn" style="display: none;">
-                        <i class="fas fa-redo"></i> Practice Wrong Questions
+                    <button class="quiz-btn prev" id="practiceBtn">
+                        <i class="fas fa-redo"></i> Practice
                     </button>
                     <button class="quiz-btn next" id="backToQuizzesBtn">
                         <i class="fas fa-list"></i> Back to Quizzes
@@ -2596,23 +2616,10 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
         <div class="overlay-content">
             <h3 class="overlay-title" id="overlayTitle">About PDF2QUIZ</h3>
             <div class="overlay-text" id="overlayText">
-                <p><strong>PDF2QUIZ</strong> is an advanced tool that intelligently extracts Multiple Choice Questions from PDF files, text files, and pasted text to create interactive quizzes.</p>
-                
-                <p><strong>✨ Key Features:</strong></p>
-                <ul>
-                    <li>Smart extraction of questions and solutions from PDF, TXT, DOC, DOCX, RTF files</li>
-                    <li>Paste text directly to create quizzes</li>
-                    <li>Automatic subject and topic detection</li>
-                    <li>Organizes questions into 25-question quizzes</li>
-                    <li>Permanent storage of quizzes and performance tracking</li>
-                    <li>Beautiful question navigator with visual indicators</li>
-                    <li>Colorful, responsive design with dark/light mode</li>
-                    <li>Detailed analytics and performance tracking</li>
-                    <li>Review wrong answers with explanations</li>
-                    <li>Support for multiple question formats</li>
-                </ul>
-                
-                <p><strong>📝 How to use:</strong> Upload any file or paste text containing questions in formats like "Q.1. Question text..." and solutions like "Sol.1.(c) Solution text...". The system automatically organizes everything.</p>
+                This is an intelligent tool that extracts MCQs from PDFs, text files, and pasted text to create interactive quizzes.
+                Upload any PDF/TXT/DOC file or paste text with questions (Q.1, Q.2, etc.) and solutions (Sol.1, Sol.2, etc.).
+                The system automatically detects subjects, topics, and organizes questions into
+                25-question quizzes with detailed analytics and performance tracking.
             </div>
             <div class="overlay-buttons">
                 <button class="quiz-btn prev" id="closeOverlayBtn">
@@ -2762,6 +2769,106 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             navigationIndex: 0
         };
 
+        // Browser history management
+        const HistoryManager = {
+            init: function() {
+                // Add initial state
+                window.history.replaceState({ 
+                    section: 'home', 
+                    navIndex: 0 
+                }, '', '');
+                
+                // Handle browser back/forward
+                window.addEventListener('popstate', this.handlePopState.bind(this));
+            },
+            
+            pushState: function(section) {
+                state.navigationStack = state.navigationStack.slice(0, state.navigationIndex + 1);
+                state.navigationStack.push(section);
+                state.navigationIndex++;
+                
+                window.history.pushState({ 
+                    section: section, 
+                    navIndex: state.navigationIndex 
+                }, '', '');
+            },
+            
+            replaceState: function(section) {
+                window.history.replaceState({ 
+                    section: section, 
+                    navIndex: state.navigationIndex 
+                }, '', '');
+            },
+            
+            handlePopState: function(event) {
+                if (event.state) {
+                    const targetSection = event.state.section;
+                    const targetIndex = event.state.navIndex;
+                    
+                    // Update navigation stack
+                    state.navigationIndex = targetIndex;
+                    
+                    // Handle quiz section specially
+                    if (state.currentSection === 'quiz' && targetSection !== 'quiz') {
+                        // Show confirmation before leaving quiz
+                        this.showQuizExitConfirmation(targetSection);
+                        return;
+                    }
+                    
+                    // Navigate to the target section
+                    this.navigateToSection(targetSection);
+                }
+            },
+            
+            navigateToSection: function(section) {
+                state.currentSection = section;
+                
+                switch(section) {
+                    case 'home':
+                        showHome();
+                        break;
+                    case 'library':
+                        showLibrary();
+                        break;
+                    case 'quizSelection':
+                        showQuizSelection();
+                        break;
+                    case 'quiz':
+                        // Already handled by startQuiz
+                        break;
+                    case 'results':
+                        // Already handled by showResults
+                        break;
+                    case 'howItWorks':
+                        showHowItWorks();
+                        break;
+                }
+            },
+            
+            showQuizExitConfirmation: function(targetSection) {
+                showCustomConfirm('Leave Quiz', 'Are you sure you want to leave the quiz? Your progress will be saved.').then((confirmed) => {
+                    if (confirmed) {
+                        // Go back to the target section
+                        state.currentSection = targetSection;
+                        this.navigateToSection(targetSection);
+                    } else {
+                        // Stay in quiz - push quiz state again
+                        this.pushState('quiz');
+                    }
+                });
+            },
+            
+            canGoBack: function() {
+                return state.navigationIndex > 0;
+            },
+            
+            goBack: function() {
+                if (this.canGoBack()) {
+                    window.history.back();
+                }
+            }
+        };
+
         // DOM Elements
         const elements = {
             // Custom Confirm Modal Elements
@@ -2777,11 +2884,19 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             cancelNameBtn: document.getElementById('cancelNameBtn'),
             confirmNameBtn: document.getElementById('confirmNameBtn'),
             
+            // Rename Modal
+            renameModal: document.getElementById('renameModal'),
+            renameInput: document.getElementById('renameInput'),
+            cancelRenameBtn: document.getElementById('cancelRenameBtn'),
+            confirmRenameBtn: document.getElementById('confirmRenameBtn'),
+            
             // Header Elements
             homeLogo: document.getElementById('homeLogo'),
             homeBtn: document.getElementById('homeBtn'),
             drawerToggle: document.getElementById('drawerToggle'),
             sidebar: document.getElementById('sidebar'),
+            logoVideo: document.getElementById('logoVideo'),
+            uploadVideo: document.getElementById('uploadVideo'),
             
             // Upload Elements
             pdfFileInput: document.getElementById('pdfFileInput'),
@@ -2811,8 +2926,10 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             quizSelectionSection: document.getElementById('quizSelectionSection'),
             quizSection: document.getElementById('quizSection'),
             resultsSection: document.getElementById('resultsSection'),
+            quizBgDoodle: document.getElementById('quizBgDoodle'),
             
             // Quiz Selection Elements
+            subjectFilters: document.getElementById('subjectFilters'),
             quizCardsContainer: document.getElementById('quizCardsContainer'),
             backToLibraryBtn: document.getElementById('backToLibraryBtn'),
             
@@ -2850,7 +2967,7 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             accuracyRateElem: document.getElementById('accuracyRate'),
             resultsIcon: document.getElementById('resultsIcon'),
             ratingText: document.getElementById('ratingText'),
-            reviewBtn: document.getElementById('reviewBtn'),
+            practiceBtn: document.getElementById('practiceBtn'),
             backToQuizzesBtn: document.getElementById('backToQuizzesBtn'),
             
             // Sidebar Buttons
@@ -2862,14 +2979,7 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             overlay: document.getElementById('overlay'),
             overlayTitle: document.getElementById('overlayTitle'),
             overlayText: document.getElementById('overlayText'),
-            closeOverlayBtn: document.getElementById('closeOverlayBtn'),
-            
-            // Video Elements
-            logoVideo: document.getElementById('logoVideo'),
-            uploadVideo: document.getElementById('uploadVideo'),
-            
-            // New overlay backdrop
-            overlayBackdrop: document.getElementById('overlayBackdrop')
+            closeOverlayBtn: document.getElementById('closeOverlayBtn')
         };
 
         // Custom Confirm Function
@@ -2920,6 +3030,7 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
         // Navigation Functions
         function navigateTo(section) {
             state.currentSection = section;
+            HistoryManager.pushState(section);
             
             switch(section) {
                 case 'home':
@@ -2943,21 +3054,6 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             }
         }
 
-        // FIXED: Drawer toggle with smooth animation
-        function toggleDrawer() {
-            const isOpening = !elements.sidebar.classList.contains('open');
-            
-            if (isOpening) {
-                elements.sidebar.classList.add('open');
-                elements.overlayBackdrop.classList.add('show');
-                elements.drawerToggle.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                elements.sidebar.classList.remove('open');
-                elements.overlayBackdrop.classList.remove('show');
-                elements.drawerToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        }
-
         // Event Listeners
         elements.homeLogo.addEventListener('click', () => navigateTo('home'));
         elements.homeBtn.addEventListener('click', () => navigateTo('home'));
@@ -2972,9 +3068,9 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
         
         // How it works button
         elements.howItWorksBtn.addEventListener('click', () => navigateTo('howItWorks'));
-        elements.backFromHowItWorksBtn.addEventListener('click', () => navigateTo('home'));
+        elements.backFromHowItWorksBtn.addEventListener('click', () => HistoryManager.goBack());
         
-        // Copy Example button
+        // Copy Eg. for AI button
         elements.copyExampleBtn.addEventListener('click', copyExampleText);
         
         // Tab listeners
@@ -2993,7 +3089,7 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
         elements.prevBtn.addEventListener('click', showPreviousQuestion);
         elements.nextBtn.addEventListener('click', showNextQuestion);
         elements.submitQuizBtn.addEventListener('click', submitQuiz);
-        elements.reviewBtn.addEventListener('click', reviewAllWrongQuestions);
+        elements.practiceBtn.addEventListener('click', practiceQuestions);
         elements.backToQuizzesBtn.addEventListener('click', () => navigateTo('quizSelection'));
         elements.backToLibraryBtn.addEventListener('click', () => navigateTo('library'));
         elements.questionNavigatorBtnMobile.addEventListener('click', toggleQuizSidebar);
@@ -3004,13 +3100,6 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
         elements.shareBtn.addEventListener('click', showShareOverlay);
         elements.aboutBtn.addEventListener('click', showAboutOverlay);
         elements.closeOverlayBtn.addEventListener('click', closeOverlay);
-        
-        // Close drawer when clicking on overlay backdrop
-        elements.overlayBackdrop.addEventListener('click', () => {
-            if (elements.sidebar.classList.contains('open')) {
-                toggleDrawer();
-            }
-        });
 
         // Initialize
         init();
@@ -3028,72 +3117,89 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
             showHome();
             loadLibrary();
             
+            // Initialize browser history management
+            HistoryManager.init();
+            
             // Initialize videos
             initializeVideos();
-            
-            // Handle video hover/click events
-            setupVideoControls();
         }
 
         function initializeVideos() {
-            // Videos will be played once on page load, then paused
-            const videos = [elements.logoVideo, elements.uploadVideo];
-            
-            videos.forEach(video => {
-                if (video) {
-                    // Play once on load
-                    video.play().then(() => {
-                        // After playing once, pause it
-                        setTimeout(() => {
-                            video.pause();
-                            video.currentTime = 0;
-                        }, 1000);
-                    }).catch(e => {
-                        console.log('Video autoplay prevented:', e);
-                    });
-                    
-                    // Ensure video aspect ratio is maintained
-                    video.style.objectFit = 'cover';
-                }
-            });
-        }
-
-        function setupVideoControls() {
-            // Logo video - play on hover/click
-            if (elements.logoVideo) {
-                elements.homeLogo.addEventListener('mouseenter', () => {
-                    elements.logoVideo.play().catch(e => console.log('Logo video play prevented:', e));
-                });
-                
-                elements.homeLogo.addEventListener('mouseleave', () => {
-                    if (!elements.logoVideo.paused) {
+            // Logo video - play once then pause
+            elements.logoVideo.addEventListener('loadeddata', () => {
+                elements.logoVideo.play().then(() => {
+                    // Play for 2 seconds then pause
+                    setTimeout(() => {
                         elements.logoVideo.pause();
                         elements.logoVideo.currentTime = 0;
-                    }
+                    }, 2000);
+                }).catch(e => {
+                    console.log('Logo video autoplay prevented:', e);
                 });
-                
-                elements.homeLogo.addEventListener('click', () => {
-                    elements.logoVideo.play().catch(e => console.log('Logo video play prevented:', e));
-                });
-            }
-            
-            // Upload video - play on hover/click
-            if (elements.uploadVideo && elements.uploadImageContainer) {
-                elements.uploadImageContainer.addEventListener('mouseenter', () => {
-                    elements.uploadVideo.play().catch(e => console.log('Upload video play prevented:', e));
-                });
-                
-                elements.uploadImageContainer.addEventListener('mouseleave', () => {
-                    if (!elements.uploadVideo.paused) {
+            });
+
+            // Upload video - play once then pause
+            elements.uploadVideo.addEventListener('loadeddata', () => {
+                elements.uploadVideo.play().then(() => {
+                    // Play for 2 seconds then pause
+                    setTimeout(() => {
                         elements.uploadVideo.pause();
                         elements.uploadVideo.currentTime = 0;
-                    }
+                    }, 2000);
+                }).catch(e => {
+                    console.log('Upload video autoplay prevented:', e);
                 });
-                
-                elements.uploadImageContainer.addEventListener('click', () => {
-                    elements.uploadVideo.play().catch(e => console.log('Upload video play prevented:', e));
-                });
-            }
+            });
+
+            // Hover/Touch event for logo video
+            elements.logoVideo.parentElement.addEventListener('mouseenter', () => {
+                elements.logoVideo.play().catch(e => console.log('Logo video play on hover prevented:', e));
+            });
+            
+            elements.logoVideo.parentElement.addEventListener('mouseleave', () => {
+                elements.logoVideo.pause();
+                elements.logoVideo.currentTime = 0;
+            });
+
+            // Touch events for mobile
+            elements.logoVideo.parentElement.addEventListener('touchstart', () => {
+                elements.logoVideo.play().catch(e => console.log('Logo video play on touch prevented:', e));
+            });
+
+            elements.logoVideo.parentElement.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    elements.logoVideo.pause();
+                    elements.logoVideo.currentTime = 0;
+                }, 2000);
+            });
+
+            // Hover/Touch event for upload video
+            elements.uploadVideo.parentElement.addEventListener('mouseenter', () => {
+                elements.uploadVideo.play().catch(e => console.log('Upload video play on hover prevented:', e));
+            });
+            
+            elements.uploadVideo.parentElement.addEventListener('mouseleave', () => {
+                elements.uploadVideo.pause();
+                elements.uploadVideo.currentTime = 0;
+            });
+
+            // Touch events for mobile
+            elements.uploadVideo.parentElement.addEventListener('touchstart', () => {
+                elements.uploadVideo.play().catch(e => console.log('Upload video play on touch prevented:', e));
+            });
+
+            elements.uploadVideo.parentElement.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    elements.uploadVideo.pause();
+                    elements.uploadVideo.currentTime = 0;
+                }, 2000);
+            });
+
+            // Set videos to active
+            setTimeout(() => {
+                elements.logoVideo.classList.add('active');
+                elements.uploadVideo.classList.add('active');
+            }, 100);
         }
 
         function showHowItWorks() {
@@ -3138,16 +3244,22 @@ document.getElementById("pdfFileInput").addEventListener("change", function () {
 
         function copyExampleText() {
             const exampleText = `Role: SSC_RRB_MCQ_ENGINE
+
 Mode = WAIT
+
 Step-1 (एक-एक करके, आसान हिंदी में पूछो):
 "आप किस विषय पर प्रश्न चाहते हैं?"
 (wait)
+
 "कुल कितने प्रश्न चाहिए?"
 (wait)
+
 Language = HINDI (DEFAULT)
 Change only if user clearly says.
+
 Step-2:
 SSC(CGL,CHSL,MTS etc.), RRB(NTPC, Group-D, ALP etc.) level के exam-oriented MCQs बनाओ.
+
 Rules (STRICT):
 - PYQ + high-frequency concepts +imp questions
 - all PYQ questions ke saath unke exam and shift likhi ho.
@@ -3160,11 +3272,13 @@ FORMAT (STRICT – SINGLE LINE):
 Q.1. Question text... 
 (a) Option 1 (b) Option 2 (c) Option 3 (d) Option 4
 Sol.1. (correct option) detailed explanation...
-Repeat till required questions.
-                            `;
+Repeat till required questions.`;
             
             navigator.clipboard.writeText(exampleText).then(() => {
-                showCustomAlert('Copied!', 'Example text has been copied to clipboard!');
+                showCustomAlert('Copied!', 'Example text has been copied to clipboard! You can now paste it in AI tools.');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                showCustomAlert('Error', 'Failed to copy text. Please try again.');
             });
         }
 
@@ -3217,10 +3331,22 @@ Repeat till required questions.
                 const totalQuizzes = pdf.quizzes.length;
                 const totalQuestions = pdf.quizzes.reduce((sum, quiz) => sum + quiz.questions.length, 0);
                 
-                // Calculate completion rate based on best scores
-                const attemptedQuizzes = pdf.quizzes.filter(q => q.bestScore && q.bestScore > 0).length;
-                const averageScore = totalQuizzes > 0 ? 
-                    Math.round(pdf.quizzes.reduce((sum, q) => sum + (q.bestScore || 0), 0) / totalQuizzes) : 0;
+                // Calculate average performance across all quizzes
+                let totalAttempts = 0;
+                let totalScores = 0;
+                let quizCountWithScores = 0;
+                
+                pdf.quizzes.forEach(quiz => {
+                    if (quiz.attempts && quiz.attempts > 0) {
+                        totalAttempts += quiz.attempts;
+                        if (quiz.bestScore) {
+                            totalScores += quiz.bestScore;
+                            quizCountWithScores++;
+                        }
+                    }
+                });
+                
+                const avgScore = quizCountWithScores > 0 ? Math.round(totalScores / quizCountWithScores) : 0;
                 
                 folder.innerHTML = `
                     <div class="folder-header">
@@ -3250,7 +3376,7 @@ Repeat till required questions.
                             <span class="meta-label">Questions</span>
                         </div>
                         <div class="meta-item">
-                            <span class="meta-value">${averageScore}%</span>
+                            <span class="meta-value">${avgScore}%</span>
                             <span class="meta-label">Avg Score</span>
                         </div>
                     </div>
@@ -3280,14 +3406,13 @@ Repeat till required questions.
                 
                 elements.libraryContainer.appendChild(folder);
                 
-                // Create performance chart for entire folder
+                // Create performance chart for the entire folder
                 setTimeout(() => {
                     createFolderPerformanceChart(pdf);
                 }, 100);
             });
         }
 
-        // FIXED: Create a single chart for entire folder showing completion of each quiz
         function createFolderPerformanceChart(pdf) {
             const canvasId = `chart-${pdf.id}`;
             const canvas = document.getElementById(canvasId);
@@ -3295,42 +3420,38 @@ Repeat till required questions.
             
             const ctx = canvas.getContext('2d');
             
-            // Prepare data for horizontal bar chart - show best scores for each quiz
-            const quizNames = pdf.quizzes.map((q, i) => `Q${i + 1}`);
-            const quizScores = pdf.quizzes.map(q => q.bestScore || 0);
-            const quizAttempts = pdf.quizzes.map(q => q.attempts || 0);
-            
-            // Color based on score
-            const quizColors = quizScores.map(score => {
-                if (score >= 80) return '#06D6A0';
-                if (score >= 60) return '#FFD166';
-                if (score >= 40) return '#FF9A3D';
-                if (score > 0) return '#EF476F';
-                return '#E2E8F0';
-            });
+            // Prepare data for chart - Overall folder performance over time
+            // We'll show completion rate of quizzes in this folder
+            const completedQuizzes = pdf.quizzes.filter(q => q.attempts && q.attempts > 0).length;
+            const totalQuizzes = pdf.quizzes.length;
+            const completionRate = totalQuizzes > 0 ? Math.round((completedQuizzes / totalQuizzes) * 100) : 0;
             
             // Destroy existing chart if it exists
             if (state.performanceCharts[pdf.id]) {
                 state.performanceCharts[pdf.id].destroy();
             }
             
-            // Create new horizontal bar chart
+            // Create new chart showing overall folder performance
             state.performanceCharts[pdf.id] = new Chart(ctx, {
-                type: 'bar',
+                type: 'doughnut',
                 data: {
-                    labels: quizNames,
+                    labels: ['Completed', 'Not Attempted'],
                     datasets: [{
-                        label: 'Best Score %',
-                        data: quizScores,
-                        backgroundColor: quizColors,
-                        borderColor: quizColors,
+                        data: [completedQuizzes, totalQuizzes - completedQuizzes],
+                        backgroundColor: [
+                            'rgba(6, 214, 160, 0.8)',
+                            'rgba(141, 153, 174, 0.3)'
+                        ],
+                        borderColor: [
+                            'rgba(6, 214, 160, 1)',
+                            'rgba(141, 153, 174, 0.5)'
+                        ],
                         borderWidth: 1,
                         borderRadius: 4,
                         borderSkipped: false
                     }]
                 },
                 options: {
-                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
@@ -3340,41 +3461,16 @@ Repeat till required questions.
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    const index = context.dataIndex;
-                                    const score = context.parsed.x;
-                                    const attempts = quizAttempts[index];
-                                    return `Best: ${score}% (${attempts} attempt${attempts !== 1 ? 's' : ''})`;
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
                                 }
                             }
                         }
                     },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                callback: function(value) {
-                                    return value + '%';
-                                },
-                                font: {
-                                    size: 8
-                                }
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        y: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    size: 8
-                                }
-                            }
-                        }
-                    }
+                    cutout: '60%'
                 }
             });
         }
@@ -3524,7 +3620,7 @@ Repeat till required questions.
                 // Parse and organize questions
                 await parseAndOrganizeQuestionsEnhanced(fullText);
                 
-                // Create quizzes (all quizzes will have 25 questions except possibly the last one)
+                // Create quizzes
                 const quizzes = createQuizzesFromQuestions(state.extractedData.allQuestions);
                 
                 // Create PDF data object
@@ -3575,7 +3671,7 @@ Repeat till required questions.
                 // Parse and organize questions
                 await parseAndOrganizeQuestionsEnhanced(text);
                 
-                // Create quizzes (all quizzes will have 25 questions except possibly the last one)
+                // Create quizzes
                 const quizzes = createQuizzesFromQuestions(state.extractedData.allQuestions);
                 
                 // Create PDF data object
@@ -3613,7 +3709,6 @@ Repeat till required questions.
             }
         }
 
-        // FIXED: Enhanced option extraction with Roman numeral support
         async function parseAndOrganizeQuestionsEnhanced(text) {
             state.extractedData = {
                 subjects: [],
@@ -3625,31 +3720,39 @@ Repeat till required questions.
             
             // Enhanced regex patterns for all formats including Roman numerals
             const questionPatterns = [
-                // Standard formats with Roman numerals
-                /Q\.\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(.*?)(?=Q\.\s*\d+[\.:)\-\—]|Sol\.\s*\d+[\.:)\-\—]|$)/gis,
-                /Q\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(.*?)(?=Q\s*\d+[\.:)\-\—]|Sol\s*\d+[\.:)\-\—]|$)/gis,
-                /Question\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(.*?)(?=Question\s*\d+[\.:)\-\—]|Solution\s*\d+[\.:)\-\—]|$)/gis,
-                /Que\.\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(.*?)(?=Que\.\s*\d+[\.:)\-\—]|Sol\.\s*\d+[\.:)\-\—]|$)/gis,
-                
-                // Roman numeral formats specifically
-                /Q\.\s*([IVXLCDM]+)\.\s*(.*?)(?=Q\.\s*[IVXLCDM]+\.|Sol\.\s*[IVXLCDM]+\.|$)/gis,
-                /Question\s*([IVXLCDM]+)\.\s*(.*?)(?=Question\s*[IVXLCDM]+\.|Solution\s*[IVXLCDM]+\.|$)/gis,
+                // Standard formats
+                /Q\.\s*(\d+)[\.:)\-\—]\s*(.*?)(?=Q\.\s*\d+[\.:)\-\—]|Sol\.\s*\d+[\.:)\-\—]|$)/gis,
+                /Q\s*(\d+)[\.:)\-\—]\s*(.*?)(?=Q\s*\d+[\.:)\-\—]|Sol\s*\d+[\.:)\-\—]|$)/gis,
+                /Question\s*(\d+)[\.:)\-\—]\s*(.*?)(?=Question\s*\d+[\.:)\-\—]|Solution\s*\d+[\.:)\-\—]|$)/gis,
+                /Que\.\s*(\d+)[\.:)\-\—]\s*(.*?)(?=Que\.\s*\d+[\.:)\-\—]|Sol\.\s*\d+[\.:)\-\—]|$)/gis,
+                /Question\s*No\.\s*(\d+)[\.:)\-\—]\s*(.*?)(?=Question\s*No\.\s*\d+[\.:)\-\—]|Solution\s*No\.\s*\d+[\.:)\-\—]|$)/gis,
+                /QUESTION:\s*(\d+)[\.:)\-\—]\s*(.*?)(?=QUESTION:\s*\d+[\.:)\-\—]|SOLUTION:\s*\d+[\.:)\-\—]|$)/gis,
+                /QUES\s*(\d+)[\.:)\-\—]\s*(.*?)(?=QUES\s*\d+[\.:)\-\—]|SOL\s*\d+[\.:)\-\—]|$)/gis,
                 
                 // Hindi formats
                 /प्रश्न\s*(\d+)[\.:)\-\—]\s*(.*?)(?=प्रश्न\s*\d+[\.:)\-\—]|उत्तर\s*\d+[\.:)\-\—]|$)/gis,
-                
-                // Simple numbered formats
-                /(\d+)\.\s*(.*?)(?=\d+\.\s*|Sol\.\s*\d+[\.:)\-\—]|$)/gis
+                /प्र\.\s*(\d+)[\.:)\-\—]\s*(.*?)(?=प्र\.\s*\d+[\.:)\-\—]|उ\.\s*\d+[\.:)\-\—]|$)/gis
             ];
             
             // Solution patterns
             const solutionPatterns = [
-                /Sol\.\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④iIvVxXlLcCdDmM])\)?)?\s*(.*?)(?=Sol\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
-                /Solution\.\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④iIvVxXlLcCdDmM])\)?)?\s*(.*?)(?=Solution\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
-                /Ans\.?\s*(\d+|[IVXLCDM]+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④iIvVxXlLcCdDmM])\)?)?\s*(.*?)(?=Ans\.?\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
-                
-                // Roman numeral solution patterns
-                /Sol\.\s*([IVXLCDM]+)\.\s*(?:\(?([a-dA-D1-4])\)?)?\s*(.*?)(?=Sol\.\s*[IVXLCDM]+\.|Q\.\s*[IVXLCDM]+\.|$)/gis
+                /Sol\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=Sol\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
+                /Solution\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=Solution\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
+                /SOL\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=SOL\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
+                /Ans\.?\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=Ans\.?\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
+                /Answer:\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=Answer:\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis,
+                /Explanation\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=Explanation\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$)/gis
+            ];
+            
+            // Answer patterns within solution text
+            const answerPatterns = [
+                /Ans:\s*([a-dA-D1-4①②③④ivIV]+)/gi,
+                /Answer\s*-\s*([a-dA-D1-4①②③④ivIV]+)/gi,
+                /Correct\s*Answer:\s*([a-dA-D1-4①②③④ivIV]+)/gi,
+                /Correct\s*option\s*is\s*([a-dA-D1-4①②③④ivIV]+)/gi,
+                /Option\s*\(([a-dA-D1-4①②③④ivIV]+)\)\s*is\s*correct/gi,
+                /[\(\[{]?([a-dA-D1-4①②③④ivIV]+)[\)\]}]?\s*is.*?correct/gi,
+                /Key:\s*([a-dA-D1-4①②③④ivIV]+)/gi
             ];
             
             // Extract all questions
@@ -3660,24 +3763,16 @@ Repeat till required questions.
                 pattern.lastIndex = 0;
                 let match;
                 while ((match = pattern.exec(text)) !== null) {
-                    let questionNum = match[1].trim();
+                    const questionNum = parseInt(match[1].replace(/[^0-9]/g, ''));
                     let questionText = match[2].trim();
                     
-                    // Convert Roman numerals to numbers for sorting
-                    let questionNumNumeric;
-                    if (/^[IVXLCDM]+$/i.test(questionNum)) {
-                        questionNumNumeric = romanToInt(questionNum);
-                    } else {
-                        questionNumNumeric = parseInt(questionNum.replace(/[^0-9]/g, ''));
-                    }
-                    
                     // Skip if we already have this question
-                    if (questionsMap.has(questionNumNumeric)) continue;
+                    if (questionsMap.has(questionNum)) continue;
                     
                     // Clean up question text
                     questionText = questionText.replace(/\s+/g, ' ').replace(/\n/g, ' ');
                     
-                    // Extract options using enhanced patterns that handle Roman numerals
+                    // Extract options using multiple patterns including Roman numerals
                     const options = extractOptionsFromTextEnhanced(questionText);
                     
                     // Remove options from question text for cleaner display
@@ -3685,9 +3780,9 @@ Repeat till required questions.
                     if (options.length > 0) {
                         // Remove common option patterns from question text
                         cleanQuestionText = cleanQuestionText
-                            .replace(/\([a-dA-D1-4iIvVxXlLcCdDmM]+\)\s*[^\.]*?(?=\([a-dA-D1-4iIvVxXlLcCdDmM]+\)|$)/g, '')
-                            .replace(/[a-dA-D1-4iIvVxXlLcCdDmM]+\.\s*[^\.]*?(?=[a-dA-D1-4iIvVxXlLcCdDmM]+\.|$)/g, '')
-                            .replace(/[a-dA-D1-4iIvVxXlLcCdDmM]+\s*[\)\-]\s*[^\.]*?(?=[a-dA-D1-4iIvVxXlLcCdDmM]+\s*[\)\-]|$)/g, '')
+                            .replace(/\([a-dA-D1-4ivIV]\)\s*[^\.]*?(?=\([a-dA-D1-4ivIV]\)|$)/g, '')
+                            .replace(/[a-dA-D1-4ivIV]\.\s*[^\.]*?(?=[a-dA-D1-4ivIV]\.|$)/g, '')
+                            .replace(/[a-dA-D1-4ivIV]\s*[\)\-]\s*[^\.]*?(?=[a-dA-D1-4ivIV]\s*[\)\-]|$)/g, '')
                             .trim();
                     }
                     
@@ -3696,16 +3791,15 @@ Repeat till required questions.
                         cleanQuestionText = questionText.substring(0, 200) + (questionText.length > 200 ? '...' : '');
                     }
                     
-                    questionsMap.set(questionNumNumeric, {
-                        id: questionNumNumeric,
+                    questionsMap.set(questionNum, {
+                        id: questionNum,
                         text: cleanQuestionText,
                         originalText: questionText,
                         options: options,
                         correctAnswer: null,
                         solution: null,
                         topic: 'General',
-                        subject: 'General',
-                        originalQuestionNum: questionNum
+                        subject: 'General'
                     });
                 }
             }
@@ -3715,36 +3809,33 @@ Repeat till required questions.
                 pattern.lastIndex = 0;
                 let match;
                 while ((match = pattern.exec(text)) !== null) {
-                    let questionNum = match[1].trim();
+                    const questionNum = parseInt(match[1].replace(/[^0-9]/g, ''));
                     let correctAnswer = match[2] ? match[2].trim().toLowerCase() : null;
                     const solutionText = match[3] ? match[3].trim() : '';
                     
-                    // Convert Roman numerals to numbers
-                    let questionNumNumeric;
-                    if (/^[IVXLCDM]+$/i.test(questionNum)) {
-                        questionNumNumeric = romanToInt(questionNum);
-                    } else {
-                        questionNumNumeric = parseInt(questionNum.replace(/[^0-9]/g, ''));
-                    }
-                    
-                    if (questionsMap.has(questionNumNumeric)) {
-                        const question = questionsMap.get(questionNumNumeric);
+                    if (questionsMap.has(questionNum)) {
+                        const question = questionsMap.get(questionNum);
                         question.solution = solutionText;
+                        question.solutionNumber = questionNum;
                         
                         // If answer is in solution text, extract it
                         if (!correctAnswer && solutionText) {
-                            // Look for answer in solution text
-                            const answerMatch = solutionText.match(/\(([a-dA-D1-4])\)|([a-dA-D1-4])\.|Answer[:\s]+([a-dA-D1-4])/i);
-                            if (answerMatch) {
-                                correctAnswer = (answerMatch[1] || answerMatch[2] || answerMatch[3]).toLowerCase();
+                            for (const answerPattern of answerPatterns) {
+                                answerPattern.lastIndex = 0;
+                                const answerMatch = answerPattern.exec(solutionText);
+                                if (answerMatch) {
+                                    correctAnswer = answerMatch[1].toLowerCase();
+                                    break;
+                                }
                             }
                         }
                         
-                        // Normalize answer format
+                        // Normalize answer format including Roman numerals
                         if (correctAnswer) {
-                            // Convert numbers, Roman numerals, and special characters to letters
+                            // Convert numbers, Roman numerals and special characters to letters
                             const answerMap = {
                                 '1': 'a', '2': 'b', '3': 'c', '4': 'd',
+                                '①': 'a', '②': 'b', '③': 'c', '④': 'd',
                                 'i': 'a', 'ii': 'b', 'iii': 'c', 'iv': 'd',
                                 'I': 'a', 'II': 'b', 'III': 'c', 'IV': 'd'
                             };
@@ -3758,7 +3849,7 @@ Repeat till required questions.
             
             // Convert map to array and sort
             state.extractedData.allQuestions = Array.from(questionsMap.values())
-                .filter(q => q.text.length > 3 && q.options.length >= 2)
+                .filter(q => q.text.length > 3) // Filter out very short questions
                 .sort((a, b) => a.id - b.id);
             
             // Auto-detect subjects based on keywords
@@ -3804,131 +3895,103 @@ Repeat till required questions.
             state.extractedData.subjects = Object.keys(state.extractedData.subjectQuestions);
         }
 
-        // Helper function to convert Roman numerals to integers
-        function romanToInt(roman) {
-            const romanMap = {
-                'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000,
-                'i': 1, 'v': 5, 'x': 10, 'l': 50, 'c': 100, 'd': 500, 'm': 1000
-            };
-            
-            let result = 0;
-            roman = roman.toUpperCase();
-            
-            for (let i = 0; i < roman.length; i++) {
-                const current = romanMap[roman[i]];
-                const next = romanMap[roman[i + 1]];
-                
-                if (next && current < next) {
-                    result -= current;
-                } else {
-                    result += current;
-                }
-            }
-            
-            return result;
-        }
-
-        // FIXED: Enhanced option extraction with proper Roman numeral handling
         function extractOptionsFromTextEnhanced(text) {
             const options = [];
             
-            // Enhanced patterns that handle Roman numerals properly
+            // Enhanced option patterns including Roman numerals
             const optionPatterns = [
-                // Roman numerals in parentheses (i), (ii), (iii), (iv)
-                /\(([iIvV]+)\)\s*(.*?)(?=\([iIvV]+\)|$)/gi,
+                // Standard patterns with Roman numerals
+                /\(([a-dA-DivIV]+)\)\s*(.*?)(?=\([a-dA-DivIV]+\)|$)/g,
+                /([a-dA-DivIV]+)\.\s*(.*?)(?=[a-dA-DivIV]+\.|$)/g,
+                /([a-dA-DivIV]+)\s*[\)\-]\s*(.*?)(?=[a-dA-DivIV]+\s*[\)\-]|$)/g,
                 
-                // Roman numerals with dot i., ii., iii., iv.
-                /([iIvV]+)\.\s*(.*?)(?=[iIvV]+\.|$)/gi,
-                
-                // Standard patterns with letters
-                /\(([a-dA-D])\)\s*(.*?)(?=\([a-dA-D]\)|$)/g,
-                /([a-dA-D])\.\s*(.*?)(?=[a-dA-D]\.|$)/g,
-                
-                // Numbers in parentheses
+                // Number patterns
                 /\((\d)\)\s*(.*?)(?=\(\d\)|$)/g,
-                /(\d)\.\s*(.*?)(?=\d\.|$)/g
+                /(\d)\.\s*(.*?)(?=\d\.|$)/g,
+                /(\d)\)\s*(.*?)(?=\d\)|$)/g,
+                
+                // Special characters
+                /\(([①②③④])\)\s*(.*?)(?=\([①②③④]\)|$)/g,
+                /([①②③④])\.\s*(.*?)(?=[①②③④]\.|$)/g,
+                
+                // Uppercase with colon
+                /([A-D]):\s*(.*?)(?=[A-D]:|$)/g,
+                
+                // With brackets
+                /\[([a-dA-D])\]\s*(.*?)(?=\[[a-dA-D]\]|$)/g,
+                
+                // Hindi patterns
+                /\(([क-घ])\)\s*(.*?)(?=\([क-घ]\)|$)/g,
+                /([क-घ])\.\s*(.*?)(?=[क-घ]\.|$)/g
             ];
             
-            // Try each pattern
             for (const pattern of optionPatterns) {
                 pattern.lastIndex = 0;
                 let match;
-                const matches = [];
+                const foundOptions = [];
                 
                 while ((match = pattern.exec(text)) !== null) {
-                    matches.push({
-                        id: match[1].toLowerCase(),
-                        text: match[2].trim(),
-                        start: match.index
-                    });
+                    let optionId = match[1].toLowerCase();
+                    const optionText = match[2].trim();
+                    
+                    // Map different option formats to a-d including Roman numerals
+                    const optionMap = {
+                        '1': 'a', '2': 'b', '3': 'c', '4': 'd',
+                        '①': 'a', '②': 'b', '③': 'c', '④': 'd',
+                        'क': 'a', 'ख': 'b', 'ग': 'c', 'घ': 'd',
+                        'i': 'a', 'ii': 'b', 'iii': 'c', 'iv': 'd',
+                        'I': 'a', 'II': 'b', 'III': 'c', 'IV': 'd'
+                    };
+                    
+                    optionId = optionMap[optionId] || optionId;
+                    
+                    // Only add if we have a valid option ID (a-d)
+                    if (['a', 'b', 'c', 'd'].includes(optionId)) {
+                        foundOptions.push({
+                            id: optionId,
+                            text: optionText,
+                            originalId: match[1]
+                        });
+                    }
                 }
                 
-                // Sort by position in text
-                matches.sort((a, b) => a.start - b.start);
+                // Sort found options by id and add to main options array
+                foundOptions.sort((a, b) => a.id.localeCompare(b.id));
                 
-                // If we found at least 2 options with this pattern, use it
-                if (matches.length >= 2) {
-                    matches.forEach((matchObj, index) => {
-                        let optionId = matchObj.id;
-                        const optionText = matchObj.text;
-                        
-                        // Map different option formats to a-d
-                        const optionMap = {
-                            '1': 'a', '2': 'b', '3': 'c', '4': 'd',
-                            'i': 'a', 'ii': 'b', 'iii': 'c', 'iv': 'd',
-                            'I': 'a', 'II': 'b', 'III': 'c', 'IV': 'd',
-                            'v': 'e', 'V': 'e'
-                        };
-                        
-                        optionId = optionMap[optionId] || optionId;
-                        
-                        // Only add if we have a valid option ID (a-e)
-                        if (['a', 'b', 'c', 'd', 'e'].includes(optionId)) {
-                            // Check if we already have this option
-                            if (!options.some(opt => opt.id === optionId)) {
-                                options.push({
-                                    id: optionId,
-                                    text: optionText,
-                                    originalId: matchObj.id
-                                });
-                            }
-                        }
-                    });
-                    
-                    // If we found options, stop looking
-                    if (options.length > 0) {
-                        break;
-                    }
+                // Check if we have at least 2 options
+                if (foundOptions.length >= 2) {
+                    options.push(...foundOptions);
+                    break; // Use the first pattern that gives us valid options
                 }
             }
             
-            // Special handling for the example format: (i) ट्रेंच (ii) मिड-ओशन रीज़ (iii) कंटिनेंटल शील्ड (iv) रिफ्ट वैली
+            // If still no options found, try to extract from text with Roman numerals
             if (options.length === 0) {
-                // Try to split by common Roman numeral patterns
-                const romanPattern = /\(([iIvV]+)\)\s*([^\(\)]+?)(?=\([iIvV]+\)|$)/gi;
-                let romanMatch;
-                const romanOptions = [];
+                const romanPattern = /(\(?[ivIV]+\)?)\s*([^\(\)]+?)(?=\(?[ivIV]+\)?|$)/g;
+                romanPattern.lastIndex = 0;
+                let match;
                 
-                while ((romanMatch = romanPattern.exec(text)) !== null) {
-                    romanOptions.push({
-                        id: romanMatch[1].toLowerCase(),
-                        text: romanMatch[2].trim()
-                    });
-                }
-                
-                if (romanOptions.length >= 2) {
-                    // Sort Roman numerals properly (i, ii, iii, iv, v)
-                    const romanOrder = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'];
-                    romanOptions.sort((a, b) => romanOrder.indexOf(a.id) - romanOrder.indexOf(b.id));
+                while ((match = romanPattern.exec(text)) !== null) {
+                    let optionId = match[1].toLowerCase().replace(/[\(\)]/g, '');
+                    let optionText = match[2].trim();
                     
-                    romanOptions.forEach((opt, index) => {
-                        const optionId = String.fromCharCode(97 + index); // a, b, c, d
-                        options.push({
-                            id: optionId,
-                            text: opt.text,
-                            originalId: opt.id
-                        });
-                    });
+                    // Map Roman numerals to letters
+                    const romanMap = {
+                        'i': 'a', 'ii': 'b', 'iii': 'c', 'iv': 'd',
+                        'I': 'a', 'II': 'b', 'III': 'c', 'IV': 'd'
+                    };
+                    
+                    optionId = romanMap[optionId] || optionId;
+                    
+                    if (['a', 'b', 'c', 'd'].includes(optionId)) {
+                        if (!options.some(opt => opt.id === optionId)) {
+                            options.push({
+                                id: optionId,
+                                text: optionText,
+                                originalId: match[1]
+                            });
+                        }
+                    }
                 }
             }
             
@@ -3940,12 +4003,9 @@ Repeat till required questions.
             const quizzes = [];
             const chunkSize = 25;
             
-            // Sort questions by their numeric ID
-            const sortedQuestions = [...questions].sort((a, b) => a.id - b.id);
-            
             // Group questions by subject first
             const questionsBySubject = {};
-            sortedQuestions.forEach(q => {
+            questions.forEach(q => {
                 if (!questionsBySubject[q.subject]) {
                     questionsBySubject[q.subject] = [];
                 }
@@ -3957,19 +4017,48 @@ Repeat till required questions.
                 // Calculate total chunks
                 const totalChunks = Math.ceil(subjectQuestions.length / chunkSize);
                 
-                // Create chunks
-                for (let i = 0; i < totalChunks; i++) {
+                // Create full chunks first
+                for (let i = 0; i < totalChunks - 1; i++) {
                     const start = i * chunkSize;
-                    const end = Math.min(start + chunkSize, subjectQuestions.length);
-                    const chunk = subjectQuestions.slice(start, end);
+                    const chunk = subjectQuestions.slice(start, start + chunkSize);
                     
-                    if (chunk.length > 0) {
+                    quizzes.push({
+                        id: `quiz_${Date.now()}_${subject}_${i + 1}`,
+                        name: `${state.customFolderName || 'Quiz'} ${i + 1}`,
+                        subject: subject,
+                        questions: chunk,
+                        totalQuestions: chunk.length,
+                        bestScore: 0,
+                        attempts: 0,
+                        lastAttempt: null
+                    });
+                }
+                
+                // Handle the last chunk
+                if (totalChunks > 0) {
+                    const lastStart = (totalChunks - 1) * chunkSize;
+                    const lastChunk = subjectQuestions.slice(lastStart);
+                    
+                    // If last chunk has less than 10 questions and we have more than one chunk,
+                    // merge it with the previous chunk instead of creating a small quiz
+                    if (lastChunk.length < 10 && totalChunks > 1) {
+                        // Remove the last quiz to merge
+                        const lastQuiz = quizzes.pop();
+                        // Merge questions
+                        const mergedQuestions = [...lastQuiz.questions, ...lastChunk];
+                        
+                        // Update the last quiz with merged questions
+                        lastQuiz.questions = mergedQuestions;
+                        lastQuiz.totalQuestions = mergedQuestions.length;
+                        quizzes.push(lastQuiz);
+                    } else {
+                        // Create a normal last chunk quiz
                         quizzes.push({
-                            id: `quiz_${Date.now()}_${subject}_${i + 1}`,
-                            name: `${state.customFolderName || subject} Quiz ${i + 1}`,
+                            id: `quiz_${Date.now()}_${subject}_${totalChunks}`,
+                            name: `${state.customFolderName || 'Quiz'} ${totalChunks}`,
                             subject: subject,
-                            questions: chunk,
-                            totalQuestions: chunk.length,
+                            questions: lastChunk,
+                            totalQuestions: lastChunk.length,
                             bestScore: 0,
                             attempts: 0,
                             lastAttempt: null
@@ -3979,14 +4068,14 @@ Repeat till required questions.
             });
             
             // If we have less than chunkSize questions overall, create one quiz
-            if (quizzes.length === 0 && sortedQuestions.length > 0) {
-                const subject = sortedQuestions[0].subject || 'General Knowledge';
+            if (quizzes.length === 0 && questions.length > 0) {
+                const subject = questions[0].subject || 'General Knowledge';
                 quizzes.push({
                     id: `quiz_${Date.now()}_1`,
                     name: `${state.customFolderName || 'Quiz'} 1`,
                     subject: subject,
-                    questions: sortedQuestions,
-                    totalQuestions: sortedQuestions.length,
+                    questions: questions.slice(0, Math.min(questions.length, 30)), // Allow slightly more than 25
+                    totalQuestions: Math.min(questions.length, 30),
                     bestScore: 0,
                     attempts: 0,
                     lastAttempt: null
@@ -4016,7 +4105,7 @@ Repeat till required questions.
                     <div style="text-align: center; padding: 3rem; color: var(--gray);">
                         <i class="fas fa-search fa-2x" style="margin-bottom: 1rem;"></i>
                         <h3 style="margin-bottom: 0.8rem;">No quizzes found</h3>
-                        <p>Try uploading a different file.</p>
+                        <p>Try selecting a different subject.</p>
                     </div>
                 `;
                 return;
@@ -4048,8 +4137,8 @@ Repeat till required questions.
                             <span class="meta-label">Questions</span>
                         </div>
                         <div class="meta-item">
-                            <span class="meta-value">${quiz.subject.substring(0, 10)}${quiz.subject.length > 10 ? '...' : ''}</span>
-                            <span class="meta-label">Subject</span>
+                            <span class="meta-value">25</span>
+                            <span class="meta-label">Max per Quiz</span>
                         </div>
                         <div class="meta-item">
                             <span class="meta-value">${attempts}</span>
@@ -4086,6 +4175,9 @@ Repeat till required questions.
             // Add quiz-active class to body
             document.body.classList.add('quiz-active');
             
+            // Show quiz background doodles
+            elements.quizBgDoodle.style.display = 'block';
+            
             // Update UI
             elements.quizSelectionSection.style.display = 'none';
             elements.quizSection.style.display = 'block';
@@ -4099,6 +4191,9 @@ Repeat till required questions.
             displayCurrentQuestion();
             updateQuestionGrid();
             updateSidebarStats();
+            
+            // Add to navigation history
+            HistoryManager.pushState('quiz');
         }
 
         function updateQuestionGrid() {
@@ -4190,9 +4285,7 @@ Repeat till required questions.
             
             // Update question display
             elements.currentQuestionMobile.textContent = state.currentQuestionIndex + 1;
-            
-            // Set question text with larger font and styling
-            elements.questionText.innerHTML = `<strong>Q${state.currentQuestionIndex + 1}.</strong> ${question.text}`;
+            elements.questionText.textContent = question.text;
             
             // Clear and create options
             elements.optionsContainer.innerHTML = '';
@@ -4220,16 +4313,9 @@ Repeat till required questions.
                         }
                     }
                     
-                    // Display both original ID (Roman numeral) and mapped ID
-                    const displayId = option.originalId ? `${option.originalId.toUpperCase()} (${option.id.toUpperCase()})` : option.id.toUpperCase();
-                    
                     optionElem.innerHTML = `
-                        <div class="option-letter">${option.id.toUpperCase()}</div>
-                        <div class="option-text">
-                            <div>${option.text}</div>
-                            ${option.originalId && option.originalId !== option.id ? 
-                                `<div class="option-roman">Original: ${option.originalId.toUpperCase()}</div>` : ''}
-                        </div>
+                        <div class="option-letter">${option.originalId ? option.originalId.toUpperCase() : option.id.toUpperCase()}</div>
+                        <div class="option-text">${option.text}</div>
                     `;
                     
                     optionElem.addEventListener('click', () => {
@@ -4468,6 +4554,9 @@ Repeat till required questions.
                 state.timerInterval = null;
             }
             
+            // Hide quiz background doodles
+            elements.quizBgDoodle.style.display = 'none';
+            
             const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
             let correct = 0;
             let total = currentQuiz.questions.length;
@@ -4551,38 +4640,31 @@ Repeat till required questions.
             elements.ratingText.className = `rating-text ${ratingClass}`;
             elements.resultsIcon.innerHTML = `<i class="${ratingIcon}"></i>`;
             
-            // Show "Practice Wrong Questions" button if there are wrong/not answered/skipped questions
-            const totalWrong = state.incorrectAnswers + state.skippedAnswers;
-            if (totalWrong > 0) {
-                elements.reviewBtn.style.display = 'flex';
-                elements.reviewBtn.innerHTML = `<i class="fas fa-redo"></i> Practice `;
-            } else {
-                elements.reviewBtn.style.display = 'none';
-            }
+            // Add to navigation history
+            HistoryManager.pushState('results');
         }
 
-        // FIXED: Review ALL wrong/not answered/skipped questions
-        function reviewAllWrongQuestions() {
+        function practiceQuestions() {
+            // Create a new quiz with wrong, not answered, and skipped questions
             const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
-            
-            // Get all questions that were wrong, not answered, or skipped
-            const reviewQuestions = currentQuiz.questions.filter(question => {
+            const practiceQuestions = currentQuiz.questions.filter(question => {
                 const userAnswer = state.userAnswers[question.id];
+                // Include wrong answers, not answered, and skipped questions
                 return userAnswer === undefined || userAnswer !== question.correctAnswer;
             });
             
-            if (reviewQuestions.length === 0) {
-                showCustomAlert('No Questions to Review', 'You have no wrong or skipped questions to practice!');
+            if (practiceQuestions.length === 0) {
+                showCustomAlert('No Questions to Practice', 'All questions are correct! Great job!');
                 return;
             }
             
-            // Create a temporary quiz for review questions
-            const reviewQuiz = {
-                id: `review_${Date.now()}`,
-                name: 'Practice ',
+            // Create a temporary quiz for practice
+            const practiceQuiz = {
+                id: `practice_${Date.now()}`,
+                name: 'Practice Questions',
                 subject: currentQuiz.subject,
-                questions: reviewQuestions,
-                totalQuestions: reviewQuestions.length,
+                questions: practiceQuestions,
+                totalQuestions: practiceQuestions.length,
                 bestScore: 0,
                 attempts: 0,
                 lastAttempt: null
@@ -4592,8 +4674,8 @@ Repeat till required questions.
             const originalQuizIndex = state.currentQuizIndex;
             const originalQuizzes = state.currentQuizzes;
             
-            // Replace current quiz with review questions quiz
-            state.currentQuizzes = [reviewQuiz];
+            // Replace current quiz with practice questions quiz
+            state.currentQuizzes = [practiceQuiz];
             state.currentQuizIndex = 0;
             state.currentQuestionIndex = 0;
             state.userAnswers = {};
@@ -4609,12 +4691,15 @@ Repeat till required questions.
             // Add quiz-active class to body
             document.body.classList.add('quiz-active');
             
+            // Show quiz background doodles
+            elements.quizBgDoodle.style.display = 'block';
+            
             // Update UI
             elements.resultsSection.style.display = 'none';
             elements.quizSection.style.display = 'block';
             
             // Update quiz info
-            elements.totalQuestionsMobile.textContent = reviewQuestions.length;
+            elements.totalQuestionsMobile.textContent = practiceQuestions.length;
             
             // Display first question
             displayCurrentQuestion();
@@ -4624,7 +4709,7 @@ Repeat till required questions.
             // Restore original state when quiz is submitted
             const originalSubmitBtn = elements.submitQuizBtn.onclick;
             elements.submitQuizBtn.onclick = async function() {
-                const confirmed = await showCustomConfirm('Finish Practice', 'Are you sure you want to finish practicing wrong/skipped questions?');
+                const confirmed = await showCustomConfirm('Finish Practice', 'Are you sure you want to finish practicing?');
                 if (confirmed) {
                     // Restore original state
                     state.currentQuizzes = originalQuizzes;
@@ -4644,6 +4729,18 @@ Repeat till required questions.
             } else {
                 localStorage.setItem('darkMode', 'false');
                 elements.themeBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+            }
+        }
+
+        function toggleDrawer() {
+            const isOpen = elements.sidebar.classList.contains('open');
+            
+            if (isOpen) {
+                elements.sidebar.classList.remove('open');
+                elements.drawerToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            } else {
+                elements.sidebar.classList.add('open');
+                elements.drawerToggle.innerHTML = '<i class="fas fa-times"></i>';
             }
         }
 
@@ -4670,8 +4767,8 @@ Repeat till required questions.
             elements.overlayText.innerHTML = `
                 <p><strong>PDF2QUIZ</strong> is an advanced tool that intelligently extracts Multiple Choice Questions from PDF files, text files, and pasted text to create interactive quizzes.</p>
                 
-                <p><strong>✨ Key Features:</strong></p>
-                <ul>
+                <h4 style="margin-top: 1.5rem; color: var(--primary);">✨ Key Features:</h4>
+                <ul style="margin-left: 1.2rem; margin-bottom: 1.5rem; font-size: 1rem;">
                     <li>Smart extraction of questions and solutions from PDF, TXT, DOC, DOCX, RTF files</li>
                     <li>Paste text directly to create quizzes</li>
                     <li>Automatic subject and topic detection</li>
@@ -4681,16 +4778,21 @@ Repeat till required questions.
                     <li>Colorful, responsive design with dark/light mode</li>
                     <li>Detailed analytics and performance tracking</li>
                     <li>Review wrong answers with explanations</li>
-                    <li>Support for multiple question formats</li>
+                    <li>Support for multiple question formats (Q.1, Q.2) and solution formats (Sol.1, Sol.2)</li>
                 </ul>
                 
                 <p><strong>📝 How to use:</strong> Upload any file or paste text containing questions in formats like "Q.1. Question text..." and solutions like "Sol.1.(c) Solution text...". The system automatically organizes everything.</p>
+                
+                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--gray);">
+                    <i class="fas fa-code"></i> Built with HTML, CSS, JavaScript & PDF.js
+                </p>
             `;
             elements.overlay.style.display = 'flex';
         }
 
         function closeOverlay() {
             elements.overlay.style.display = 'none';
+            elements.renameModal.style.display = 'none';
         }
 
         // Global functions for overlay
@@ -4750,7 +4852,9 @@ Repeat till required questions.
         // Ensure videos keep playing
         document.addEventListener('visibilitychange', () => {
             if (!document.hidden) {
-                // Videos are controlled by hover/click, not auto-play
+                // Pause videos when tab is not active
+                elements.logoVideo.pause();
+                elements.uploadVideo.pause();
             }
         });
 
