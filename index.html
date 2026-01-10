@@ -120,7 +120,7 @@
             66% { border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%; }
         }
 
-        /* NEW: Quiz Background Animations */
+        /* NEW: Quiz Background Animations - UPDATED */
         .quiz-bg-animation {
             position: fixed;
             top: 0;
@@ -133,7 +133,7 @@
             overflow: hidden;
         }
 
-        /* Stars Animation */
+        /* Stars Animation - Dark Mode */
         .stars-bg {
             width: 100%;
             height: 100%;
@@ -205,7 +205,7 @@
             }
         }
 
-        /* Rainbow Animation */
+        /* Rainbow Animation - Light Mode */
         .rainbow-bg {
             height: 100vh;
             width: 100%;
@@ -375,7 +375,7 @@
             min-height: calc(100vh - 70px);
         }
 
-        /* Sidebar/Drawer - Fixed hanging issue */
+        /* Sidebar/Drawer */
         .sidebar {
             width: var(--sidebar-width);
             background: rgba(255, 255, 255, 0.98);
@@ -1298,7 +1298,7 @@
             color: var(--gray);
         }
 
-        /* NEW FULL SCREEN QUIZ SECTION FOR MOBILE */
+        /* FULL SCREEN QUIZ SECTION FOR MOBILE */
         .quiz-section {
             display: none;
             position: fixed;
@@ -1410,7 +1410,7 @@
             }
         }
 
-        /* Main Quiz Content - Full Screen - FIXED FOR MOBILE */
+        /* Main Quiz Content - Full Screen */
         .quiz-main-content {
             padding: 1.5rem;
             max-width: 100%;
@@ -1477,7 +1477,7 @@
             }
         }
 
-        /* FIXED: Mobile options container - remove extra margins */
+        /* Mobile options container */
         .options-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -1901,7 +1901,7 @@
             color: #A0AEC0;
         }
 
-        /* Results Section - Fixed small boxes */
+        /* Results Section */
         .results-section {
             display: none;
             background: rgba(255, 255, 255, 0.95);
@@ -2047,14 +2047,14 @@
             flex-wrap: wrap;
         }
 
-        /* NEW: Congratulations Modal */
+        /* UPDATED: New Congratulations Modal with GIF */
         .congrats-modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(15px);
             display: none;
             justify-content: center;
@@ -2064,84 +2064,189 @@
         }
 
         .congrats-content {
-            background: linear-gradient(135deg, #FFD166, #FF9A3D, #EF476F, #FF6B6B);
+            background: white;
             border-radius: var(--border-radius);
-            padding: 3rem;
-            max-width: 600px;
+            padding: 2rem;
+            max-width: 500px;
             width: 90%;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), rainbowBg 3s infinite linear;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             text-align: center;
-            border: 8px solid rgba(255, 255, 255, 0.2);
+            border: 5px solid #FFD166;
         }
 
-        @keyframes rainbowBg {
-            0% { background: linear-gradient(135deg, #FFD166, #FF9A3D, #EF476F, #FF6B6B); }
-            25% { background: linear-gradient(135deg, #FF9A3D, #EF476F, #FF6B6B, #FFD166); }
-            50% { background: linear-gradient(135deg, #EF476F, #FF6B6B, #FFD166, #FF9A3D); }
-            75% { background: linear-gradient(135deg, #FF6B6B, #FFD166, #FF9A3D, #EF476F); }
-            100% { background: linear-gradient(135deg, #FFD166, #FF9A3D, #EF476F, #FF6B6B); }
+        .dark-mode .congrats-content {
+            background: #2D3047;
+            border-color: #FF9A3D;
         }
 
-        .congrats-content::before {
+        .congrats-gif {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .congrats-gif {
+                max-width: 250px;
+            }
+        }
+
+        .congrats-title {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+            font-weight: 900;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .congrats-title {
+            color: #FFD166;
+        }
+
+        .congrats-message {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .dark-mode .congrats-message {
+            color: white;
+        }
+
+        .congrats-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto;
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .congrats-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Custom Confirmation Modal */
+        .custom-confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2001;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .custom-confirm-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .custom-confirm-content::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs><radialGradient id="grad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.3)" /><stop offset="100%" stop-color="rgba(255,255,255,0)" /></radialGradient></defs><rect width="100" height="100" fill="url(%23grad)" /></svg>');
-            opacity: 0.3;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent), var(--success));
         }
 
-        .congrats-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: bounce 2s infinite;
-            color: white;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        .dark-mode .custom-confirm-content {
+            background: #2D3047;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-20px) scale(1.1); }
-        }
-
-        .congrats-title {
-            font-size: 2.5rem;
+        .custom-confirm-title {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: white;
-            font-weight: 900;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            animation: textGlow 2s infinite alternate;
+            color: var(--primary);
+            font-weight: 800;
+            text-align: center;
         }
 
-        @keyframes textGlow {
-            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
-            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6); }
-        }
-
-        .congrats-message {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: white;
-            font-weight: 600;
+        .custom-confirm-message {
+            margin-bottom: 1.5rem;
             line-height: 1.6;
+            color: var(--dark);
+            font-size: 1rem;
+            text-align: center;
         }
 
-        .confetti {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background: var(--accent);
-            animation: confettiFall 5s linear infinite;
+        .dark-mode .custom-confirm-message {
+            color: white;
         }
 
-        @keyframes confettiFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(1000px) rotate(720deg); opacity: 0; }
+        .custom-confirm-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .custom-confirm-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 100px;
+            justify-content: center;
+        }
+
+        .custom-confirm-btn.cancel {
+            background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
+            color: var(--dark);
+            order: 1;
+        }
+
+        .dark-mode .custom-confirm-btn.cancel {
+            background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
+            color: white;
+        }
+
+        .custom-confirm-btn.confirm {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+            color: white;
+            order: 2;
+        }
+
+        .custom-confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         /* How It Works Section */
@@ -2292,111 +2397,6 @@
             font-size: 1rem;
         }
 
-        /* Custom Confirmation Modal */
-        .custom-confirm-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 2001;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .custom-confirm-content {
-            background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .custom-confirm-content::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--success));
-        }
-
-        .dark-mode .custom-confirm-content {
-            background: #2D3047;
-        }
-
-        .custom-confirm-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            font-weight: 800;
-            text-align: center;
-        }
-
-        .custom-confirm-message {
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-            color: var(--dark);
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        .dark-mode .custom-confirm-message {
-            color: white;
-        }
-
-        .custom-confirm-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .custom-confirm-btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            min-width: 100px;
-            justify-content: center;
-        }
-
-        .custom-confirm-btn.cancel {
-            background: linear-gradient(135deg, var(--gray-light) 0%, #E2E8F0 100%);
-            color: var(--dark);
-            order: 1;
-        }
-
-        .dark-mode .custom-confirm-btn.cancel {
-            background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-            color: white;
-        }
-
-        .custom-confirm-btn.confirm {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
-            color: white;
-            order: 2;
-        }
-
-        .custom-confirm-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        }
-
         /* Animations */
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -2421,11 +2421,11 @@
         /* Responsive */
         @media (max-width: 768px) {
             .main-content {
-                padding: 0.5rem;
+                padding: 1rem;
             }
             
             .upload-section {
-                padding: 1.5rem 0.5rem;
+                padding: 1.5rem 1rem;
                 margin-bottom: 0.5rem;
             }
             
@@ -2497,15 +2497,19 @@
             }
             
             .congrats-content {
-                padding: 2rem 1rem;
+                padding: 1.5rem;
             }
             
             .congrats-title {
-                font-size: 2rem;
+                font-size: 1.7rem;
             }
             
             .congrats-message {
                 font-size: 1rem;
+            }
+            
+            .congrats-gif {
+                max-width: 250px;
             }
         }
 
@@ -2528,6 +2532,19 @@
                 height: 30px;
                 font-size: 0.8rem;
             }
+            
+            .congrats-content {
+                padding: 1.2rem;
+                width: 95%;
+            }
+            
+            .congrats-title {
+                font-size: 1.5rem;
+            }
+            
+            .congrats-gif {
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -2542,7 +2559,7 @@
         <div class="doodle-6" style="bottom: 10%; left: 10%;"></div>
     </div>
 
-    <!-- NEW Quiz Background Animations - FIXED: Single container that shows both animations -->
+    <!-- Quiz Background Animations -->
     <div class="quiz-bg-animation" id="quizBgAnimation">
         <!-- Dark Mode Stars Animation -->
         <div class="stars-bg" id="starsBg">
@@ -2584,19 +2601,17 @@
         </div>
     </div>
 
-    <!-- NEW: Congratulations Modal -->
+    <!-- UPDATED: Congratulations Modal with GIF -->
     <div class="congrats-modal" id="congratsModal">
         <div class="congrats-content">
-            <div class="congrats-icon">
-                <i class="fas fa-trophy"></i>
-            </div>
+            <img src="https://i.pinimg.com/originals/34/a2/2f/34a22f5afedb290a06c3754bd30c8866.gif" alt="Victory GIF" class="congrats-gif">
             <h1 class="congrats-title">PERFECT SCORE! 🎉</h1>
             <div class="congrats-message">
-                Congratulations! You've answered all questions correctly!<br>
+                Congratulations! You've answered all questions correctly on your first attempt!<br>
                 You're a true quiz master! 🏆
             </div>
-            <button class="quiz-btn next" id="closeCongratsBtn">
-                <i class="fas fa-check"></i> Awesome!
+            <button class="congrats-btn" id="closeCongratsBtn">
+                <i class="fas fa-check"></i> Continue
             </button>
         </div>
     </div>
@@ -3068,7 +3083,7 @@
                 return false;
             },
             
-            // NEW: Track practice history for each quiz
+            // Track practice history for each quiz
             updatePracticeHistory: function(pdfId, quizId, wrongQuestionIds) {
                 const data = this.loadData();
                 const pdf = data.pdfs.find(pdf => pdf.id === pdfId);
@@ -3089,7 +3104,7 @@
                 return false;
             },
             
-            // NEW: Get latest practice wrong questions
+            // Get latest practice wrong questions
             getPracticeWrongQuestions: function(pdfId, quizId) {
                 const data = this.loadData();
                 const pdf = data.pdfs.find(pdf => pdf.id === pdfId);
@@ -3145,9 +3160,11 @@
             currentSection: 'home',
             navigationStack: ['home'],
             navigationIndex: 0,
-            // NEW: Practice tracking
+            // NEW: Practice tracking and first attempt tracking
             practiceHistory: {},
-            currentPracticeWrongQuestions: []
+            currentPracticeWrongQuestions: [],
+            isPracticeMode: false, // Track if we're in practice mode
+            isFirstAttempt: true // Track if this is the first attempt
         };
 
         // Browser history management
@@ -3252,6 +3269,10 @@
 
         // DOM Elements
         const elements = {
+            // UPDATED: Congrats Modal Elements
+            congratsModal: document.getElementById('congratsModal'),
+            closeCongratsBtn: document.getElementById('closeCongratsBtn'),
+            
             // Custom Confirm Modal Elements
             customConfirmModal: document.getElementById('customConfirmModal'),
             customConfirmTitle: document.getElementById('customConfirmTitle'),
@@ -3259,11 +3280,7 @@
             customConfirmCancelBtn: document.getElementById('customConfirmCancelBtn'),
             customConfirmOkBtn: document.getElementById('customConfirmOkBtn'),
             
-            // NEW: Congrats Modal Elements
-            congratsModal: document.getElementById('congratsModal'),
-            closeCongratsBtn: document.getElementById('closeCongratsBtn'),
-            
-            // NEW: Quiz Background Animation Elements - FIXED: Single container
+            // Quiz Background Animation Elements
             quizBgAnimation: document.getElementById('quizBgAnimation'),
             starsBg: document.getElementById('starsBg'),
             rainbowBg: document.getElementById('rainbowBg'),
@@ -3416,27 +3433,15 @@
             });
         }
 
-        // NEW: Show Congratulations Modal
+        // UPDATED: Show Congratulations Modal - Only for first attempt with 100% score
         function showCongratulations() {
-            elements.congratsModal.style.display = 'flex';
-            
-            // Create confetti
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDelay = Math.random() * 5 + 's';
-                confetti.style.background = getRandomColor();
-                elements.congratsModal.appendChild(confetti);
+            // Only show if it's the first attempt and not in practice mode
+            if (state.isFirstAttempt && !state.isPracticeMode) {
+                elements.congratsModal.style.display = 'flex';
             }
         }
 
-        function getRandomColor() {
-            const colors = ['#FF6B6B', '#4ECDC4', '#FFD166', '#06D6A0', '#7209B7', '#4361EE', '#FF9A3D', '#EF476F'];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        // NEW: Update quiz background based on theme - FIXED: Single container with both animations
+        // Update quiz background based on theme
         function updateQuizBackground() {
             const isDarkMode = document.body.classList.contains('dark-mode');
             
@@ -3497,12 +3502,13 @@
             }
         });
         
-        // NEW: Congrats modal close button
+        // UPDATED: Congrats modal close button
         elements.closeCongratsBtn.addEventListener('click', () => {
             elements.congratsModal.style.display = 'none';
-            // Remove confetti
-            const confetti = document.querySelectorAll('.confetti');
-            confetti.forEach(c => c.remove());
+            // Return to results section
+            if (state.currentSection === 'results' || state.resultsVisible) {
+                elements.resultsSection.style.display = 'block';
+            }
         });
         
         // How it works button
@@ -4070,7 +4076,7 @@ Repeat till required questions.`;
                 // Parse and organize questions
                 await parseAndOrganizeQuestionsEnhanced(fullText);
                 
-                // Create quizzes - FIXED: Now ensures exactly 25 questions per quiz
+                // Create quizzes
                 const quizzes = createQuizzesFromQuestionsFixed(state.extractedData.allQuestions);
                 
                 // Create PDF data object
@@ -4121,7 +4127,7 @@ Repeat till required questions.`;
                 // Parse and organize questions
                 await parseAndOrganizeQuestionsEnhanced(text);
                 
-                // Create quizzes - FIXED: Now ensures exactly 25 questions per quiz
+                // Create quizzes
                 const quizzes = createQuizzesFromQuestionsFixed(state.extractedData.allQuestions);
                 
                 // Create PDF data object
@@ -4168,9 +4174,8 @@ Repeat till required questions.`;
                 subjectQuestions: {}
             };
             
-            // FIXED: Enhanced regex patterns with lookbehind to ensure 'a)' is preceded by space or start of line
+            // Enhanced regex patterns
             const questionPatterns = [
-                // Standard formats with lookbehind for proper option detection
                 /Q\.\s*(\d+)[\.:)\-\—]\s*(.*?)(?=\s*(?:Q\.\s*\d+[\.:)\-\—]|Sol\.\s*\d+[\.:)\-\—]|$))/gis,
                 /Q\s*(\d+)[\.:)\-\—]\s*(.*?)(?=\s*(?:Q\s*\d+[\.:)\-\—]|Sol\s*\d+[\.:)\-\—]|$))/gis,
                 /Question\s*(\d+)[\.:)\-\—]\s*(.*?)(?=\s*(?:Question\s*\d+[\.:)\-\—]|Solution\s*\d+[\.:)\-\—]|$))/gis,
@@ -4184,7 +4189,6 @@ Repeat till required questions.`;
                 /प्र\.\s*(\d+)[\.:)\-\—]\s*(.*?)(?=\s*(?:प्र\.\s*\d+[\.:)\-\—]|उ\.\s*\d+[\.:)\-\—]|$))/gis
             ];
             
-            // FIXED: Solution patterns with better boundary detection
             const solutionPatterns = [
                 /Sol\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=\s*(?:Sol\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$))/gis,
                 /Solution\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=\s*(?:Solution\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$))/gis,
@@ -4194,7 +4198,6 @@ Repeat till required questions.`;
                 /Explanation\.\s*(\d+)[\.:)\-\—]\s*(?:\(?([a-dA-D1-4①②③④ivIV]+)\)?)?\s*(.*?)(?=\s*(?:Explanation\.\s*\d+[\.:)\-\—]|Q\.\s*\d+[\.:)\-\—]|$))/gis
             ];
             
-            // Answer patterns within solution text
             const answerPatterns = [
                 /Ans:\s*([a-dA-D1-4①②③④ivIV]+)/gi,
                 /Answer\s*-\s*([a-dA-D1-4①②③④ivIV]+)/gi,
@@ -4219,19 +4222,15 @@ Repeat till required questions.`;
                     // Skip if we already have this question
                     if (questionsMap.has(questionNum)) continue;
                     
-                    // Clean up question text - REMOVE OPTIONS FROM QUESTION TEXT
                     questionText = questionText.replace(/\s+/g, ' ').replace(/\n/g, ' ');
                     
-                    // Extract options using improved function
+                    // Extract options
                     const options = extractOptionsFromTextEnhanced(questionText);
                     
                     // Remove options from question text for cleaner display
                     let cleanQuestionText = questionText;
                     if (options.length > 0) {
-                        // FIXED: Remove options from question text
-                        // Find the position of the first option
                         const firstOption = options[0];
-                        // Create a pattern to find the first option
                         const optionPatterns = [
                             new RegExp(`\\s*\\(${firstOption.id}\\)\\s+.*$`, 'i'),
                             new RegExp(`\\s*${firstOption.id}\\.\\s+.*$`, 'i'),
@@ -4247,14 +4246,13 @@ Repeat till required questions.`;
                         }
                     }
                     
-                    // Ensure clean text isn't empty
                     if (!cleanQuestionText || cleanQuestionText.length < 5) {
                         cleanQuestionText = questionText.substring(0, 200) + (questionText.length > 200 ? '...' : '');
                     }
                     
                     questionsMap.set(questionNum, {
                         id: questionNum,
-                        text: cleanQuestionText, // Store only question stem without options
+                        text: cleanQuestionText,
                         originalText: questionText,
                         options: options,
                         correctAnswer: null,
@@ -4291,9 +4289,8 @@ Repeat till required questions.`;
                             }
                         }
                         
-                        // Normalize answer format including Roman numerals
+                        // Normalize answer format
                         if (correctAnswer) {
-                            // Convert numbers, Roman numerals and special characters to letters
                             const answerMap = {
                                 '1': 'a', '2': 'b', '3': 'c', '4': 'd',
                                 '①': 'a', '②': 'b', '③': 'c', '④': 'd',
@@ -4310,7 +4307,7 @@ Repeat till required questions.`;
             
             // Convert map to array and sort
             state.extractedData.allQuestions = Array.from(questionsMap.values())
-                .filter(q => q.text.length > 3) // Filter out very short questions
+                .filter(q => q.text.length > 3)
                 .sort((a, b) => a.id - b.id);
             
             // Auto-detect subjects based on keywords
@@ -4359,10 +4356,7 @@ Repeat till required questions.`;
         function extractOptionsFromTextEnhanced(text) {
             const options = [];
             
-            // FIXED: Enhanced option patterns that require space before option letter
-            // This prevents matching "a)" inside words like "(maharaja)"
             const optionPatterns = [
-                // Standard patterns with space boundary
                 /(?:\s|^)\(([a-dA-DivIV]+)\)\s+(.*?)(?=\s+\([a-dA-DivIV]+\)|\s*(?:Q\.|Sol\.|$))/g,
                 /(?:\s|^)([a-dA-DivIV]+)\.\s+(.*?)(?=\s+[a-dA-DivIV]+\.|\s*(?:Q\.|Sol\.|$))/g,
                 /(?:\s|^)([a-dA-DivIV]+)\s*[\)\-]\s+(.*?)(?=\s+[a-dA-DivIV]+\s*[\)\-]|\s*(?:Q\.|Sol\.|$))/g,
@@ -4396,7 +4390,6 @@ Repeat till required questions.`;
                     let optionId = match[1].toLowerCase();
                     const optionText = match[2].trim();
                     
-                    // Map different option formats to a-d including Roman numerals
                     const optionMap = {
                         '1': 'a', '2': 'b', '3': 'c', '4': 'd',
                         '①': 'a', '②': 'b', '③': 'c', '④': 'd',
@@ -4407,7 +4400,6 @@ Repeat till required questions.`;
                     
                     optionId = optionMap[optionId] || optionId;
                     
-                    // Only add if we have a valid option ID (a-d)
                     if (['a', 'b', 'c', 'd'].includes(optionId)) {
                         foundOptions.push({
                             id: optionId,
@@ -4417,13 +4409,11 @@ Repeat till required questions.`;
                     }
                 }
                 
-                // Sort found options by id and add to main options array
                 foundOptions.sort((a, b) => a.id.localeCompare(b.id));
                 
-                // Check if we have at least 2 options
                 if (foundOptions.length >= 2) {
                     options.push(...foundOptions);
-                    break; // Use the first pattern that gives us valid options
+                    break;
                 }
             }
             
@@ -4437,7 +4427,6 @@ Repeat till required questions.`;
                     let optionId = match[1].toLowerCase().replace(/[\(\)]/g, '');
                     let optionText = match[2].trim();
                     
-                    // Map Roman numerals to letters
                     const romanMap = {
                         'i': 'a', 'ii': 'b', 'iii': 'c', 'iv': 'd',
                         'I': 'a', 'II': 'b', 'III': 'c', 'IV': 'd'
@@ -4457,11 +4446,9 @@ Repeat till required questions.`;
                 }
             }
             
-            // Sort options by id (a, b, c, d)
             return options.sort((a, b) => a.id.localeCompare(b.id));
         }
 
-        // FIXED: createQuizzesFromQuestionsFixed to ensure exactly 25 questions per quiz
         function createQuizzesFromQuestionsFixed(questions) {
             const quizzes = [];
             const chunkSize = 25;
@@ -4500,7 +4487,7 @@ Repeat till required questions.`;
                     });
                 }
                 
-                // Handle remaining questions - put them in the last quiz
+                // Handle remaining questions
                 if (remainingQuestions > 0) {
                     if (numFullQuizzes === 0) {
                         // If we have less than 25 questions total, create one quiz with all questions
@@ -4520,20 +4507,11 @@ Repeat till required questions.`;
                         const remainingStart = numFullQuizzes * chunkSize;
                         const remaining = subjectQuestions.slice(remainingStart);
                         
-                        // Add remaining questions to last quiz
                         lastQuiz.questions = lastQuiz.questions.concat(remaining);
                         lastQuiz.totalQuestions = lastQuiz.questions.length;
                         
-                        // Update the last quiz name to indicate it has extra questions
                         lastQuiz.name = `${state.customFolderName || 'Quiz'} ${numFullQuizzes} (${lastQuiz.totalQuestions} questions)`;
                     }
-                }
-            });
-            
-            // Ensure all quizzes are displayed correctly
-            quizzes.forEach(quiz => {
-                if (quiz.totalQuestions > 25) {
-                    console.log(`Quiz "${quiz.name}" has ${quiz.totalQuestions} questions (includes extra questions)`);
                 }
             });
             
@@ -4630,6 +4608,11 @@ Repeat till required questions.`;
             state.waitingForNext = false;
             state.showSolution = false;
             state.currentPracticeWrongQuestions = [];
+            state.isPracticeMode = false; // Reset practice mode
+            
+            // Check if this is first attempt
+            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
+            state.isFirstAttempt = (currentQuiz.attempts || 0) === 0;
             
             // Add quiz-active class to body
             document.body.classList.add('quiz-active');
@@ -4643,7 +4626,6 @@ Repeat till required questions.`;
             elements.resultsSection.style.display = 'none';
             
             // Update quiz info
-            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
             elements.totalQuestionsMobile.textContent = currentQuiz.questions.length;
             
             // Display first question
@@ -4744,7 +4726,7 @@ Repeat till required questions.`;
             
             // Update question display
             elements.currentQuestionMobile.textContent = state.currentQuestionIndex + 1;
-            elements.questionText.textContent = question.text; // Only question stem, no options
+            elements.questionText.textContent = question.text;
             
             // Clear and create options
             elements.optionsContainer.innerHTML = '';
@@ -4758,12 +4740,10 @@ Repeat till required questions.`;
                     const questionId = question.id;
                     const userAnswer = state.userAnswers[questionId];
                     
-                    // Check if this option is selected
                     if (userAnswer === option.id) {
                         optionElem.classList.add('selected');
                     }
                     
-                    // Check if we should show correct/incorrect (only if answered)
                     if (userAnswer !== undefined && question.correctAnswer) {
                         if (option.id === question.correctAnswer) {
                             optionElem.classList.add('correct');
@@ -4837,7 +4817,7 @@ Repeat till required questions.`;
             const question = currentQuiz.questions.find(q => q.id === questionId);
             
             if (!question || state.userAnswers[questionId] !== undefined) {
-                return; // Already answered
+                return;
             }
             
             // Stop the question timer
@@ -5034,8 +5014,9 @@ Repeat till required questions.`;
             // Calculate score percentage
             const score = Math.round((correct / total) * 100);
             
-            // NEW: Show congratulations if all answers are correct
-            if (score === 100) {
+            // UPDATED: Show congratulations only for first attempt with 100% score and not in practice mode
+            if (score === 100 && state.isFirstAttempt && !state.isPracticeMode) {
+                // Show congrats modal
                 setTimeout(() => {
                     showCongratulations();
                 }, 500);
@@ -5110,7 +5091,7 @@ Repeat till required questions.`;
             HistoryManager.pushState('results');
         }
 
-        // FIXED: practiceQuestions to track wrong questions in practice sessions
+        // UPDATED: practiceQuestions - Set practice mode flag
         function practiceQuestions() {
             const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
             
@@ -5173,6 +5154,8 @@ Repeat till required questions.`;
             state.incorrectAnswers = 0;
             state.skippedAnswers = 0;
             state.currentPracticeWrongQuestions = wrongQuestionIds;
+            state.isPracticeMode = true; // Set practice mode flag
+            state.isFirstAttempt = false; // Practice is not first attempt
             
             // Add quiz-active class to body
             document.body.classList.add('quiz-active');
@@ -5217,6 +5200,7 @@ Repeat till required questions.`;
                     // Restore original state
                     state.currentQuizzes = originalQuizzes;
                     state.currentQuizIndex = originalQuizIndex;
+                    state.isPracticeMode = false; // Reset practice mode
                     elements.submitQuizBtn.onclick = submitQuiz;
                     
                     // Show message based on performance
