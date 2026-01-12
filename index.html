@@ -445,6 +445,11 @@
             box-shadow: 0 6px 15px rgba(6, 214, 160, 0.3);
         }
 
+        .sidebar-btn:nth-child(4) {
+            background: linear-gradient(135deg, var(--purple) 0%, #9D4EDD 100%);
+            box-shadow: 0 6px 15px rgba(114, 9, 183, 0.3);
+        }
+
         /* Main Content */
         .main-content {
             flex: 1;
@@ -2607,7 +2612,7 @@
             <img src="https://i.pinimg.com/originals/34/a2/2f/34a22f5afedb290a06c3754bd30c8866.gif" alt="Victory GIF" class="congrats-gif">
             <h1 class="congrats-title">PERFECT SCORE! 🎉</h1>
             <div class="congrats-message">
-                Congratulations! You've answered all questions correctly on your first attempt!<br>
+                Congratulations! You've answered all questions correctly!<br>
                 You're a true quiz master! 🏆
             </div>
             <button class="congrats-btn" id="closeCongratsBtn">
@@ -2687,6 +2692,9 @@
             <div class="sidebar-buttons">
                 <button class="sidebar-btn" id="themeBtn">
                     <i class="fas fa-palette"></i> Change Theme
+                </button>
+                <button class="sidebar-btn" id="soundBtn">
+                    <i class="fas fa-volume-up"></i> Sound: ON
                 </button>
                 <button class="sidebar-btn" id="shareBtn">
                     <i class="fas fa-share-alt"></i> Share App
@@ -2991,6 +2999,87 @@
         // PDF.js worker configuration
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
 
+        // Sound System
+        const SoundSystem = {
+            soundEnabled: true,
+            rightSound: null,
+            wrongSound: null,
+            completeSound: null,
+            extractSound: null,
+            
+            init: function() {
+                // Check saved sound preference
+                if (localStorage.getItem('soundEnabled') === 'false') {
+                    this.soundEnabled = false;
+                    document.getElementById('soundBtn').innerHTML = '<i class="fas fa-volume-mute"></i> Sound: OFF';
+                }
+                
+                // New Snappy & Professional Audio Elements
+                this.rightSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3'); // Quick Magic Ding
+                this.wrongSound = new Audio('https://assets.mixkit.co/active_storage/sfx/953/953-preview.mp3');   // Short Alert/Blip
+                this.completeSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2018/2018-preview.mp3'); // Success Chime
+                this.extractSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3');  // Modern UI Pop
+                
+                // Preload sounds
+                this.rightSound.preload = 'auto';
+                this.wrongSound.preload = 'auto';
+                this.completeSound.preload = 'auto';
+                this.extractSound.preload = 'auto';
+                
+                // Set volume
+                this.rightSound.volume = 0.3;
+                this.wrongSound.volume = 0.3;
+                this.completeSound.volume = 0.3;
+                this.extractSound.volume = 0.3;
+            },
+            
+            toggleSound: function() {
+                this.soundEnabled = !this.soundEnabled;
+                localStorage.setItem('soundEnabled', this.soundEnabled);
+                
+                const soundBtn = document.getElementById('soundBtn');
+                if (this.soundEnabled) {
+                    soundBtn.innerHTML = '<i class="fas fa-volume-up"></i> Sound: ON';
+                    this.playSound('extract'); // Play test sound when turning on
+                } else {
+                    soundBtn.innerHTML = '<i class="fas fa-volume-mute"></i> Sound: OFF';
+                }
+            },
+            
+            playSound: function(soundName) {
+                if (!this.soundEnabled) return;
+                
+                try {
+                    let soundToPlay;
+                    switch(soundName) {
+                        case 'right':
+                            soundToPlay = this.rightSound.cloneNode();
+                            break;
+                        case 'wrong':
+                            soundToPlay = this.wrongSound.cloneNode();
+                            break;
+                        case 'complete':
+                            soundToPlay = this.completeSound.cloneNode();
+                            break;
+                        case 'extract':
+                            soundToPlay = this.extractSound.cloneNode();
+                            break;
+                        default:
+                            return;
+                    }
+                    
+                    soundToPlay.volume = 0.3;
+                    soundToPlay.play().catch(e => {
+                        console.log('Sound play prevented:', e);
+                        // If autoplay is blocked, enable sound and try once more
+                        soundToPlay.play().catch(e => console.log('Retry also failed:', e));
+                    });
+                } catch (error) {
+                    console.log('Sound error:', error);
+                }
+            }
+        };
+
         // Persistent Storage Management
         const StorageManager = {
             STORAGE_KEY: 'pdfQuizMasterData',
@@ -3164,7 +3253,6 @@
             practiceHistory: {},
             currentPracticeWrongQuestions: [],
             isPracticeMode: false, // Track if we're in practice mode
-            isFirstAttempt: true // Track if this is the first attempt
         };
 
         // Browser history management
@@ -3378,6 +3466,7 @@
             
             // Sidebar Buttons
             themeBtn: document.getElementById('themeBtn'),
+            soundBtn: document.getElementById('soundBtn'),
             shareBtn: document.getElementById('shareBtn'),
             aboutBtn: document.getElementById('aboutBtn'),
             
@@ -3433,11 +3522,12 @@
             });
         }
 
-        // UPDATED: Show Congratulations Modal - Only for first attempt with 100% score
+        // UPDATED: Show Congratulations Modal - For ANY 100% score (not practice mode)
         function showCongratulations() {
-            // Only show if it's the first attempt and not in practice mode
-            if (state.isFirstAttempt && !state.isPracticeMode) {
+            // Show for any 100% score, not just first attempt, but not in practice mode
+            if (!state.isPracticeMode) {
                 elements.congratsModal.style.display = 'flex';
+                SoundSystem.playSound('complete');
             }
         }
 
@@ -3542,6 +3632,7 @@
         // Theme and UI Listeners
         elements.themeBtn.addEventListener('click', toggleTheme);
         elements.drawerToggle.addEventListener('click', toggleDrawer);
+        elements.soundBtn.addEventListener('click', () => SoundSystem.toggleSound());
         elements.shareBtn.addEventListener('click', showShareOverlay);
         elements.aboutBtn.addEventListener('click', showAboutOverlay);
         elements.closeOverlayBtn.addEventListener('click', closeOverlay);
@@ -3557,6 +3648,9 @@
             } else {
                 elements.themeBtn.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
             }
+            
+            // Initialize sound system
+            SoundSystem.init();
             
             updateFileInfo();
             showHome();
@@ -4076,7 +4170,7 @@ Repeat till required questions.`;
                 // Parse and organize questions
                 await parseAndOrganizeQuestionsEnhanced(fullText);
                 
-                // Create quizzes
+                // Create quizzes with NEW distribution logic
                 const quizzes = createQuizzesFromQuestionsFixed(state.extractedData.allQuestions);
                 
                 // Create PDF data object
@@ -4092,6 +4186,9 @@ Repeat till required questions.`;
                 
                 // Save to storage
                 StorageManager.addPDF(pdfData);
+                
+                // Play extraction sound
+                SoundSystem.playSound('extract');
                 
                 // Update UI
                 navigateTo('home');
@@ -4127,7 +4224,7 @@ Repeat till required questions.`;
                 // Parse and organize questions
                 await parseAndOrganizeQuestionsEnhanced(text);
                 
-                // Create quizzes
+                // Create quizzes with NEW distribution logic
                 const quizzes = createQuizzesFromQuestionsFixed(state.extractedData.allQuestions);
                 
                 // Create PDF data object
@@ -4143,6 +4240,9 @@ Repeat till required questions.`;
                 
                 // Save to storage
                 StorageManager.addPDF(pdfData);
+                
+                // Play extraction sound
+                SoundSystem.playSound('extract');
                 
                 // Update UI
                 navigateTo('home');
@@ -4449,71 +4549,64 @@ Repeat till required questions.`;
             return options.sort((a, b) => a.id.localeCompare(b.id));
         }
 
+        // UPDATED: New quiz distribution logic
         function createQuizzesFromQuestionsFixed(questions) {
             const quizzes = [];
-            const chunkSize = 25;
+            const totalQuestions = questions.length;
             
-            // Group questions by subject first
-            const questionsBySubject = {};
-            questions.forEach(q => {
-                if (!questionsBySubject[q.subject]) {
-                    questionsBySubject[q.subject] = [];
-                }
-                questionsBySubject[q.subject].push(q);
-            });
+            // If no questions, return empty array
+            if (totalQuestions === 0) return quizzes;
             
-            // Create quizzes from each subject group
-            Object.entries(questionsBySubject).forEach(([subject, subjectQuestions]) => {
-                // Calculate how many full 25-question quizzes we can make
-                const totalQuestions = subjectQuestions.length;
-                const numFullQuizzes = Math.floor(totalQuestions / chunkSize);
-                const remainingQuestions = totalQuestions % chunkSize;
+            // Calculate number of full 25-question quizzes
+            const numFullQuizzes = Math.floor(totalQuestions / 25);
+            const remainingQuestions = totalQuestions % 25;
+            
+            // Create full 25-question quizzes
+            for (let i = 0; i < numFullQuizzes; i++) {
+                const start = i * 25;
+                const end = start + 25;
+                const quizQuestions = questions.slice(start, end);
                 
-                // Create full 25-question quizzes
-                for (let i = 0; i < numFullQuizzes; i++) {
-                    const start = i * chunkSize;
-                    const end = start + chunkSize;
-                    const chunk = subjectQuestions.slice(start, end);
+                quizzes.push({
+                    id: `quiz_${Date.now()}_${i + 1}`,
+                    name: `${state.customFolderName || 'Quiz'} ${i + 1}`,
+                    subject: quizQuestions[0]?.subject || 'General',
+                    questions: quizQuestions,
+                    totalQuestions: quizQuestions.length,
+                    bestScore: 0,
+                    attempts: 0,
+                    lastAttempt: null
+                });
+            }
+            
+            // Handle remaining questions
+            if (remainingQuestions > 0) {
+                if (remainingQuestions < 10 && numFullQuizzes > 0) {
+                    // Add remaining questions to the last quiz
+                    const lastQuiz = quizzes[quizzes.length - 1];
+                    const remainingStart = numFullQuizzes * 25;
+                    const remainingQuestionsList = questions.slice(remainingStart);
+                    
+                    lastQuiz.questions = [...lastQuiz.questions, ...remainingQuestionsList];
+                    lastQuiz.totalQuestions = lastQuiz.questions.length;
+                    lastQuiz.name = `${state.customFolderName || 'Quiz'} ${numFullQuizzes} (${lastQuiz.totalQuestions} questions)`;
+                } else {
+                    // Create a new quiz for remaining questions
+                    const remainingStart = numFullQuizzes * 25;
+                    const quizQuestions = questions.slice(remainingStart);
                     
                     quizzes.push({
-                        id: `quiz_${Date.now()}_${subject}_${i + 1}`,
-                        name: `${state.customFolderName || 'Quiz'} ${i + 1}`,
-                        subject: subject,
-                        questions: chunk,
-                        totalQuestions: chunk.length,
+                        id: `quiz_${Date.now()}_${numFullQuizzes + 1}`,
+                        name: `${state.customFolderName || 'Quiz'} ${numFullQuizzes + 1}`,
+                        subject: quizQuestions[0]?.subject || 'General',
+                        questions: quizQuestions,
+                        totalQuestions: quizQuestions.length,
                         bestScore: 0,
                         attempts: 0,
                         lastAttempt: null
                     });
                 }
-                
-                // Handle remaining questions
-                if (remainingQuestions > 0) {
-                    if (numFullQuizzes === 0) {
-                        // If we have less than 25 questions total, create one quiz with all questions
-                        quizzes.push({
-                            id: `quiz_${Date.now()}_${subject}_1`,
-                            name: `${state.customFolderName || 'Quiz'} 1`,
-                            subject: subject,
-                            questions: subjectQuestions,
-                            totalQuestions: subjectQuestions.length,
-                            bestScore: 0,
-                            attempts: 0,
-                            lastAttempt: null
-                        });
-                    } else {
-                        // Add remaining questions to the last quiz
-                        const lastQuiz = quizzes[quizzes.length - 1];
-                        const remainingStart = numFullQuizzes * chunkSize;
-                        const remaining = subjectQuestions.slice(remainingStart);
-                        
-                        lastQuiz.questions = lastQuiz.questions.concat(remaining);
-                        lastQuiz.totalQuestions = lastQuiz.questions.length;
-                        
-                        lastQuiz.name = `${state.customFolderName || 'Quiz'} ${numFullQuizzes} (${lastQuiz.totalQuestions} questions)`;
-                    }
-                }
-            });
+            }
             
             return quizzes;
         }
@@ -4607,10 +4700,6 @@ Repeat till required questions.`;
             state.currentPracticeWrongQuestions = [];
             state.isPracticeMode = false; // Reset practice mode
             
-            // Check if this is first attempt
-            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
-            state.isFirstAttempt = (currentQuiz.attempts || 0) === 0;
-            
             // Add quiz-active class to body
             document.body.classList.add('quiz-active');
             
@@ -4623,6 +4712,7 @@ Repeat till required questions.`;
             elements.resultsSection.style.display = 'none';
             
             // Update quiz info
+            const currentQuiz = state.currentQuizzes[state.currentQuizIndex];
             elements.totalQuestionsMobile.textContent = currentQuiz.questions.length;
             
             // Display first question
@@ -4837,6 +4927,13 @@ Repeat till required questions.`;
             // Store answer
             state.userAnswers[questionId] = optionId;
             
+            // Play appropriate sound
+            if (optionId === question.correctAnswer) {
+                SoundSystem.playSound('right');
+            } else {
+                SoundSystem.playSound('wrong');
+            }
+            
             // Update UI immediately
             const optionElems = document.querySelectorAll('.option');
             optionElems.forEach(opt => {
@@ -5011,8 +5108,8 @@ Repeat till required questions.`;
             // Calculate score percentage
             const score = Math.round((correct / total) * 100);
             
-            // UPDATED: Show congratulations only for first attempt with 100% score and not in practice mode
-            if (score === 100 && state.isFirstAttempt && !state.isPracticeMode) {
+            // UPDATED: Show congratulations for ANY 100% score (not just first attempt) but not in practice mode
+            if (score === 100 && !state.isPracticeMode) {
                 // Show congrats modal
                 setTimeout(() => {
                     showCongratulations();
@@ -5152,7 +5249,6 @@ Repeat till required questions.`;
             state.skippedAnswers = 0;
             state.currentPracticeWrongQuestions = wrongQuestionIds;
             state.isPracticeMode = true; // Set practice mode flag
-            state.isFirstAttempt = false; // Practice is not first attempt
             
             // Add quiz-active class to body
             document.body.classList.add('quiz-active');
