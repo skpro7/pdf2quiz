@@ -3739,5 +3739,22 @@
 
         init();
     </script>
+<!-- Progressier Scripts (For Offline Caching) -->
+    <link rel="manifest" href="https://progressier.app/OhwTv7WK5sopNbV1KtZj/progressier.json"/>
+    <script defer src="https://progressier.app/OhwTv7WK5sopNbV1KtZj/script.js"></script>
+
+    <script>
+        // Offline Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Ensure 'sw.js' is uploaded to your GitHub root folder
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('SK Quiz Pro: Offline Mode Ready!');
+                }).catch(err => {
+                    console.log('Offline Setup Failed:', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
